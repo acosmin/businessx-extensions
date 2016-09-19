@@ -3,6 +3,39 @@
  *  Helper Functions
 /* ------------------------------------------------------------------------- */
 
+/*  Check if Jetpack specific module
+ *  is enabled
+/* ------------------------------------ */
+if( ! function_exists( 'businessx_extensions_jp_active' ) ) {
+    function businessx_extensions_jp_active( $module ) {
+        $active_modules = get_option( 'jetpack_active_modules' );
+        if( $active_modules !== false ) {
+            if( in_array( $module, $active_modules, TRUE ) ) { return true; } else { return false;  }
+        } else {
+            return false;
+        }
+    }
+}
+
+
+
+/*  Check if Jetpack specific module
+ *  is enabled
+/* ------------------------------------ */
+if( ! function_exists( 'businessx_extensions_jp_ck_mobile_theme' ) ) {
+    function businessx_extensions_jp_ck_mobile_theme() {
+        if( businessx_extensions_jp_active( 'minileven' ) ) {
+            echo '<div class="notice error is-dismissible">';
+        		echo '<p>' . __( 'Jetpack\'s <i> Mobile Theme</i> module is activated.', 'businessx-extensions' )  .'</p>';
+                echo '<p>' . __( 'This will cause an error or blank page on mobile devices. Businessx is already a responsive/mobile theme. Please disable the Mobile Theme module.', 'businessx-extensions' ) . '</p>';
+            echo '</div>';
+        }
+    }
+}
+add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
+
+
+
 /*  Hero buttons output
 /* ------------------------------------ */
 if( ! function_exists( 'businessx_hero_btns_output' ) ) {
