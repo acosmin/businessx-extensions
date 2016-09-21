@@ -4,7 +4,7 @@ Contributors: acosmin
 Tags:
 Requires at least: 4.5
 Tested up to: 4.6.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,16 @@ Adds sections and new features to Businessx WordPress theme. 12 sections Slider,
 Adds sections and new features to Businessx WordPress theme. 12 sections Slider, Features, About Us, Team, Clients, Portfolio, Actions, Testimonials, Pricing, FAQ, Hero, Blog) are included to make your homepage look awesome. You can download <a href="http://www.acosmin.com/theme/businessx/?utm_source=wporg&utm_medium=readme&utm_campaign=bx_plugin_page" title="Download Businessx WordPress Theme" rel="friend">Businessx WordPress theme</a> from here.
 
 == Changelog ==
+
+= 1.0.2.2 =
+* Fixed problem with .org SVN
+
+= 1.0.2 =
+* Created functions folder and helpers.php file. Also, required it in businessx-extensions.php.
+* Movde hero/slider options from theme to plugin, in helpers.php.
+* Added check for Jetpack's Mobile Theme module.
+* Output notice if Jetpack's Mobile Theme is active. Businessx isn't compatible with this module, the theme is already responsive.
+* Changed thumbnail's prefix name in section-blog.php.
 
 = 1.0.1 =
 * Fixed - jQuery Syntax Error in customizer.

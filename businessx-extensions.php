@@ -3,7 +3,7 @@
 Plugin Name: Businessx Extensions
 Plugin URI: http://www.acosmin.com/themes/businessx/
 Description: Adds front page sections and other extensions to Businessx WordPress theme.
-Version: 1.0.1
+Version: 1.0.2.2
 Author: Acosmin
 Author URI: http://www.acosmin.com/
 Text Domain: businessx-extensions
@@ -22,7 +22,7 @@ if ( ! function_exists( 'add_action' ) ) {
 /* Some constants */
 define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' );
 define( 'BUSINESSX_EXTS_THEME_URL', 'http://www.acosmin.com/theme/businessx/' );
-define( 'BUSINESSX_EXTS_VERSION', '1.0.1' );
+define( 'BUSINESSX_EXTS_VERSION', '1.0.2.2' );
 define( 'BUSINESSX_EXTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'BUSINESSX_EXTS_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -133,6 +133,7 @@ if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == busines
 	require_once ( dirname( __FILE__ ) . '/inc/templating.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/scripts/scripts.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/sidebars/register.php' );
+	require_once ( dirname( __FILE__ ) . '/inc/functions/helpers.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/customizer.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/init.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/styles.php' );
