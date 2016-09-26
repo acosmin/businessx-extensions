@@ -22,30 +22,30 @@
         </header>
         <?php endif; ?>
 	</div>
-    
-	<?php 
-		if( ! is_active_sidebar( 'section-clients' ) ) {
+
+	<?php
+		if( ! is_active_sidebar( 'section-testimonials' ) ) {
 			echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Testimonials Section</b> and add items by clicking on <b>Add or edit testimonials</b>.', 'businessx-extensions' ) . '</div>';
 		}
 	?>
-        
+
     <div class="owl-carousel bx-testimonials-carousel <?php businessx_anim_classes(); ?>">
-        <?php 
+        <?php
         // Display testimonials
         if ( is_active_sidebar( 'section-testimonials' ) && ! is_paged() ) { dynamic_sidebar( 'section-testimonials' ); };
         ?>
     </div>
-    
+
     <nav class="sec-testimonials-nav clearfix <?php businessx_anim_classes(); ?>">
         <div class="sec-testimonials-nav-btns">
             <a href="#" class="sec-testimonials-nav-btn-prev"><?php businessx_icon( 'angle-left' ) ?></a>
             <a href="#" class="sec-testimonials-nav-btn-next"><?php businessx_icon( 'angle-right' ) ?></a>
         </div>
     </nav>
-    
+
 	<script type='text/javascript'>
 		jQuery( document ).ready( function( $ ) {
-			
+
 			/* Create Testimonials */
 			function bx_createTestimonials() {
 				$( '.bx-testimonials-carousel' ).owlCarousel({
@@ -66,16 +66,16 @@
 					},
 				});
 			};
-			
+
 			/* Navigation Arrows */
 			$('.sec-testimonials .sec-testimonials-nav-btn-next').click(function(event) { event.preventDefault();  $( '.bx-testimonials-carousel' ).trigger('next.owl.carousel', [200]); });
 			$('.sec-testimonials .sec-testimonials-nav-btn-prev').click(function(event) { event.preventDefault();  $( '.bx-testimonials-carousel' ).trigger('prev.owl.carousel', [200]); });
-			
+
 			/* Initialize */
 			bx_createTestimonials();
-			
+
 			<?php if( is_customize_preview() ) : ?>
-			
+
 			/* Destroy it */
 			function bx_destroyTestimonials() {
 				var selector = '.bx-testimonials-carousel'
@@ -89,7 +89,7 @@
                     $(element).removeClass('owl-item').removeClass('active').removeClass('center').removeClass('cloned').removeAttr('style'); });
 				$(selector).removeData();
 			}
-			
+
 			/* Customizer Selective Refresh */
 			if ( 'undefined' !== typeof wp && wp.customize  ) {
 				wp.customize.selectiveRefresh.bind( 'sidebar-updated', function( sidebarPartial ) {
@@ -99,15 +99,15 @@
 					}
 				});
 			}
-			
+
 			<?php endif; ?>
 
 		});
 	</script>
-    
+
     <?php do_action( 'businessx_testimonials_sec__inner_wrapper_bottom' ); ?>
 </section>
-<?php 
+<?php
 	do_action( 'businessx_testimonials_sec__after_wrapper' );
-	endif; // END Testimonials Section 
+	endif; // END Testimonials Section
 ?>
