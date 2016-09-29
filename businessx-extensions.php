@@ -134,6 +134,7 @@ if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == busines
 	require_once ( dirname( __FILE__ ) . '/inc/scripts/scripts.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/sidebars/register.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/functions/helpers.php' );
+	require_once ( dirname( __FILE__ ) . '/inc/icons/icons.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/customizer.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/init.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/styles.php' );
