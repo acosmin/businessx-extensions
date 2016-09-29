@@ -54,6 +54,24 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 
 
+/*  Section Parallax
+/* ------------------------------------ */
+if ( ! function_exists( 'businessx_section_parallax' ) ) {
+	function businessx_section_parallax( $enabled, $bgimg, $return = false ) {
+		$background			= get_theme_mod( $bgimg, '' );
+		$parallax			= get_theme_mod( $enabled, false );
+		$output				= '';
+
+		if( $bgimg != '' && $parallax ) {
+			$output = ' data-parallax="scroll" data-speed="0.5" data-image-src="' . esc_url( $background ) . '" style="background: none !important;"';
+		}
+
+		if( $return ) { return $output; } else { echo $output; }
+	}
+}
+
+
+
 if( businessx_extensions_ck_theme_v( '1.0.3' ) ) : // Backwards compatibility
 /*  Hero buttons output
 /* ------------------------------------ */
