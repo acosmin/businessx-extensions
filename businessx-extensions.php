@@ -29,45 +29,53 @@ define( 'BUSINESSX_EXTS_PATH', plugin_dir_path( __FILE__ ) );
 
 
 /* Theme names */
-function businessx_extensions_theme( $parent = false ) {
-	$theme = wp_get_theme();
-	if( ! $parent ) {
-		return $theme->name;
-	} else {
-		return $theme->parent_theme;
+if( ! function_exists( 'businessx_extensions_theme' ) ) {
+	function businessx_extensions_theme( $parent = false ) {
+		$theme = wp_get_theme();
+		if( ! $parent ) {
+			return $theme->name;
+		} else {
+			return $theme->parent_theme;
+		}
 	}
 }
 
 
 
 /* Load text domain */
-function businessx_extensions_textdomain() {
-	load_plugin_textdomain( 'businessx-extensions', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+if( ! function_exists( 'businessx_extensions_textdomain' ) ) {
+	function businessx_extensions_textdomain() {
+		load_plugin_textdomain( 'businessx-extensions', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}
 }
 add_action( 'plugins_loaded', 'businessx_extensions_textdomain' );
 
 
 
 /* Add front page sections */
-function businessx_extensions_sections() {
-	return $sections = array(
-		'slider',
-		'features',
-		'about',
-		'team',
-		'clients',
-		'portfolio',
-		'actions',
-		'testimonials',
-		'pricing',
-		'faq',
-		'hero',
-		'blog',
-	);
+if( ! function_exists( 'businessx_extensions_sections' ) ) {
+	function businessx_extensions_sections() {
+		return $sections = array(
+			'slider',
+			'features',
+			'about',
+			'team',
+			'clients',
+			'portfolio',
+			'actions',
+			'testimonials',
+			'pricing',
+			'faq',
+			'hero',
+			'blog',
+		);
+	}
 }
 
-function businessx_extensions_add_sections() {
-	add_filter( 'businessx_sections_filter', 'businessx_extensions_sections' );
+if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
+	function businessx_extensions_add_sections() {
+		add_filter( 'businessx_sections_filter', 'businessx_extensions_sections' );
+	}
 }
 add_action( 'plugins_loaded', 'businessx_extensions_add_sections' );
 
@@ -80,44 +88,48 @@ if ( ! empty ( $GLOBALS['pagenow'] ) && 'plugins.php' === $GLOBALS['pagenow'] ) 
 
 
 /* Notices */
-function businessx_extensions_admin_notices() {
+if( ! function_exists( 'businessx_extensions_admin_notices' ) ) {
+	function businessx_extensions_admin_notices() {
 
-    $businessx_extensions_errors = businessx_extensions_requirements();
+	    $businessx_extensions_errors = businessx_extensions_requirements();
 
-    if ( empty ( $businessx_extensions_errors ) )
-        return;
+	    if ( empty ( $businessx_extensions_errors ) )
+	        return;
 
-    /* Suppress "Plugin activated" notice. */
-    unset( $_GET['activate'] );
+	    /* Suppress "Plugin activated" notice. */
+	    unset( $_GET['activate'] );
 
-	echo '<div class="notice error my-acf-notice is-dismissible">';
-		echo '<p>' . join( $businessx_extensions_errors )  .'</p>';
-        echo '<p>' . __( '<i>Businessx Extensions</i> has been deactivated.', 'businessx-extensions' ) . '</p>';
-    echo '</div>';
+		echo '<div class="notice error my-acf-notice is-dismissible">';
+			echo '<p>' . join( $businessx_extensions_errors )  .'</p>';
+	        echo '<p>' . __( '<i>Businessx Extensions</i> has been deactivated.', 'businessx-extensions' ) . '</p>';
+	    echo '</div>';
 
-    deactivate_plugins( plugin_basename( __FILE__ ) );
+	    deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
 }
 
 
 
 /* Requirements */
-function businessx_extensions_requirements() {
+if( ! function_exists( 'businessx_extensions_requirements' ) ) {
+	function businessx_extensions_requirements() {
 
-	$businessx_extensions_errors = array();
-	$theme = wp_get_theme();
+		$businessx_extensions_errors = array();
+		$theme = wp_get_theme();
 
-	if ( ( 'Businessx' != businessx_extensions_theme() ) && ( 'Businessx' != businessx_extensions_theme( true ) ) ) {
-		$businessx_extensions_errors[] = sprintf(
-			__( 'You need to have %s theme in order to use Businessx Extensions plugin.', 'businessx-extensions' ),
-			'<a href="' . BUSINESSX_EXTS_THEME_URL . '" target="_blank">' . BUSINESSX_EXTS_THEME_NAME . '</a>'
-		);
+		if ( ( 'Businessx' != businessx_extensions_theme() ) && ( 'Businessx' != businessx_extensions_theme( true ) ) ) {
+			$businessx_extensions_errors[] = sprintf(
+				__( 'You need to have %s theme in order to use Businessx Extensions plugin.', 'businessx-extensions' ),
+				'<a href="' . BUSINESSX_EXTS_THEME_URL . '" target="_blank">' . BUSINESSX_EXTS_THEME_NAME . '</a>'
+			);
+		}
+
+		if( defined( 'BUSINESSX_EXTS_PRO_PATH' ) ){
+			$businessx_extensions_errors[] = __( 'There is no need for activating Businessx Extensions. You already have the Pro version of Businessx which includes this plugin.', 'businessx-extensions' );
+		}
+
+		return $businessx_extensions_errors;
 	}
-
-	if( defined( 'BUSINESSX_EXTS_PRO_PATH' ) ){
-		$businessx_extensions_errors[] = __( 'There is no need for activating Businessx Extensions. You already have the Pro version of Businessx which includes this plugin.', 'businessx-extensions' );
-	}
-
-	return $businessx_extensions_errors;
 }
 
 

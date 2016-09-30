@@ -7,28 +7,28 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 		global $businessx_icons_simple, $businessx_sections, $wp_customize;
 		$current_screen = get_current_screen();
 		$sections_position = get_theme_mod( 'businessx_sections_position' );
-		
+
 		if( $current_screen->id === "widgets" || isset( $wp_customize ) ) : // Show only on the Widgets page and Customizer
 
 			// CSS Styles
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_style( 'businessx-extensions-widgets-customizer', BUSINESSX_EXTS_URL . 'css/widgets-customizer.css', array(), '20160412', 'all' );
 			wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/icons/css/font-awesome.min.css', array(), NULL, 'all' );
-	
+
 			// JS Scripts
 			wp_enqueue_media();
-			wp_enqueue_script( 
-				'businessx-extensions-widgets-customizer', 
-				BUSINESSX_EXTS_URL . 'js/admin/widgets-customizer.js', 
-				array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'wp-color-picker' ), 
-				'20160412', FALSE 
+			wp_enqueue_script(
+				'businessx-extensions-widgets-customizer',
+				BUSINESSX_EXTS_URL . 'js/admin/widgets-customizer.js',
+				array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'wp-color-picker' ),
+				'20160412', FALSE
 			);
-			
+
 			// Add some data
 			wp_localize_script(
 				'businessx-extensions-widgets-customizer',
 				'businessx_ext_widgets_customizer',
-				apply_filters( 'businessx_extensions___widgets_customizer', array( 
+				apply_filters( 'businessx_extensions___widgets_customizer', array(
 					/* A list of all the icons for autocomplete */
 					'bx_icons_array'		=> (array) $businessx_icons_simple,
 					/* Admin */
@@ -81,11 +81,11 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 						'bx_anw_btn_slider'			=> esc_html__( 'Add a Slide', 'businessx-extensions' ),
 						'bx_sec_btn_slider'			=> esc_html__( 'Add or edit slides', 'businessx-extensions' ),
 					/* Hide Items btns for */
-					'bx_sec_item_btn_hide'	=> array( 'portfolio', 'hero', 'blog', 'test' ), /* ==REMOVE== */
+					'bx_sec_item_btn_hide'	=> array( 'portfolio', 'hero', 'blog' ), /* ==REMOVE== */
 				) )
 			);
 		endif;
-			
+
 	}
 }
 add_action( 'admin_enqueue_scripts', 'businessx_extensions_admin_scripts' );
