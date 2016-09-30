@@ -6,7 +6,8 @@
 	$team_sec__bg_overlay	= get_theme_mod( 'team_bg_overlay', false );
 	$team_sec__hide 		= get_theme_mod( 'team_section_hide' ) == 0 ? true : false;
 	$team_sec__title 		= get_theme_mod( 'team_section_title', __( 'Team Heading', 'businessx-extensions' ) );
-	$team_sec__description 	= get_theme_mod( 'team_section_description', __( 'This is a description for the Team section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );	
+	$team_sec__description 	= get_theme_mod( 'team_section_description', __( 'This is a description for the Team section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+	$team_sec_helpers		= get_theme_mod( 'disable_helpers', false );
 ?>
 <?php if( $team_sec__hide ) : ?>
 <?php do_action( 'businessx_team_sec__before_wrapper' ); ?>
@@ -26,12 +27,14 @@
         </header>
         <?php endif; ?>
         <div class="grid-items clearfix <?php businessx_anim_classes(); ?>">
-			<?php 
+			<?php
             // Display team
-            if ( is_active_sidebar( 'section-team' ) && ! is_paged() ) { 
+            if ( is_active_sidebar( 'section-team' ) && ! is_paged() ) {
 				dynamic_sidebar( 'section-team' );
 			} else {
-				echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Team Section</b> and add items by clicking on <b>Add or edit members</b>.', 'businessx-extensions' ) . '</div>';
+				if ( ! $team_sec_helpers ) {
+					echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Team Section</b> and add items by clicking on <b>Add or edit members</b>. You can also disable this message from <b>Customizer > Settings > Extensions > Disable helpers/placeholders</b>.', 'businessx-extensions' ) . '</div>';
+				}
 			}
             ?>
         </div>
@@ -39,7 +42,7 @@
     </div>
     <?php do_action( 'businessx_team_sec__inner_wrapper_bottom' ); ?>
 </section>
-<?php 
+<?php
 	do_action( 'businessx_team_sec__after_wrapper' );
-	endif; // END Team Section 
+	endif; // END Team Section
 ?>

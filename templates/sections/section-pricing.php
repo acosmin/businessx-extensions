@@ -7,6 +7,7 @@
 	$pricing_sec__hide 			= get_theme_mod( 'pricing_section_hide' ) == 0 ? true : false;
 	$pricing_sec__title 		= get_theme_mod( 'pricing_section_title', esc_html__( 'Pricing Heading', 'businessx-extensions' ) );
 	$pricing_sec__description 	= get_theme_mod( 'pricing_section_description', esc_html__( 'This is a description for the Pricing section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+	$pricing_sec_helpers		= get_theme_mod( 'disable_helpers', false );
 	// Columns setup
 	$pricing_sec__cols			= get_theme_mod( 'pricing_section_columns', apply_filters( 'businessx_pricing_columns_type', 'grid-2x3-col' ) );
 	if( $pricing_sec__cols == 'grid-2x3-col' ) { $psc = ' pricing-3cols'; }
@@ -31,12 +32,14 @@
         </header>
         <?php endif; ?>
         <div class="grid-items clearfix <?php businessx_anim_classes(); ?>">
-			<?php 
+			<?php
             // Display pricing
-            if ( is_active_sidebar( 'section-pricing' ) && ! is_paged() ) { 
-				dynamic_sidebar( 'section-pricing' ); 
+            if ( is_active_sidebar( 'section-pricing' ) && ! is_paged() ) {
+				dynamic_sidebar( 'section-pricing' );
 			} else {
-				echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Pricing Section</b> and add items by clicking on <b>Add or edit package</b>.', 'businessx-extensions' ) . '</div>';
+				if ( ! $pricing_sec_helpers ) {
+					echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Pricing Section</b> and add items by clicking on <b>Add or edit package</b>. You can also disable this message from <b>Customizer > Settings > Extensions > Disable helpers/placeholders</b>.', 'businessx-extensions' ) . '</div>';
+				}
 			}
             ?>
         </div>
@@ -44,7 +47,7 @@
     </div>
     <?php do_action( 'businessx_pricing_sec__inner_wrapper_bottom' ); ?>
 </section>
-<?php 
+<?php
 	do_action( 'businessx_pricing_sec__after_wrapper' );
-	endif; // END Pricing Section 
+	endif; // END Pricing Section
 ?>

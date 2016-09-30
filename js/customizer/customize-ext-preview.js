@@ -14,13 +14,13 @@
 			style.html( new_settings );
 		} );
 	} );
-	
+
 	/* Non colors, text or url settings
 	/* -------------------------------- */
-	
+
 	// Repeating items for each section
 	$.each( bx_ext_customizer_settings, function( index, section ) {
-	
+
 		// Features section overlay
 		wp.customize( section + '_bg_overlay', function( value ) {
 			value.bind( function( to ) {
@@ -32,16 +32,16 @@
 						$( '.sec-' + section + ' .grid-overlay' ).remove(); }
 			} );
 		} );
-	
+
 	});
-	
-	// "About Us" Section button url
+
+	// About Us Section button url
 	wp.customize( 'about_section_btn_anchor_url', function( value ) {
 		value.bind( function( to ) {
 			$( '.sec-about .about-button .ac-btn').attr( 'href', to );
 		} );
 	} );
-	
+
 	// About Section button target
 	wp.customize( 'about_section_btn_target', function( value ) {
 		value.bind( function( to ) {
@@ -52,7 +52,7 @@
 			}
 		} );
 	} );
-	
+
 	// Hero Section button link
 	wp.customize( 'hero_section_1st_btn_link', function( value ) {
 		value.bind( function( to ) {
@@ -64,7 +64,7 @@
 			$( '.sec-hero .ac-btn-2nd').attr( 'href', to );
 		} );
 	} );
-	
+
 	// Hero Section button target
 	wp.customize( 'hero_section_1st_btn_target', function( value ) {
 		value.bind( function( to ) {
@@ -84,5 +84,5 @@
 			}
 		} );
 	} );
-	
+
 } )( jQuery );

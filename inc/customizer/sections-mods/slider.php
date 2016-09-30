@@ -25,44 +25,52 @@
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__slider' ) ),
 	) );
-		
+
 
 
 		/*  Slider Section options
 		/* ------------------------------------ */
-		
+
 		// Hide section
 		businessx_controller_checkbox(
 			'slider_section_hide',
 			'businessx_section__slider',
-			esc_html__( 'Hide this section', 'businessx-extensions' ) ); 
+			esc_html__( 'Hide this section', 'businessx-extensions' ) );
 		/*=====*/
-		
+
+		// Disable arrows
+		businessx_controller_checkbox(
+			'slider_arrows_disable',
+			'businessx_section__slider',
+			esc_html__( 'Disable arrows', 'businessx-extensions' ), esc_html__( 'This will disable navigation arrows', 'businessx-extensions' ),
+			false, false );
+		/*=====*/
+
 		// Autoplay options
 		businessx_controller_checkbox(
 			'slider_autoplay_enable',
 			'businessx_section__slider',
-			esc_html__( 'Enable autoplay', 'businessx-extensions' ), esc_html__( 'This will only work on the live website', 'businessx-extensions' ), 
-			false, true ); 
+			esc_html__( 'Enable autoplay', 'businessx-extensions' ), esc_html__( 'This will only work on the live website', 'businessx-extensions' ),
+			false, true );
 		/*=====*/
-		
-		businessx_controller_txt( 
-			'slider_autoplay_delay', 
-			'businessx_section__slider', 
+
+		businessx_controller_txt(
+			'slider_autoplay_delay',
+			'businessx_section__slider',
 			esc_html__( 'Autoplay delay', 'businessx-extensions' ), esc_html__( 'In miliseconds, 5000 = 5 seconds. This will only work on the live website', 'businessx-extensions' ),
 			'5000',
-			'', true, false, 'absint' ); 
+			'', true, false, 'absint' );
 		/*=====*/
-		
+
 		// Section colors
 		businessx_controller_color_picker(
 			'slider_background_color',
 			'businessx_section__slider',
 			esc_html__( 'Section background color:', 'businessx-extensions' ),
 			esc_html__( 'In case you do not have a background image', 'businessx-extensions' ),
-			'#232323' ); 
+			'#232323' );
 		/*=====*/
-		
+
 		// Arrows
 		businessx_controller_rgba_picker(
 			'slider_arrows_bg',
@@ -70,21 +78,21 @@
 			esc_html__( 'Arrows background color:', 'businessx-extensions' ),
 			'', 'rgba(255,255,255,0.1)', true, false );
 		/*=====*/
-		
+
 		businessx_controller_rgba_picker(
 			'slider_arrows_bg_hover',
 			'businessx_section__slider',
 			esc_html__( 'Arrows :hover bg color:', 'businessx-extensions' ),
-			'', 'rgba(255,255,255,0.2)', true, false ); 
+			'', 'rgba(255,255,255,0.2)', true, false );
 		/*=====*/
-		
+
 		businessx_controller_color_picker(
 			'slider_arrows_color',
 			'businessx_section__slider',
 			esc_html__( 'Arrows icon color:', 'businessx-extensions' ),
-			'', '#ffffff' ); 
+			'', '#ffffff' );
 		/*=====*/
-		
+
 		// Dots
 		businessx_controller_rgba_picker(
 			'slider_dots_bg',
@@ -92,17 +100,17 @@
 			esc_html__( 'Dots background color:', 'businessx-extensions' ),
 			'', 'rgba(255,255,255,0.2)', true, false );
 		/*=====*/
-		
+
 		businessx_controller_rgba_picker(
 			'slider_dots_bg_hover',
 			'businessx_section__slider',
 			esc_html__( 'Dots hover bg color:', 'businessx-extensions' ),
 			'', 'rgba(255,255,255,0.4)', true, false );
 		/*=====*/
-		
+
 		businessx_controller_color_picker(
 			'slider_dots_active',
 			'businessx_section__slider',
 			esc_html__( 'Dots active border color:', 'businessx-extensions' ),
-			'', '#ffffff' ); 
+			'', '#ffffff' );
 		/*=====*/

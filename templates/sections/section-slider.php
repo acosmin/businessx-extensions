@@ -6,23 +6,26 @@
 	$slider_sec__hide 		= get_theme_mod( 'slider_section_hide' ) == 0 ? true : false;
 	$slider_sec__autoplay 	= get_theme_mod( 'slider_autoplay_enable' ) == 0 ? 'false' : 'true';
 	$slider_sec__delay		= get_theme_mod( 'slider_autoplay_delay', '5000' );
+	$slider_sec__arrows		= get_theme_mod( 'slider_arrows_disable', false );
 ?>
-<?php 
+<?php
 	if( $slider_sec__hide ) :
-	do_action( 'businessx_slider_sec__before_wrapper' ); 
+	do_action( 'businessx_slider_sec__before_wrapper' );
 ?>
 
 <section id="section-slider" class="sec-slider">
 
+	<?php if( ! $slider_sec__arrows ) { ?>
 	<a href="#" class="ss-prev"><?php businessx_icon( 'angle-left' ); ?></a>
 	<a href="#" class="ss-next"><?php businessx_icon( 'angle-right' ); ?></a>
+	<?php } ?>
 
 	<div class="sec-slider-wrap owl-carousel" id="ac-slider-section">
-    	<?php 
+    	<?php
 		// Display slides
 		if ( is_active_sidebar( 'section-slider' ) && ! is_paged() ) { dynamic_sidebar( 'section-slider' ); } else {
 		?>
-        
+
         <div class="sec-slider-slide">
         	<div class="sec-slider-overlay" style="background: linear-gradient(to bottom, rgba(5,20,30,0.9) 0%, rgba(5,20,30,0.1) 100%);">
             	<div class="sec-hs-elements ta-center">
@@ -31,18 +34,18 @@
                 </div>
             </div>
         </div>
-        
+
         <?php } ?>
-        
+
     </div>
-    <script type='text/javascript'> 
+    <script type='text/javascript'>
 		jQuery( document ).ready( function( $ ) {
-			
+
 			/* Create slider */
 			function bx_createSlider() {
 				var ap;
 				if ( 'undefined' !== typeof wp && wp.customize  ) { ap = false; } else { ap = <?php echo esc_html( $slider_sec__autoplay ) ?>; }
-				
+
 				$('#ac-slider-section').owlCarousel({
 					responsiveClass:true,
 					items: 1,
@@ -54,16 +57,18 @@
 					nav: false,
 				});
 			}
-			
+
+			<?php if( ! $slider_sec__arrows ) { ?>
 			/* Navigation Arrows */
 			$('.sec-slider .ss-next').click(function(event) { event.preventDefault(); $('#ac-slider-section').trigger('next.owl.carousel', [200]); });
 			$('.sec-slider .ss-prev').click(function(event) { event.preventDefault(); $('#ac-slider-section').trigger('prev.owl.carousel', [200]); });
-			
+			<?php } ?>
+
 			/* Initialize */
 			bx_createSlider();
-			
+
 			<?php if( is_customize_preview() ) : ?>
-			
+
 			/* Destroy it */
 			function bx_destroySlider() {
 				var selector = '#ac-slider-section';
@@ -77,7 +82,7 @@
                     $(element).removeClass('owl-item').removeClass('active').removeAttr('style'); });
 				$(selector).removeData();
 			}
-			
+
 			/* Height resizer */
 			function bx_sliderHeightResizer() {
 				var slideClass	= $( ".sec-slider-slide" ),
@@ -96,14 +101,14 @@
 					}
 				});
 			}
-			
+
 			<?php endif; ?>
-			
+
 		});
 	</script>
 </section>
 
-<?php 
+<?php
 	do_action( 'businessx_slider_sec__after_wrapper' );
-	endif; // END Slider Section 
+	endif; // END Slider Section
 ?>
