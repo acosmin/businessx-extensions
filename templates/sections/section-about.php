@@ -11,6 +11,7 @@
 	$about_sec__btn_anchor	= get_theme_mod( 'about_section_btn_anchor', __( 'More Info About Us', 'businessx-extensions' ) );
 	$about_sec__btn_url		= get_theme_mod( 'about_section_btn_anchor_url', '#' );
 	$about_sec__target		= get_theme_mod( 'about_section_btn_target', false ) ? '_blank' : '_self';
+	$about_sec_helpers		= get_theme_mod( 'disable_helpers', false );
 ?>
 <?php if( $about_sec__hide ) : ?>
 <?php do_action( 'businessx_about_sec__before_wrapper' ); ?>
@@ -30,12 +31,14 @@
         </header>
         <?php endif; ?>
         <div class="grid-items clearfix <?php businessx_anim_classes(); ?>">
-			<?php 
+			<?php
             // Display about
-            if ( is_active_sidebar( 'section-about' ) && ! is_paged() ) { 
+            if ( is_active_sidebar( 'section-about' ) && ! is_paged() ) {
 				dynamic_sidebar( 'section-about' );
 			} else {
-				echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > About Us Section</b> and add items by clicking on <b>Add or edit about boxes</b>.', 'businessx-extensions' ) . '</div>';
+				if ( ! $about_sec_helpers ) {
+					echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > About Us Section</b> and add items by clicking on <b>Add or edit about boxes</b>. You can also disable this message from <b>Customizer > Settings > Extensions > Disable helpers/placeholders</b>.', 'businessx-extensions' ) . '</div>';
+				}
 			}
             ?>
         </div>
@@ -47,7 +50,7 @@
     </div>
     <?php do_action( 'businessx_about_sec__inner_wrapper_bottom' ); ?>
 </section>
-<?php 
+<?php
 	do_action( 'businessx_about_sec__after_wrapper' );
-	endif; // END About Us Section 
+	endif; // END About Us Section
 ?>

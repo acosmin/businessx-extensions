@@ -6,7 +6,8 @@
 	$features_sec__bg_overlay	= get_theme_mod( 'features_bg_overlay', false );
 	$features_sec__hide 		= get_theme_mod( 'features_section_hide' ) == 0 ? true : false;
 	$features_sec__title 		= get_theme_mod( 'features_section_title', esc_html__( 'Features Heading', 'businessx-extensions' ) );
-	$features_sec__description 	= get_theme_mod( 'features_section_description', esc_html__( 'This is a description for the Features section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );	
+	$features_sec__description 	= get_theme_mod( 'features_section_description', esc_html__( 'This is a description for the Features section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+	$features_sec_helpers		= get_theme_mod( 'disable_helpers', false );
 ?>
 <?php if( $features_sec__hide ) : ?>
 <?php do_action( 'businessx_features_sec__before_wrapper' ); ?>
@@ -26,12 +27,14 @@
         </header>
         <?php endif; ?>
         <div class="grid-items clearfix <?php businessx_anim_classes(); ?>">
-			<?php 
+			<?php
             // Display features
-            if ( is_active_sidebar( 'section-features' ) && ! is_paged() ) { 
-				dynamic_sidebar( 'section-features' ); 
+            if ( is_active_sidebar( 'section-features' ) && ! is_paged() ) {
+				dynamic_sidebar( 'section-features' );
 			} else {
-				echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Features Section</b> and add items by clicking on <b>Add or edit features</b>.', 'businessx-extensions' ) . '</div>';
+				if ( ! $features_sec_helpers ) {
+					echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Features Section</b> and add items by clicking on <b>Add or edit features</b>. You can also disable this message from <b>Customizer > Settings > Extensions > Disable helpers/placeholders</b>.', 'businessx-extensions' ) . '</div>';
+				}
 			}
             ?>
         </div>
@@ -39,7 +42,7 @@
     </div>
     <?php do_action( 'businessx_features_sec__inner_wrapper_bottom' ); ?>
 </section>
-<?php 
+<?php
 	do_action( 'businessx_features_sec__after_wrapper' );
-	endif; // END Features Section 
+	endif; // END Features Section
 ?>
