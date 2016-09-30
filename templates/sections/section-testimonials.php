@@ -6,6 +6,7 @@
 	$testimonials_sec__bg_overlay	= get_theme_mod( 'testimonials_bg_overlay', false );
 	$testimonials_sec__hide			= get_theme_mod( 'testimonials_section_hide' ) == 0 ? true : false;
 	$testimonials_sec__title 		= get_theme_mod( 'testimonials_section_title', esc_html__( 'Testimonials', 'businessx-extensions' ) );
+	$testimonials_sec_helpers		= get_theme_mod( 'disable_helpers', false );
 ?>
 <?php if( $testimonials_sec__hide ) : ?>
 <?php do_action( 'businessx_testimonials_sec__before_wrapper' ); ?>
@@ -25,7 +26,9 @@
 
 	<?php
 		if( ! is_active_sidebar( 'section-testimonials' ) ) {
-			echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Testimonials Section</b> and add items by clicking on <b>Add or edit testimonials</b>.', 'businessx-extensions' ) . '</div>';
+			if ( ! $testimonials_sec_helpers ) {
+				echo '<div class="grid-container grid-1 clearfix"><div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > Testimonials Section</b> and add items by clicking on <b>Add or edit testimonials</b>. You can also disable this message from <b>Customizer > Settings > Extensions > Disable helpers/placeholders</b>.', 'businessx-extensions' ) . '</div></div>';
+			}
 		}
 	?>
 

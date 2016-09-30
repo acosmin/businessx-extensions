@@ -7,6 +7,7 @@
 	$faq_sec__hide 			= get_theme_mod( 'faq_section_hide' ) == 0 ? true : false;
 	$faq_sec__title 		= get_theme_mod( 'faq_section_title', esc_html__( 'Frequently Asked Questions', 'businessx-extensions' ) );
 	$faq_sec__description 	= get_theme_mod( 'faq_section_description', esc_html__( 'This is a description for the FAQ section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+	$faq_sec_helpers		= get_theme_mod( 'disable_helpers', false );
 ?>
 <?php if( $faq_sec__hide ) : ?>
 <?php do_action( 'businessx_faq_sec__before_wrapper' ); ?>
@@ -26,9 +27,11 @@
         </header>
         <?php endif; ?>
 
-         <?php
+        <?php
 			if( ! is_active_sidebar( 'section-faq' ) ) {
-				echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > FAQ Section</b> and add items by clicking on <b>Add or edit questions</b>.', 'businessx-extensions' ) . '</div>';
+				if ( ! $faq_sec_helpers ) {
+					echo '<div class="grid-col grid-4x-col ta-center">' . __( 'You can find options for this section in: <b>Customizer > Sections > FAQ Section</b> and add items by clicking on <b>Add or edit questions</b>. You can also disable this message from <b>Customizer > Settings > Extensions > Disable helpers/placeholders</b>.', 'businessx-extensions' ) . '</div>';
+				}
 			}
 		?>
 
