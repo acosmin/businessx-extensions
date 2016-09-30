@@ -4,7 +4,7 @@ Contributors: acosmin
 Tags:
 Requires at least: 4.5
 Tested up to: 4.6.1
-Stable tag: 1.0.3
+Stable tag: 1.0.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Adds sections and new features to Businessx WordPress theme. 12 sections Slider,
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.0.3.1 =
 * Added option to show/hide slider navigation arrows.
 * Added option to remove helping/placeholder messages for all sections.
 * Added function_exists checks for all functions.
