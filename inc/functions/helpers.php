@@ -8,10 +8,10 @@
 /*  Check theme version
 /* ------------------------------------ */
 if( ! function_exists( 'businessx_extensions_ck_theme_v' ) ) {
-    function businessx_extensions_ck_theme_v( $version ) {
+    function businessx_extensions_ck_theme_v( $version, $sign = '>' ) {
         $theme_name = apply_filters( 'businessx_extensions___get_theme_name', 'businessx');
         $theme_ver = wp_get_theme( $theme_name )->get('Version');
-        if( version_compare( $theme_ver, $version, '>' ) ) {
+        if( version_compare( $theme_ver, $version, $sign ) ) {
             return true;
         } else {
             return false;
@@ -56,7 +56,7 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 /*  Section Parallax
 /* ------------------------------------ */
-if( businessx_extensions_ck_theme_v( '1.0.4' ) ) :
+if( businessx_extensions_ck_theme_v( '1.0.4', '>=' ) ) :
 if ( ! function_exists( 'businessx_section_parallax' ) ) {
 	function businessx_section_parallax( $enabled, $bgimg, $return = false ) {
 		$background			= get_theme_mod( $bgimg, '' );
