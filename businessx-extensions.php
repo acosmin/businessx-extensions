@@ -22,7 +22,7 @@ if ( ! function_exists( 'add_action' ) ) {
 /* Some constants */
 define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' );
 define( 'BUSINESSX_EXTS_THEME_URL', 'http://www.acosmin.com/theme/businessx/' );
-define( 'BUSINESSX_EXTS_VERSION', '1.0.3' );
+define( 'BUSINESSX_EXTS_VERSION', '1.0.3.1' );
 define( 'BUSINESSX_EXTS_URL', plugin_dir_url( __FILE__ ) );
 define( 'BUSINESSX_EXTS_PATH', plugin_dir_path( __FILE__ ) );
 
