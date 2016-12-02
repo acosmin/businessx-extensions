@@ -29,6 +29,7 @@ if( ! function_exists( 'businessx_extensions_customizer_js_css' ) ) {
 				'businessx_extensions_sections_nonce' => wp_create_nonce( 'businessx_extensions_sections_nonce' ),
 				'businessx_extensions_sections_bk_nonce' => wp_create_nonce( 'businessx_extensions_sections_bk_nonce' ),
 				'businessx_extensions_sections_rt_nonce' => wp_create_nonce( 'businessx_extensions_sections_rt_nonce' ),
+				'bxext_create_frontpage' => wp_create_nonce( 'bxext_create_frontpage' ),
 		) );
 
 		// Settings Manager
