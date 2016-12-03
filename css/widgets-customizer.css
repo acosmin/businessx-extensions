@@ -1,18 +1,18 @@
 /* Admin CSS Styles */
 .bx-clearfix {
-  *zoom: 1; 
+  *zoom: 1;
  }
 .bx-clearfix:before, .bx-clearfix:after {
     content: " ";
-    display: table; 
+    display: table;
 }
 .bx-clearfix:after {
-    clear: both; 
+    clear: both;
 }
 .bx-bs {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	box-sizing: border-box;	
+	box-sizing: border-box;
 }
 /* Icons */
 .bx-wt-tab-toggle:after,
@@ -34,15 +34,15 @@
     margin: 1em 0;
     padding: 0 15px;
     border: 2px dashed #E6E6E6;
-    background-color: #f9f9f9;	
+    background-color: #f9f9f9;
 }
 .bx-iu-wrap .button-secondary.hidden {
-	display: none;	
+	display: none;
 }
 
 /* Icon Select */
 .bx-is-nmt {
-	margin-top: 0;	
+	margin-top: 0;
 }
 .bx-is-autocomplete-wrap {
 	display: inline-block;
@@ -95,7 +95,7 @@
 	display: block !important;
 }
 .bx-search-change {
-	background-color: #ffffff !important;	
+	background-color: #ffffff !important;
 }
 .bx-search-change:before {
 	content: "\f347";
@@ -109,7 +109,7 @@
     width: 30px;
     line-height: 30px;
 	opacity: 0.3;
-	
+
 	-webkit-animation-duration: 1s;
   	animation-duration: 1s;
   	-webkit-animation-fill-mode: both;
@@ -142,13 +142,13 @@
 	}
 }
 .bx-search-change > * {
-	opacity: 0;	
+	opacity: 0;
 }
 li[id*=customize-control-sidebars_widgets-section-] .add-new-widget {
-	font-size: 0 !important;	
+	font-size: 0 !important;
 }
 li[id*=customize-control-sidebars_widgets-section-] .add-new-widget {
-	padding-left: 5px !important;	
+	padding-left: 5px !important;
 }
 li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:after {
 	display: inline-block;
@@ -175,7 +175,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 }
 .bx-add-items .bx-add, .bx-add-items .bx-edit {
 	margin-top: 5px;
-    margin-right: 3px;	
+    margin-right: 3px;
 }
 .bx-add-items .bx-edit {
 	margin-top: 3px;
@@ -197,7 +197,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	margin-top: 12px;
 }
 .bx-cz-tab-colors {
-	margin-right: 5px !important;	
+	margin-right: 5px !important;
 }
 .bx-cz-tab-colors .bx-cz-tc {
 	margin-top: 3px;
@@ -217,10 +217,10 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	visibility: hidden !important;
 }
 #accordion-panel-businessx_panel__sections_items > h3 {
-	display: none;	
+	display: none;
 }
 #accordion-panel-businessx_panel__sections_items.bx-display-important {
-	visibility: visible !important;	
+	visibility: visible !important;
 }
 
 /* Drag And Drop / Customizer */
@@ -233,7 +233,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	position: absolute;
 	margin-top: -15px;
 	top: 50%;
-	right: 15px;	
+	right: 15px;
 }
 .wp-customizer li[id*=accordion-section-businessx_section__] > h3:before {
 	content: "\f156";
@@ -248,13 +248,13 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	cursor: move !important;
 }
 .wp-customizer li[id*=accordion-section-businessx_section__].bx-hidden-section > h3:before {
-	content: "\f530  \f156" !important;	
+	content: "\f530  \f156" !important;
 }
 
 /* Widgets Tabs */
 .bx-widget-tabs {
 	margin-top: 15px;
-	margin-bottom: 15px;	
+	margin-bottom: 15px;
 }
 .bx-wt-tab-wrap {
 	border: 1px solid #e5e5e5;
@@ -264,17 +264,17 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 }
 .bx-wt-tab-wrap > a.bx-wt-tab-toggle {
 	-webkit-box-shadow: none;
-	box-shadow: none;	
+	box-shadow: none;
 }
 .bx-wt-tab-clear {
 	display: inline-block;
 	width:100%;
 	border-bottom: 1px solid #e5e5e5;
 	padding: 0;
-	margin: 10px 0;	
+	margin: 10px 0;
 }
 .bx-wt-tab-clear.nm {
-	margin: 0;	
+	margin: 0;
 }
 .bx-wt-tab-toggle {
 	position: relative;
@@ -285,7 +285,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
     background-color: #f7f7f7;
     font-weight: bold;
     text-decoration: none;
-	
+
 	-webkit-transition: all 0.15s ease-in-out;
 	-moz-transition: all 0.15s ease-in-out;
 	-ms-transition: all 0.15s ease-in-out;
@@ -313,7 +313,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 .bx-wt-tab-contents {
 	display: none;
 	padding: 0 15px;
-	border-bottom: 1px solid #e5e5e5;	
+	border-bottom: 1px solid #e5e5e5;
 }
 .bx-wt-active-tab {
 	display: block;
@@ -323,23 +323,23 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 .bx-pricing-repeatable-item,
 .bx-pricing-repeatable-top
 .bx-pricing-repeatable-item input {
-	width: 100%;	
+	width: 100%;
 }
 .bx-pricing-repeatable-items {
-	margin-top: 15px;	
+	margin-top: 15px;
 }
 .bx-pricing-add-wrap {
-	margin-top: 0;	
+	margin-top: 0;
 }
 .bx-pricing-repeatable-item {
 	padding: 5px;
     background-color: #EEEEEE;
-    border: 1px solid #E5E5E5;		
+    border: 1px solid #E5E5E5;
 }
 .bx-pricing-repeatable-top {
 	margin-bottom: 5px;
 }
-.bx-team-repeatable-profile input, 
+.bx-team-repeatable-profile input,
 .bx-pricing-repeatable-top select,
 .bx-team-repeatable-profile .bx-team-repeatable-helper,
 .bx-pricing-repeatable-top .bx-pricing-repeatable-helper {
@@ -348,7 +348,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 }
 .bx-team-repeatable-profile input,
 .bx-pricing-repeatable-top select {
-	width: 74% !important;	
+	width: 74% !important;
 }
 .bx-team-repeatable-profile .bx-team-repeatable-helper,
 .bx-pricing-repeatable-top .bx-pricing-repeatable-helper {
@@ -363,7 +363,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 
 /* Widgets Page */
 .widgets-php #widget-list div[id*=bx-item-] {
-	display: none !important;	
+	display: none !important;
 }
 .widgets-php #section-features > .widget.open:not([id*=bx-item-features-]) .widget-inside,
 .widgets-php #section-faq > .widget.open:not([id*=bx-item-faq-]) .widget-inside,
@@ -422,42 +422,42 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	content: "This Widget isn't designed for this sidebar!";
 }
 .widgets-php #section-features > .widget.open:not([id*=bx-item-features-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Feature"	
+	content: "Please delete it and use: BX: Feature"
 }
 .widgets-php #section-faq > .widget.open:not([id*=bx-item-faq-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Question"	
+	content: "Please delete it and use: BX: Question"
 }
 .widgets-php #section-clients > .widget.open:not([id*=bx-item-clients-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Client"	
+	content: "Please delete it and use: BX: Client"
 }
 .widgets-php #section-actions > .widget.open:not([id*=bx-item-actions-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Action"	
+	content: "Please delete it and use: BX: Action"
 }
 .widgets-php #section-about > .widget.open:not([id*=bx-item-about-]) .widget-inside:after {
-	content: "Please delete it and use: BX: About Box"	
+	content: "Please delete it and use: BX: About Box"
 }
 .widgets-php #section-testimonials > .widget.open:not([id*=bx-item-testimonials-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Testimonial"	
+	content: "Please delete it and use: BX: Testimonial"
 }
 .widgets-php #section-team > .widget.open:not([id*=bx-item-team-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Team Member"	
+	content: "Please delete it and use: BX: Team Member"
 }
 .widgets-php #section-pricing > .widget.open:not([id*=bx-item-pricing-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Pricing Package"	
+	content: "Please delete it and use: BX: Pricing Package"
 }
 .widgets-php #section-slider > .widget.open:not([id*=bx-item-slider-]) .widget-inside:after {
-	content: "Please delete it and use: BX: Slide"	
+	content: "Please delete it and use: BX: Slide"
 }
 .widgets-php .widgets-sortables:not([id*=section-]) .widget.open[id*=bx-item-] .widget-inside {
 	background-color: rgba(255, 0, 0, 0.05);
 }
 /*.widgets-php #section-features, .widgets-php #section-faq, .widgets-php #section-clients, .widgets-php #section-actions, .widgets-php #section-about, .widgets-php #section-testimonials, .widgets-php #section-team, .widgets-php #section-pricing, .widgets-php #section-slider {
-	display: none;	
+	display: none;
 }*/
 
 /* Widgets */
 div[id*=bx-item-] .display-options {
-	display: none;	
+	display: none;
 }
 .bx-fields-description {
 	width: 100%;
@@ -498,14 +498,14 @@ div[id*=bx-item-] .display-options {
 
 /* Backup stuff */
 .bx-backup-sections {
-	left: 48px;	
+	left: 48px;
 }
 .bx-backup-sections:before {
 	content: "\f321" !important;
 }
 @media screen and (max-width: 640px) {
 	.customize-controls-preview-toggle {
-		left: 96px;	
+		left: 96px;
 	}
 }
 .bx-backup-bubble {
@@ -517,7 +517,7 @@ div[id*=bx-item-] .display-options {
 	background-color: rgba(0,0,0,.7);
 	border-radius: 4px;
 	padding: 15px;
-	z-index: 3;	
+	z-index: 3;
 	color: #fff;
     line-height: 1.5;
     font-size: 12px;
@@ -599,4 +599,26 @@ div[id*=bx-item-] .display-options {
     transform: scale(5);
     opacity: 0;
   }
+}
+
+/* Extenstions Setup Modal */
+.bxext-stp-modal-window {
+	border-radius: 6px;
+}
+.bxext-stp-modal-overlay {
+}
+.bxext-stp-modal-window p {
+	font-size: 1.222em;
+}
+.bxext-stp-modal-window .button-group {
+	width: 100%;
+}
+.bxext-stp-modal-window .button-group .button {
+	width: 49%;
+	float: left;
+	text-align: center;
+	border-radius: 4px !important;
+}
+.bxext-stp-modal-window .button-group .button.button-secondary {
+	float: right;
 }
