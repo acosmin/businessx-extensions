@@ -622,3 +622,9 @@ div[id*=bx-item-] .display-options {
 .bxext-stp-modal-window .button-group .button.button-secondary {
 	float: right;
 }
+.bxext-stp-modal-window .skip-step {
+	text-align: center;
+    font-size: 0.925em;
+    margin-top: 2em;
+    opacity: 0.8;
+}

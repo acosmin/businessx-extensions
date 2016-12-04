@@ -156,6 +156,7 @@ if( ! function_exists( 'bxext_frontpage_modal' ) ) {
 				<a href="#" class="button-primary button button-hero" id="bxext-insert-frontpage"><?php esc_html_e( 'Insert Front Page', 'businessx-extensions' ); ?></a>
 				<a href="#" class="button-secondary button button-hero" id="bxext-dismiss-frontpage"><?php esc_html_e( 'Never Ask Again', 'businessx-extensions' ); ?></a>
 			</div>
+			<p class="skip-step"><?php esc_html_e( 'If you already have a static front page and you want to use that one instead, you can skip this step.', 'businessx-extensions' ); ?></p>
 		</div>
 		<?php
 	}

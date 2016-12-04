@@ -311,7 +311,7 @@ jQuery( document ).ready( function( $ ) {
 
 	// CHANGES
 	if( $('#businessx-frontpage-modal').length > 0 ) {
-		window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=260&inlineId=businessx-frontpage-modal');
+		window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=320&inlineId=businessx-frontpage-modal');
 		$('#TB_window').css( 'z-index', '500002').addClass( 'bxext-stp-modal-window' );
 		$('#TB_overlay').css( 'z-index', '500001' ).addClass( 'bxext-stp-modal-overlay' );
 	}
