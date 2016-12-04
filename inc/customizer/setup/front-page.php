@@ -146,8 +146,12 @@ if( ! function_exists( 'bxext_frontpage_modal' ) ) {
 		?>
 		<div id="businessx-frontpage-modal" style="display:none">
 			<h2><?php esc_html_e( 'Static Front Page Setup', 'businessx-extensions' ); ?></h2>
-			<p><?php esc_html_e( 'Would you like to add a static front page has your homepage?', 'businessx-extensions' ); ?></p>
-			<p><?php esc_html_e( 'This will add a page called "Businessx Front Page" with a page template that includes all 12 custom sections (Slider, Features, About us and so on).', 'businessx-extensions' ); ?></p>
+			<p><?php esc_html_e( 'Would you like to add a static front page as your homepage?', 'businessx-extensions' ); ?></p>
+			<p><?php printf(
+				esc_html__( 'This will add a page called "Businessx Front Page" with a page template that includes all 12 custom sections (Slider, Features, About us and so on). Or you can do this manually, %s.', 'businessx-extensions' ),
+				'<a href="' . BUSINESSX_EXTS_THEME_DOCS . '#h10" target="_blank">' . esc_html_x( 'here is how', 'Front Page setup modal', 'businessx-extensions' ) . '</a>'
+			);
+			?></p>
 			<div class="button-group">
 				<a href="#" class="button-primary button button-hero" id="bxext-insert-frontpage"><?php esc_html_e( 'Insert Front Page', 'businessx-extensions' ); ?></a>
 				<a href="#" class="button-secondary button button-hero" id="bxext-dismiss-frontpage"><?php esc_html_e( 'Never Ask Again', 'businessx-extensions' ); ?></a>
