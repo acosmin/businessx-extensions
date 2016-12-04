@@ -22,15 +22,15 @@ if ( ! function_exists( 'add_action' ) ) {
 /* Some constants */
 if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
 	define( 'BUSINESSX_EXTS_VERSION', '1.0.4' ); }
-	
+
 if( ! defined( 'BUSINESSX_EXTS_THEME_NAME' ) ) {
 	define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' ); }
 
 if( ! defined( 'BUSINESSX_EXTS_THEME_URL' ) ) {
-define( 'BUSINESSX_EXTS_THEME_URL', '//www.acosmin.com/theme/businessx/' ); }
+	define( 'BUSINESSX_EXTS_THEME_URL', '//www.acosmin.com/theme/businessx/' ); }
 
 if( ! defined( 'USINESSX_EXTS_THEME_DOCS' ) ) {
-define( 'BUSINESSX_EXTS_THEME_DOCS', '//www.acosmin.com/documentation/businessx/' ); }
+	define( 'BUSINESSX_EXTS_THEME_DOCS', '//www.acosmin.com/documentation/businessx/' ); }
 
 if( ! defined( 'BUSINESSX_EXTS_URL' ) ) {
 	define( 'BUSINESSX_EXTS_URL', plugin_dir_url( __FILE__ ) ); }
