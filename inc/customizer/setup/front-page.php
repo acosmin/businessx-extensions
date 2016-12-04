@@ -145,7 +145,7 @@ if( ! function_exists( 'bxext_frontpage_modal' ) ) {
 	function bxext_frontpage_modal() {
 		?>
 		<div id="businessx-frontpage-modal" style="display:none">
-			<h2><?php esc_html_e( 'Static Front Page Setup', 'businessx-extensions' ); ?></h2>
+			<h1><?php esc_html_e( 'Static Front Page Setup', 'businessx-extensions' ); ?></h1>
 			<p><?php esc_html_e( 'Would you like to add a static front page as your homepage?', 'businessx-extensions' ); ?></p>
 			<p><?php printf(
 				esc_html__( 'This will add a page called "Businessx Front Page" with a page template that includes all 12 custom sections (Slider, Features, About us and so on). Or you can do this manually, %s.', 'businessx-extensions' ),
