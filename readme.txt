@@ -3,8 +3,8 @@
 Contributors: acosmin
 Tags:
 Requires at least: 4.5
-Tested up to: 4.6.1
-Stable tag: 1.0.3.1
+Tested up to: 4.7
+Stable tag: 1.0.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,11 @@ Adds sections and new features to Businessx WordPress theme. 12 sections Slider,
 Adds sections and new features to Businessx WordPress theme. 12 sections Slider, Features, About Us, Team, Clients, Portfolio, Actions, Testimonials, Pricing, FAQ, Hero, Blog) are included to make your homepage look awesome. You can download <a href="http://www.acosmin.com/theme/businessx/?utm_source=wporg&utm_medium=readme&utm_campaign=bx_plugin_page" title="Download Businessx WordPress Theme" rel="friend">Businessx WordPress theme</a> from here.
 
 == Changelog ==
+
+= 1.0.4.1 =
+* Fixed compatibility issues with WordPress v4.7.
+* Added a modal window asking if you want to add a static front page, helping users skip a few steps.
+* Changed the name of "Sections" panel to "Front Page Sections".
 
 = 1.0.3.1 =
 * Added option to show/hide slider navigation arrows.

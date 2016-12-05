@@ -21,7 +21,7 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		/* ------------------------------------ */
 		// Front page
 		$wp_customize->add_panel( 'businessx_panel__sections', array(
-		  'title' 				=> __( 'Sections', 'businessx-extensions' ),
+		  'title' 				=> __( 'Front Page Sections', 'businessx-extensions' ),
 		  'priority'			=> 35,
 		  'active_callback' 	=> 'businessx_front_pt',
 		) );

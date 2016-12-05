@@ -3,7 +3,7 @@
 Plugin Name: Businessx Extensions
 Plugin URI: http://www.acosmin.com/themes/businessx/
 Description: Adds front page sections and other extensions to Businessx WordPress theme.
-Version: 1.0.3.1
+Version: 1.0.4.1
 Author: Acosmin
 Author URI: http://www.acosmin.com/
 Text Domain: businessx-extensions
@@ -20,11 +20,23 @@ if ( ! function_exists( 'add_action' ) ) {
 
 
 /* Some constants */
-define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' );
-define( 'BUSINESSX_EXTS_THEME_URL', 'http://www.acosmin.com/theme/businessx/' );
-define( 'BUSINESSX_EXTS_VERSION', '1.0.3.1' );
-define( 'BUSINESSX_EXTS_URL', plugin_dir_url( __FILE__ ) );
-define( 'BUSINESSX_EXTS_PATH', plugin_dir_path( __FILE__ ) );
+if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
+	define( 'BUSINESSX_EXTS_VERSION', '1.0.4.1' ); }
+
+if( ! defined( 'BUSINESSX_EXTS_THEME_NAME' ) ) {
+	define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' ); }
+
+if( ! defined( 'BUSINESSX_EXTS_THEME_URL' ) ) {
+	define( 'BUSINESSX_EXTS_THEME_URL', '//www.acosmin.com/theme/businessx/' ); }
+
+if( ! defined( 'USINESSX_EXTS_THEME_DOCS' ) ) {
+	define( 'BUSINESSX_EXTS_THEME_DOCS', '//www.acosmin.com/documentation/businessx/' ); }
+
+if( ! defined( 'BUSINESSX_EXTS_URL' ) ) {
+	define( 'BUSINESSX_EXTS_URL', plugin_dir_url( __FILE__ ) ); }
+
+if( ! defined( 'BUSINESSX_EXTS_PATH' ) ) {
+	define( 'BUSINESSX_EXTS_PATH', plugin_dir_path( __FILE__ ) ); }
 
 
 
@@ -148,6 +160,7 @@ if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == busines
 	require_once ( dirname( __FILE__ ) . '/inc/functions/helpers.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/icons/icons.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/customizer.php' );
+	require_once ( dirname( __FILE__ ) . '/inc/customizer/setup/front-page.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/init.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/styles.php' );
 endif;
