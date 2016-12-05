@@ -309,4 +309,47 @@ jQuery( document ).ready( function( $ ) {
 		});
 	}); // END wp.customize.control.each;
 
+	// CHANGES
+	if( $('#businessx-frontpage-modal').length > 0 ) {
+		window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=330&inlineId=businessx-frontpage-modal');
+		$('#TB_window').css( 'z-index', '500002').addClass( 'bxext-stp-modal-window' );
+		$('#TB_overlay').css( 'z-index', '500001' ).addClass( 'bxext-stp-modal-overlay' );
+		$('#TB_overlay.bxext-stp-modal-overlay').off( 'click' );
+	}
+
+	$('#bxext-insert-frontpage').on('click', function(event){
+		$.ajax({
+			url: businessx_ext_widgets_customizer.bx_ajax_url,
+			type: 'post',
+			dataType: 'json',
+			data: {
+				action: 'bxext_create_frontpage',
+				bxext_create_frontpage: businessx_customizer_js_data.bxext_create_frontpage,
+			}
+		})
+		.done( function( data ) {
+			console.log( 'Inserted Front Page' );
+			window.tb_remove();
+			location.reload(true);
+		});
+	});
+
+	// Use `.bxext-stp-modal-window #TB_closeWindowButton` to dismiss on X click 
+	$('#bxext-dismiss-frontpage').on('click', function(event){
+		$.ajax({
+			url: businessx_ext_widgets_customizer.bx_ajax_url,
+			type: 'post',
+			dataType: 'json',
+			data: {
+				action: 'bxext_dismiss_create_frontpage',
+				bxext_create_frontpage: businessx_customizer_js_data.bxext_dismiss_create_frontpage,
+			}
+		})
+		.done( function( data ) {
+			console.log( 'Dismissed Front Page Modal' );
+			window.tb_remove();
+			location.reload(true);
+		});
+	});
+
 });
