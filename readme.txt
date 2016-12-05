@@ -17,7 +17,9 @@ Adds sections and new features to Businessx WordPress theme. 12 sections Slider,
 == Changelog ==
 
 = 1.0.4 =
-* Fixed compatibility issues with WordPress v4.7
+* Fixed compatibility issues with WordPress v4.7.
+* Added a modal window asking if you want to add a static front page, helping users skip a few steps.
+* Changed the name of "Sections" panel to "Front Page Sections".
 
 = 1.0.3.1 =
 * Added option to show/hide slider navigation arrows.
