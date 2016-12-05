@@ -3,7 +3,7 @@
 Plugin Name: Businessx Extensions
 Plugin URI: http://www.acosmin.com/themes/businessx/
 Description: Adds front page sections and other extensions to Businessx WordPress theme.
-Version: 1.0.4
+Version: 1.0.4.1
 Author: Acosmin
 Author URI: http://www.acosmin.com/
 Text Domain: businessx-extensions
@@ -21,7 +21,7 @@ if ( ! function_exists( 'add_action' ) ) {
 
 /* Some constants */
 if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
-	define( 'BUSINESSX_EXTS_VERSION', '1.0.4' ); }
+	define( 'BUSINESSX_EXTS_VERSION', '1.0.4.1' ); }
 
 if( ! defined( 'BUSINESSX_EXTS_THEME_NAME' ) ) {
 	define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' ); }
