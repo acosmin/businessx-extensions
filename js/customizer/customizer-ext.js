@@ -314,6 +314,7 @@ jQuery( document ).ready( function( $ ) {
 		window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=330&inlineId=businessx-frontpage-modal');
 		$('#TB_window').css( 'z-index', '500002').addClass( 'bxext-stp-modal-window' );
 		$('#TB_overlay').css( 'z-index', '500001' ).addClass( 'bxext-stp-modal-overlay' );
+		$('#TB_overlay.bxext-stp-modal-overlay').off( 'click' );
 	}
 
 	$('#bxext-insert-frontpage').on('click', function(event){
@@ -333,7 +334,8 @@ jQuery( document ).ready( function( $ ) {
 		});
 	});
 
-	$('#bxext-dismiss-frontpage, .bxext-stp-modal-window #TB_closeWindowButton').on('click', function(event){
+	// Use `.bxext-stp-modal-window #TB_closeWindowButton` to dismiss on X click 
+	$('#bxext-dismiss-frontpage').on('click', function(event){
 		$.ajax({
 			url: businessx_ext_widgets_customizer.bx_ajax_url,
 			type: 'post',

@@ -75,6 +75,7 @@ if( ! function_exists( 'bxext_create_frontpage' ) ) {
 			// Update static front page settings
 			update_option('show_on_front', 'page');
 			update_option('page_on_front', $page_id);
+			update_option('bxext_fp_installed', true);
 
 			// Blog view
 			if ( get_page_by_title( 'Blog' ) == null ) {
