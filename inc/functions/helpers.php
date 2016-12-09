@@ -74,7 +74,7 @@ endif;
 
 
 
-if( businessx_extensions_ck_theme_v( '1.0.3' ) ) : // Backwards compatibility
+if( businessx_extensions_ck_theme_v( '1.0.3' ) || ! ( 'Businessx' == businessx_extensions_theme() ) || ! ( 'Businessx' == businessx_extensions_theme( true ) ) ) : // Backwards compatibility
 /*  Hero buttons output
 /* ------------------------------------ */
 if( ! function_exists( 'businessx_hero_btns_output' ) ) {
