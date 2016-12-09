@@ -3,7 +3,7 @@
 Plugin Name: Businessx Extensions
 Plugin URI: http://www.acosmin.com/themes/businessx/
 Description: Adds front page sections and other extensions to Businessx WordPress theme.
-Version: 1.0.4.1
+Version: 1.0.4.2
 Author: Acosmin
 Author URI: http://www.acosmin.com/
 Text Domain: businessx-extensions
@@ -21,7 +21,7 @@ if ( ! function_exists( 'add_action' ) ) {
 
 /* Some constants */
 if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
-	define( 'BUSINESSX_EXTS_VERSION', '1.0.4.1' ); }
+	define( 'BUSINESSX_EXTS_VERSION', '1.0.4.2' ); }
 
 if( ! defined( 'BUSINESSX_EXTS_THEME_NAME' ) ) {
 	define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' ); }
@@ -94,7 +94,7 @@ add_action( 'plugins_loaded', 'businessx_extensions_add_sections' );
 
 /* Add Admin notices */
 if ( ! empty ( $GLOBALS['pagenow'] ) && 'plugins.php' === $GLOBALS['pagenow'] ) {
-    add_action( 'admin_notices', 'businessx_extensions_admin_notices', 0 );
+    // add_action( 'admin_notices', 'businessx_extensions_admin_notices', 0 );
 }
 
 
@@ -153,14 +153,21 @@ if( ! function_exists( 'businessx_extensions_requirements' ) ) {
 	Icons function are included in the theme. (../acosmin/function/icons.php)
 	Some other used functions (../acosmin/function/helpers.php)
 */
-if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == businessx_extensions_theme( true ) ) ) :
+
+// No requirements
+require_once ( dirname( __FILE__ ) . '/inc/sidebars/register.php' );
+require_once ( dirname( __FILE__ ) . '/inc/functions/helpers.php' );
+require_once ( dirname( __FILE__ ) . '/inc/functions/backup-functions.php' );
+require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/init.php' );
+
+// Required Businessx or a child theme of it to be the current theme
+if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == businessx_extensions_theme( true ) ) ) {
 	require_once ( dirname( __FILE__ ) . '/inc/templating.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/scripts/scripts.php' );
-	require_once ( dirname( __FILE__ ) . '/inc/sidebars/register.php' );
-	require_once ( dirname( __FILE__ ) . '/inc/functions/helpers.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/icons/icons.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/customizer.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/setup/front-page.php' );
-	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/init.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/styles.php' );
-endif;
+} else {
+	add_action( 'admin_enqueue_scripts', 'businessx_extensions_enqueue_backup' );
+}

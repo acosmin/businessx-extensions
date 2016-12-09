@@ -108,4 +108,4 @@ if ( ! function_exists( 'businessx_extensions_sidebars_and_widgets' ) ) {
 
 	}
 }
-add_action( 'widgets_init', 'businessx_extensions_sidebars_and_widgets' );
+add_action( 'widgets_init', 'businessx_extensions_sidebars_and_widgets', 30 );
