@@ -56,7 +56,7 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 /*  Section Parallax
 /* ------------------------------------ */
-if( businessx_extensions_ck_theme_v( '1.0.4', '>=' ) ) :
+if( businessx_extensions_ck_theme_v( '1.0.4', '>=' ) || ! ( 'Businessx' == businessx_extensions_theme() ) || ! ( 'Businessx' == businessx_extensions_theme( true ) ) ) :
 if ( ! function_exists( 'businessx_section_parallax' ) ) {
 	function businessx_section_parallax( $enabled, $bgimg, $return = false ) {
 		$background			= get_theme_mod( $bgimg, '' );
