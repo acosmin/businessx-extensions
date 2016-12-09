@@ -94,7 +94,7 @@ add_action( 'plugins_loaded', 'businessx_extensions_add_sections' );
 
 /* Add Admin notices */
 if ( ! empty ( $GLOBALS['pagenow'] ) && 'plugins.php' === $GLOBALS['pagenow'] ) {
-    // add_action( 'admin_notices', 'businessx_extensions_admin_notices', 0 ); /* MADE CHANGES */
+    // add_action( 'admin_notices', 'businessx_extensions_admin_notices', 0 );
 }
 
 
