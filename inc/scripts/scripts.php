@@ -81,7 +81,7 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 						'bx_anw_btn_slider'			=> esc_html__( 'Add a Slide', 'businessx-extensions' ),
 						'bx_sec_btn_slider'			=> esc_html__( 'Add or edit slides', 'businessx-extensions' ),
 					/* Hide Items btns for */
-					'bx_sec_item_btn_hide'	=> array( 'portfolio', 'hero', 'blog' ), /* ==REMOVE== */
+					'bx_sec_item_btn_hide'	=> array( 'portfolio', 'hero', 'blog', 'contact' ), /* ==REMOVE== */
 				) )
 			);
 		endif;
@@ -89,3 +89,16 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'businessx_extensions_admin_scripts' );
+
+
+
+/**
+ * Enqueue scripts & styles for the theme
+ */
+if( ! function_exists( 'businessx_extensions_theme_styles') ) {
+	function businessx_extensions_theme_styles() {
+		/* New sections styles */
+		wp_enqueue_style( 'bx-ext-theme-styles', BUSINESSX_EXTS_URL . 'css/sections.css', array(), '20170122', 'all' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'businessx_extensions_theme_styles', 11 );
