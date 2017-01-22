@@ -66,8 +66,15 @@ add_action( 'plugins_loaded', 'businessx_extensions_textdomain' );
 
 /* Add front page sections */
 if( ! function_exists( 'businessx_extensions_sections' ) ) {
+	/**
+	 * A list of all the default & supported sections
+	 *
+	 * Use the `businessx_extensions_sections___filter` to add yours
+	 *
+	 * @return array An array with unique, non duplicate sections names
+	 */
 	function businessx_extensions_sections() {
-		return $sections = array(
+		$sections = apply_filters( 'businessx_extensions_sections___filter', array(
 			'slider',
 			'features',
 			'about',
@@ -80,16 +87,70 @@ if( ! function_exists( 'businessx_extensions_sections' ) ) {
 			'faq',
 			'hero',
 			'blog',
-		);
+		) );
+
+		return array_map( 'sanitize_key', array_unique( $sections ) );
 	}
 }
 
+
+
 if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
+	/**
+	 * Connects with the theme and adds all supported sections
+	 * as a theme mod.
+	 */
 	function businessx_extensions_add_sections() {
 		add_filter( 'businessx_sections_filter', 'businessx_extensions_sections' );
 	}
 }
 add_action( 'plugins_loaded', 'businessx_extensions_add_sections' );
+
+
+
+if( ! function_exists( 'businessx_extensions_add_new_sections' ) ) {
+	/**
+	 * Checks if new sections are added and adds them
+	 * to the end of `businessx_sections_position`
+	 */
+	function businessx_extensions_add_new_sections() {
+		$prefix   = 'businessx_section__';
+		$sections = $new_sections = array();
+		$defaults = businessx_extensions_sections();
+		$saved    = get_theme_mod( 'businessx_sections_position' );
+
+		/* Return if no theme mods are saved */
+		if( $saved === false ) return;
+
+		/**
+		 * Create an array of all the sections and prefix
+		 * them with `businessx_section__`
+		 */
+		foreach ( $defaults as $section ) {
+			$sections[] = $prefix . $section;
+		}
+
+		/**
+		 * Check if any new sections were added
+		 * @var array
+		 */
+		$diff = array_diff( $sections, $saved );
+
+		/* If not, do nothing */
+		if( empty( $diff ) ) return;
+
+		/* Add all the new sections at the end of the array */
+		foreach( $diff as $new_section ) {
+			array_push( $saved, $new_section );
+		}
+
+		/* Update the theme mod with the new sections and positions */
+		set_theme_mod( 'businessx_sections_position', array_map( 'sanitize_key', array_unique( $saved ) ) );
+
+	}
+}
+add_action( 'plugins_loaded', 'businessx_extensions_add_new_sections' );
+
 
 
 /* Add Admin notices */
