@@ -37,26 +37,28 @@
 			'businessx_section__contact',
 			esc_html__( 'Hide this section', 'businessx-extensions' ), '', true );
 		/*=====*/
-		//
-		// // Section title
-		// businessx_controller_txt(
-		// 	'features_section_title',
-		// 	'businessx_section__features',
-		// 	esc_html__( 'Section title', 'businessx-extensions' ),
-		// 	esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
-		// 	esc_html__( 'Features Heading', 'businessx-extensions' ),
-		// 	'.sec-features .section-title' );
-		// /*=====*/
-		//
-		// // Section description
-		// businessx_controller_txt_area(
-		// 	'features_section_description',
-		// 	'businessx_section__features',
-		// 	esc_html__( 'Section description', 'businessx-extensions' ),
-		// 	esc_html__( 'Set a description for this section.', 'businessx-extensions' ),
-		// 	esc_html__( 'This is a description for the Features section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
-		// 	'.sec-features .section-description' );
-		// /*=====*/
+
+		// Section title
+		businessx_controller_txt(
+			'contact_section_title',
+			'businessx_section__contact',
+			esc_html__( 'Section title', 'businessx-extensions' ),
+			esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
+			esc_html__( 'Contact Us', 'businessx-extensions' ),
+			'.sec-contact .section-title' );
+		/*=====*/
+
+		// Section description
+		businessx_controller_txt_area(
+			'contact_section_description',
+			'businessx_section__contact',
+			esc_html__( 'Section description', 'businessx-extensions' ),
+			esc_html__( 'Set a description for this section.', 'businessx-extensions' ),
+			esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
+			'.sec-contact .section-description', true, 'businessx_ext_sanitize_textarea_wpautop' );
+		/*=====*/
+
+
 		//
 		// // Section colors
 		// businessx_controller_color_picker(

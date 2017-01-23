@@ -10,15 +10,83 @@
   * 4.2 - About Section
   */
 .sec-contact {
-	background-color: #2f2f2f;
-	color: #bbbbbb;
-}
-.sec-contact .grid-container {
-	padding-bottom: 4.222em;
+	background-color: #2e910e;
+	color: #fff;
 }
 .sec-contact .section-title {
 	color: #fff;
+	border-color: #76bc1c;
 }
+.sec-contact .section-title,
+.sec-contact .section-description {
+	max-width: 100%;
+}
+.sec-contact-info > *:last-child,
+.sec-contact-form > *:last-child,
+.sec-contact-form form > *:last-child,
+.sec-contact-form form > p:nth-last-of-type(1),
+.sec-contact .section-description > *:last-child {
+	margin-bottom: 0;
+}
+.sec-contact-form {
+	font-size: 16px;
+}
+.sec-contact-form textarea {
+	height: 9em;
+}
+.sec-contact .grid-items > div.sec-contact-box:nth-child(2n) {
+	margin-right: 0;
+}
+.sec-contact .grid-items > div.sec-contact-box:nth-child(2n+1) {
+	clear: both;
+}
+
+/* Social Buttons */
+.sec-contact-social a {
+	float: left;
+	background-color: rgba(255,255,255,.2);
+	color: #fff;
+	line-height: 3.333em;
+	width: 3.333em;
+	text-align: center;
+	border-radius: 0.222em;
+	margin: 0 2px 2px 0;
+}
+.sec-contact-social a:hover {
+	color: #fff;
+	background-color: rgba(255,255,255,.4);
+}
+.sec-contact-social-btn.scsb-with-span {
+	width: auto;
+	padding-left: 0.833em;
+	padding-right: 0.833em;
+}
+	/**
+	 * Contact form 7
+	 */
+	.sec-contact-form .wpcf7-submit {
+		width: 100%;
+		box-shadow: 0 0 1.875em rgba(0,0,0,.3);
+	}
+	.sec-contact-form div.wpcf7 .ajax-loader {
+		background-color: #fff;
+		border-radius: 100%;
+		display: none;
+	}
+	.sec-contact-form div.wpcf7 .ajax-loader.is-active {
+		display: inline-block;
+	}
+	.sec-contact-form .wpcf7-not-valid-tip {
+		background-color: #fff;
+		border-radius: 4px;
+		padding: 4px;
+		opacity: .9;
+	}
+	.sec-contact-form .wpcf7-response-output {
+		text-align: center;
+	}
+
+
 /*.sec-about-box {
 	padding-bottom: 1em;
 }

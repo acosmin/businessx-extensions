@@ -54,6 +54,17 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 
 
+/*  Sanitization
+/* ------------------------------------ */
+
+// Textarea with autop
+if( ! function_exists( 'businessx_sanitize_textarea_wpautop' ) ) {
+	function businessx_ext_sanitize_textarea_wpautop( $content ) {
+		return wp_kses_post( wpautop( $content ) );
+	}
+}
+
+
 /*  Section Parallax
 /* ------------------------------------ */
 if( businessx_extensions_ck_theme_v( '1.0.4', '>=' ) || ! ( 'Businessx' == businessx_extensions_theme() ) || ! ( 'Businessx' == businessx_extensions_theme( true ) ) ) :
