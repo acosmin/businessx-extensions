@@ -17,8 +17,8 @@
 	<?php do_action( 'businessx_contact_sec__inner_wrapper_top' ); ?>
 	<?php // if( $features_sec__bg_overlay ) { echo '<div class="grid-overlay"></div>'; } ?>
 	<div class="grid-container grid-1 clearfix">
-    	<?php do_action( 'businessx_contact_sec__inner_container_top' ); ?>
-        <div class="grid-items clearfix <?php businessx_anim_classes(); ?>">
+		<?php do_action( 'businessx_contact_sec__inner_container_top' ); ?>
+		<div class="grid-items clearfix <?php businessx_anim_classes(); ?>">
 
 			<div class="grid-col grid-2x-col sec-contact-box sec-contact-info">
 
@@ -38,7 +38,7 @@
 					<?php echo businessx_ext_escape_content_filtered( $contact_sec__social ); ?>
 				</div>
 				<?php endif; ?>
-				
+
 			</div>
 
 			<div class="grid-col grid-2x-col sec-contact-box sec-contact-form">

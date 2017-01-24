@@ -87,7 +87,8 @@ if( ! function_exists( 'businessx_extensions_sections' ) ) {
 			'faq',
 			'hero',
 			'blog',
-			'contact'
+			'contact',
+			'maps'
 		) );
 
 		return array_map( 'sanitize_key', array_unique( $sections ) );

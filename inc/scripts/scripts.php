@@ -81,7 +81,7 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 						'bx_anw_btn_slider'			=> esc_html__( 'Add a Slide', 'businessx-extensions' ),
 						'bx_sec_btn_slider'			=> esc_html__( 'Add or edit slides', 'businessx-extensions' ),
 					/* Hide Items btns for */
-					'bx_sec_item_btn_hide'	=> array( 'portfolio', 'hero', 'blog', 'contact' ), /* ==REMOVE== */
+					'bx_sec_item_btn_hide'	=> array( 'portfolio', 'hero', 'blog', 'contact', 'maps' ), /* ==REMOVE== */
 				) )
 			);
 		endif;
