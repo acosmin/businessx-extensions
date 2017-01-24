@@ -49,13 +49,63 @@
 		/*=====*/
 
 		// Section description
-		businessx_controller_txt_area(
+		businessx_controller_txt_area_filtered(
 			'contact_section_description',
 			'businessx_section__contact',
 			esc_html__( 'Section description', 'businessx-extensions' ),
-			esc_html__( 'Set a description for this section.', 'businessx-extensions' ),
+			esc_html__( 'Set a description for this section. It will automatically add paragraph tags. You can also use html tags and shortcodes (not recommended).', 'businessx-extensions' ),
 			esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
-			'.sec-contact .section-description', true, 'businessx_ext_sanitize_textarea_wpautop' );
+			'.sec-contact .section-description' );
+		/*=====*/
+
+		// Contact Shortcode
+		businessx_controller_txt_area_filtered(
+			'contact_section_shortcode',
+			'businessx_section__contact',
+			esc_html__( 'Contact form shortcode', 'businessx-extensions' ),
+			esc_html__( 'You can paste your contact form shortcode here. We recommend the Contact Form 7 plugin. You can also add text before or after the shortcode (with html tags if needed).', 'businessx-extensions' ),
+			esc_html__( 'Your contact form shortcode appears here...', 'businessx-extensions' ),
+			'.sec-contact .sec-contact-form' );
+		/*=====*/
+
+		businessx_controller_info(
+			'contact_section_social_about',
+			'businessx_section__contact',
+			__( 'Social buttons', 'businessx' ),
+			__( '<p>You can use the following shortcodes, one on each new line</p>
+			<p>
+				<code>[bx_contact_social]</code>
+			</p>
+			<p>
+				<code>icon</code> attribute, represents the icon name without <code>fa fa-</code> prefix. You can find a list of <a href="http://fontawesome.io/icons/"  target="_blank">supported icons here</a>.
+			</p>
+			<p>
+				<code>link</code> attribute, represents the URL to the social network profile, ex: <code>https://twitter.com/acosmin</code>.
+			</p>
+			<p>
+				<code>[bx_contact_phone]</code>
+			</p>
+			<p>
+				<code>number</code> attribute, represents the phone number, ex: <code>tel:055222312</code>.
+			</p>
+			<p>
+				<code>text</code> attribute, represents some text added next to the icon.
+			</p>
+			<p>
+				<a href="https://codex.wordpress.org/Shortcode" target="_blank">More info about Shortcodes</a>
+			</p>', 'businessx-extensions' ) );
+
+		// Social Shortcodes
+		businessx_controller_txt_area_filtered(
+			'contact_section_social',
+			'businessx_section__contact',
+			'',
+			'',
+			'[bx_contact_social icon="facebook" link="https://www.facebook.com/acosmincom"]
+[bx_contact_social icon="twitter" link="https://twitter.com/acosmin"]
+[bx_contact_social icon="google-plus" link="#"]
+[bx_contact_phone number="tel:055222312" text="Call 055 222 312"]',
+			'.sec-contact .sec-contact-social' );
 		/*=====*/
 
 

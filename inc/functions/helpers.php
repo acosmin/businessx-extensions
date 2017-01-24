@@ -58,11 +58,68 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 /* ------------------------------------ */
 
 // Textarea with autop
-if( ! function_exists( 'businessx_sanitize_textarea_wpautop' ) ) {
-	function businessx_ext_sanitize_textarea_wpautop( $content ) {
-		return wp_kses_post( wpautop( $content ) );
+if( ! function_exists( 'businessx_ext_sanitize_content_filtered' ) ) {
+	function businessx_ext_sanitize_content_filtered( $content ) {
+		return wp_kses_post( wptexturize( $content ) );
 	}
 }
+
+
+
+/*  Escaping
+/* ------------------------------------ */
+// Textarea with autop
+if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
+	function businessx_ext_escape_content_filtered( $content ) {
+		$new_content = shortcode_unautop( do_shortcode( wpautop( wptexturize( wp_kses_post( $content ) ) ) ) );
+		$partials    = apply_filters( 'businessx_ext_escape_content_filtered___partials', array(
+			'<p></p>'    => '',
+			'<p><div'    => '<div',
+			'</div></p>' => '</div>',
+		), $new_content );
+
+		foreach ( $partials as $partial => $change ) {
+			$new_content = str_replace( $partial, $change, $new_content );
+		}
+
+		return $new_content;
+	}
+}
+
+
+
+/*  New controllers
+/* ------------------------------------ */
+if ( ! function_exists( 'businessx_controller_txt_area_filtered' ) ) {
+	function businessx_controller_txt_area_filtered( $setting_id, $section_id, $label = '', $description = '', $default = '', $selector = '', $transport = true, $sanitize = 'businessx_ext_sanitize_content_filtered', $priority = 10 ) {
+		global $wp_customize;
+		if( $transport ) { $transport_type = 'postMessage'; } else { $transport_type = 'refresh'; }
+
+		$wp_customize->add_setting( $setting_id, array(
+			'default'			=> $default,
+			'sanitize_callback' => $sanitize,
+			'capability'		=> 'edit_theme_options',
+			'transport'         => $transport_type,
+		) );
+		$wp_customize->add_control( $setting_id, array(
+			'label'				=> $label,
+			'description'		=> $description,
+			'section'			=> $section_id,
+			'settings'			=> $setting_id,
+			'type'     			=> 'textarea',
+			'priority'			=> intval( $priority ),
+		) );
+		if( $transport ) {
+			$wp_customize->selective_refresh->add_partial( $setting_id, array(
+				'selector' => $selector,
+				'render_callback' => function() use ( &$setting_id ) {
+					return businessx_ext_escape_content_filtered( get_theme_mod( $setting_id ) );
+				},
+			) );
+		}
+	}
+}
+
 
 
 /*  Section Parallax

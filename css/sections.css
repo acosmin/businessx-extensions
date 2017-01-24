@@ -42,6 +42,9 @@
 }
 
 /* Social Buttons */
+.sec-contact-social br {
+	display: none;
+}
 .sec-contact-social a {
 	float: left;
 	background-color: rgba(255,255,255,.2);
