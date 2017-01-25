@@ -101,7 +101,7 @@ if( ! function_exists( 'businessx_extensions_theme_styles') ) {
 		wp_enqueue_style( 'bx-ext-sections-styles', BUSINESSX_EXTS_URL . 'css/sections.css', array(), '20170122', 'all' );
 
 		/* New sections JS */
-		wp_enqueue_script( 'bx-ext-sections-scripts', BUSINESSX_EXTS_URL . 'js/front/sections.js', array( 'jquery' ), '20160412', true );
+		wp_enqueue_script( 'bx-ext-sections-scripts', BUSINESSX_EXTS_URL . 'js/front/sections.js', array( 'jquery' ), '20170125', true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'businessx_extensions_theme_styles', 11 );

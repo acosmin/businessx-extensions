@@ -232,6 +232,8 @@ if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == busines
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/customizer.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/setup/front-page.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/styles.php' );
+	require_once ( dirname( __FILE__ ) . '/inc/partials/partials.php' );
+	require_once ( dirname( __FILE__ ) . '/inc/partials/hooks.php' );
 } else {
 	add_action( 'admin_enqueue_scripts', 'businessx_extensions_enqueue_backup' );
 }
