@@ -3,8 +3,11 @@
  * ------------------
  * Template functions
  * ------------------
+ *
+ * In case you need to add some custom functions,
+ * add them below.
+ *
  */
-
 
 
 
@@ -12,6 +15,8 @@
  * -----------------
  * Template partials
  * -----------------
+ *
+ * @see ../inc/partials/sections/hooks.php
  */
 
 	/**
@@ -95,14 +100,39 @@
 						// Section title
 						if( ! function_exists( 'bx_ext_part__map_overlay_content_title' ) ) {
 		 					function bx_ext_part__map_overlay_content_title() {
-		 						?><h2 class="smo-title"><a href="#" class="smo-open-map">Find us on the map</a></h2><?php
+								$placeholder = __( 'Maps Section Title', 'businessx-extensions' );
+								$title       = get_theme_mod( 'maps_section_title', $placeholder );
+								$format      = '<h2 class="smo-title"><a href="#" class="smo-open-map">%s</a></h2>';
+
+								$output = sprintf( $format, $title );
+								$output = apply_filters(
+									'bx_ext_part__map_overlay_content_title___filter',
+									$output, $format, esc_html( $title )
+								);
+
+								if( empty( $title ) ) return;
+
+								echo $output;
 		 					}
 		 				}
 
 						// Section icon
 						if( ! function_exists( 'bx_ext_part__map_overlay_content_icon' ) ) {
 		 					function bx_ext_part__map_overlay_content_icon() {
-		 						?><a href="#" class="smo-icon smo-open-map"><?php businessx_icon( 'map' ); ?></a><?php
+								$hide   = get_theme_mod( 'maps_section_hide_icon', 0 );
+								$icon   = businessx_icon( 'map', false );
+								$format = '<a href="#" class="smo-icon smo-open-map">%s</a>';
+
+								$output = sprintf( $format, $icon );
+								$output = apply_filters(
+									'bx_ext_part__map_overlay_content_icon___filter',
+									$output, $format, $icon
+								);
+
+								// Do nothing if hidden
+								if( $hide ) return;
+
+								echo $output;
 		 					}
 		 				}
 

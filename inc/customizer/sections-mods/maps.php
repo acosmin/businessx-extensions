@@ -37,3 +37,20 @@
 			'businessx_section__maps',
 			esc_html__( 'Hide this section', 'businessx-extensions' ), '', true );
 		/*=====*/
+
+		// Section title
+		businessx_controller_txt(
+			'maps_section_title',
+			'businessx_section__maps',
+			esc_html__( 'Section title', 'businessx-extensions' ),
+			esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
+			esc_html__( 'Maps Section Title', 'businessx-extensions' ),
+			'.sec-maps .smo-title a' );
+		/*=====*/
+
+		// Hide icon
+		businessx_controller_checkbox(
+			'maps_section_hide_icon',
+			'businessx_section__maps',
+			esc_html__( 'Hide icon', 'businessx-extensions' ) );
+		/*=====*/
