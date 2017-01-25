@@ -88,6 +88,24 @@ if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
 
 
 
+/*  Get theme mod wrapper
+/* ------------------------------------ */
+if( ! function_exists( 'e_magazine_tm' ) ) {
+	/**
+	 * Wrapper for get_theme_mod with a filter applied on the default value.
+	 * @param  string  $theme_mod Theme modification name.
+	 * @param  boolean $default   The default value. If not set, returns false.
+	 * @return mixed              Returns theme modification value.
+	 */
+	function bx_ext_tm( $theme_mod, $default = false ) {
+		$def = $default ? apply_filters( 'bx_ext___' . $theme_mod . '_default', $default ) : $default;
+		$mod = get_theme_mod( $theme_mod, $def );
+		return $mod;
+	}
+}
+
+
+
 /*  New controllers
 /* ------------------------------------ */
 if ( ! function_exists( 'businessx_controller_txt_area_filtered' ) ) {

@@ -101,7 +101,7 @@
 						if( ! function_exists( 'bx_ext_part__map_overlay_content_title' ) ) {
 		 					function bx_ext_part__map_overlay_content_title() {
 								$placeholder = __( 'Maps Section Title', 'businessx-extensions' );
-								$title       = get_theme_mod( 'maps_section_title', $placeholder );
+								$title       = bx_ext_tm( 'maps_section_title', $placeholder );
 								$format      = '<h2 class="smo-title"><a href="#" class="smo-open-map">%s</a></h2>';
 
 								$output = sprintf( $format, $title );
@@ -119,7 +119,7 @@
 						// Section icon
 						if( ! function_exists( 'bx_ext_part__map_overlay_content_icon' ) ) {
 		 					function bx_ext_part__map_overlay_content_icon() {
-								$hide   = get_theme_mod( 'maps_section_hide_icon', 0 );
+								$hide   = bx_ext_tm( 'maps_section_hide_icon', 0 );
 								$icon   = businessx_icon( 'map', false );
 								$format = '<a href="#" class="smo-icon smo-open-map">%s</a>';
 

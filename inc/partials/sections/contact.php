@@ -6,7 +6,7 @@
  *
  * In case you need to add some custom functions,
  * add them below.
- * 
+ *
  */
 
 
@@ -43,7 +43,7 @@
 		if( ! function_exists( 'bx_ext_part__contact_overlay' ) ) {
 			function bx_ext_part__contact_overlay() {
 				$section = 'contact';
-				$show    = get_theme_mod( 'contact_bg_overlay', false );
+				$show    = bx_ext_tm( 'contact_bg_overlay', false );
 				$output  = '<div class="grid-overlay"></div>';
 				$output  = apply_filters( 'bx_ext_part___overlay', $output, $section );
 
@@ -175,7 +175,7 @@
 										if( ! function_exists( 'bx_ext_part__contact_info_output_title' ) ) {
 											function bx_ext_part__contact_info_output_title() {
 												$section = 'contact';
-												$title   = get_theme_mod( 'contact_section_title', esc_html__( 'Contact Us', 'businessx-extensions' ) );
+												$title   = bx_ext_tm( 'contact_section_title', esc_html__( 'Contact Us', 'businessx-extensions' ) );
 												$anim    = businessx_anim_classes( true );
 												$divider = '<div class="divider"></div>';
 												$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>%3$s';
@@ -196,7 +196,7 @@
 										if( ! function_exists( 'bx_ext_part__contact_info_output_desc' ) ) {
 											function bx_ext_part__contact_info_output_desc() {
 												$section = 'contact';
-												$desc    = get_theme_mod( 'contact_section_description', esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+												$desc    = bx_ext_tm( 'contact_section_description', esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
 												$desc    = businessx_ext_escape_content_filtered( $desc );
 												$anim    = businessx_anim_classes( true );
 												$format  = '<div class="section-description fs-large %1$s">%2$s</div>';
@@ -217,7 +217,7 @@
 										if( ! function_exists( 'bx_ext_part__contact_info_output_btns' ) ) {
 											function bx_ext_part__contact_info_output_btns() {
 												$section = 'contact';
-												$btns    = get_theme_mod( 'contact_section_social', ' ' );
+												$btns    = bx_ext_tm( 'contact_section_social', ' ' );
 												$btns    = businessx_ext_escape_content_filtered( $btns );
 												$anim    = businessx_anim_classes( true );
 												$format  = '<div class="sec-contact-social clearfix %1$s">%2$s</div>';
@@ -266,7 +266,7 @@
 								// Form output
 								if( ! function_exists( 'bx_ext_part__contact_form_output' ) ) {
 									function bx_ext_part__contact_form_output() {
-										$shortcode = get_theme_mod( 'contact_section_shortcode', __( 'Your contact form shortcode appears here...', 'businessx-extensions' ) );
+										$shortcode = bx_ext_tm( 'contact_section_shortcode', __( 'Your contact form shortcode appears here...', 'businessx-extensions' ) );
 										$shortcode = apply_filters( 'bx_ext_part__contact_form_output___filter', $shortcode );
 
 										echo businessx_ext_escape_content_filtered( $shortcode );

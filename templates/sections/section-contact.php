@@ -5,7 +5,7 @@
 
 	// Vars
 	$contact_sec__hide_default = apply_filters( 'contact_section_hide___def', 1 );
-	$contact_sec__hide         = get_theme_mod( 'contact_section_hide', $contact_sec__hide_default ) == 0 ? true : false;
+	$contact_sec__hide         = bx_ext_tm( 'contact_section_hide', $contact_sec__hide_default ) == 0 ? true : false;
 
 if( $contact_sec__hide ) :
 
