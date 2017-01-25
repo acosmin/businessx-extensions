@@ -98,7 +98,7 @@ if( ! function_exists( 'bx_ext_tm' ) ) {
 	 * @return mixed              Returns theme modification value.
 	 */
 	function bx_ext_tm( $theme_mod, $default = false ) {
-		$def = $default ? apply_filters( 'bx_ext___' . $theme_mod . '_default', $default ) : $default;
+		$def = $default ? apply_filters( 'bx_ext___tm_' . $theme_mod . '_default', $default ) : $default;
 		$mod = get_theme_mod( $theme_mod, $def );
 		return $mod;
 	}
