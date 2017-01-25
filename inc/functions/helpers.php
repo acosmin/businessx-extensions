@@ -90,7 +90,7 @@ if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
 
 /*  Get theme mod wrapper
 /* ------------------------------------ */
-if( ! function_exists( 'e_magazine_tm' ) ) {
+if( ! function_exists( 'bx_ext_tm' ) ) {
 	/**
 	 * Wrapper for get_theme_mod with a filter applied on the default value.
 	 * @param  string  $theme_mod Theme modification name.
