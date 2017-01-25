@@ -132,10 +132,10 @@
 
 	background-color: rgba(0,0,0,.8);
 	box-shadow: inset 0 0 7.222em 0.833em rgba(0,0,0,.4);
-	/*background-image: url(http://192.168.0.105/businessx-extensions/main/wp-content/plugins/businessx-extensions/images/pattern-map.png);*/
 }
 .sec-maps .sec-maps-overlay:hover {
 	background-color: rgba(0,0,0,.75);
+	box-shadow: inset 0 0 7.222em 0.833em rgba(0,0,0,.3);
 }
 .sec-maps .smo-center {
 	position: absolute;
