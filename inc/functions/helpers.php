@@ -109,6 +109,13 @@ if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
 /*  New controllers
 /* ------------------------------------ */
 if ( ! function_exists( 'bx_ext_controller_register' ) ) {
+	/**
+	 * Wrapper for $wp_customize->add_*, registers a Customizer
+	 * setting and control
+	 *
+	 * @param  array  $args An array containing new arguments for add_setting & add_control
+	 * @return object       $wp_customize instance
+	 */
 	function bx_ext_controller_register( $args = array() ) {
 		global $wp_customize;
 
@@ -133,8 +140,8 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 
 		/* New args */
 		$args = wp_parse_args( $args, $defaults );
-		$type = $args['type'];
 		$args = apply_filters( 'bx_ext_controller_register___' . $type .'_args', $args, $defaults, $type );
+		$type = $args['type'];
 
 		/**
 		 * Transport type
