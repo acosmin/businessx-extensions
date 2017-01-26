@@ -133,7 +133,8 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 
 		/* New args */
 		$args = wp_parse_args( $args, $defaults );
-		$args = apply_filters( 'bx_ext_controller_register___' . $args['type'] .'_args', $args, $defaults );
+		$type = $args['type'];
+		$args = apply_filters( 'bx_ext_controller_register___' . $type .'_args', $args, $defaults, $type );
 
 		/**
 		 * Transport type
@@ -143,41 +144,52 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 		$transport = $args['transport'] ? 'postMessage' : 'refresh';
 
 		/* Default section args */
-		$settings_args = apply_filters( 'bx_ext_controller_register___' . $args['type'] .'_settings_args', array(
+		$settings_args = apply_filters( 'bx_ext_controller_register___' . $type .'_settings_args', array(
 			'default'           => $args['default'],
 			'sanitize_callback' => $args['sanitize'],
 			'capability'        => $args['capability'],
 			'transport'         => $transport,
-		), $args, $transport );
+		), $args, $type, $transport );
 
 		/* Default control args */
-		$control_args  = apply_filters( 'bx_ext_controller_register___' . $args['type'] .'_control_args', array(
+		$control_args  = apply_filters( 'bx_ext_controller_register___' . $type .'_control_args', array(
 			'label'             => $args['label'],
 			'description'       => $args['description'],
 			'section'           => $args['section_id'],
 			'settings'          => $args['setting_id'],
-			'type'              => $args['type'],
+			'type'              => $type,
 			'priority'          => intval( $args['priority'] ),
-		), $args );
+		), $args, $type );
 
 		/* The type of control and setting we display and register. */
-		switch( $args['type'] ) {
-			case 'checkbox': // Checkbox
-				$control_args['type'] = 'checkbox';
-				$wp_customize->add_setting( $args['setting_id'], $settings_args );
-				$wp_customize->add_control( $args['setting_id'], $control_args );
-				break;
+		$types = array(
+			'checkbox' => 1,
+			'textarea' => 1,
+			'text'     => 1,
+		);
 
-			case 'textarea': // Textarea field
-				$control_args['type'] = 'textarea';
-				$wp_customize->add_setting( $args['setting_id'], $settings_args );
-				$wp_customize->add_control( $args['setting_id'], $control_args );
-				break;
+		if( array_key_exists( $type, $types) ) {
+			switch( $type ) {
+				case 'checkbox': // Checkbox
+					$control_args['type'] = 'checkbox';
+					$wp_customize->add_setting( $args['setting_id'], $settings_args );
+					$wp_customize->add_control( $args['setting_id'], $control_args );
+					break;
 
-			default: // Text field
-				$wp_customize->add_setting( $args['setting_id'], $settings_args );
-				$wp_customize->add_control( $args['setting_id'], $control_args );
+				case 'textarea': // Textarea field
+					$control_args['type'] = 'textarea';
+					$wp_customize->add_setting( $args['setting_id'], $settings_args );
+					$wp_customize->add_control( $args['setting_id'], $control_args );
+					break;
+
+				default: // Text field
+					$wp_customize->add_setting( $args['setting_id'], $settings_args );
+					$wp_customize->add_control( $args['setting_id'], $control_args );
+			}
 		}
+
+		/* Add new controls & settings */
+		do_action( 'bx_ext_controller_register__new', $defaults, $args, $type, $settings_args, $control_args );
 
 		/* Selective refresh in case transport is set to true */
 		if( $args['transport'] ) {
