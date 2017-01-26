@@ -92,6 +92,12 @@
 			'label'       => esc_html__( 'Image Upload', 'businessx-extensions' ),
 			'default'     => BUSINESSX_EXTS_URL . 'images/contact-bg.jpg'
 		) );
+
+		bx_ext_controller_register( array(
+			'type'        => 'background',
+			'setting_id'  => 'contact_section_bg',
+			'section_id'  => 'businessx_section__contact',
+		) );
 		/*=====*/
 
 		// Contact Shortcode

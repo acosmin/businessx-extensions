@@ -142,8 +142,8 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 		);
 
 		/* New args */
-		$args = wp_parse_args( $args, $defaults );
-		$args = apply_filters( 'bx_ext_controller_register___' . $type .'_args', $args, $defaults, $type );
+		$args         = wp_parse_args( $args, $defaults );
+		$args         = apply_filters( 'bx_ext_controller_register___' . $type .'_args', $args, $defaults, $type );
 		$type         = $args['type'];
 		$setting_id   = $args['setting_id'];
 		$section_id   = $args['section_id'];
@@ -185,25 +185,70 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 
 		/* The type of control and setting we display and register. */
 		$types = array(
-			'select'   => 1,
-			'checkbox' => 1,
-			'textarea' => 1,
-			'text'     => 1,
-			'rgb'      => 1,
-			'rgba'     => 1,
-			'image'    => 1,
+			'select'     => 1,
+			'checkbox'   => 1,
+			'textarea'   => 1,
+			'text'       => 1,
+			'rgb'        => 1,
+			'rgba'       => 1,
+			'image'      => 1,
+			'background' => 1
 		);
 
 		if( array_key_exists( $type, $types ) ) {
 			switch( $type ) {
-				case 'image': // RGBA Color picker
+
+				/**
+				 * Background image options
+				 */
+				case 'background':
+					// Upload image
+					$control_args['type']         = 'background';
+					$settings_args['sanitize']    = $sanitize !== 'esc_html' ? $sanitize : 'esc_url_raw';
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $setting_id, $control_args ) );
+
+					// Select a backgroud size
+					$control_args['type']         = 'select';
+					$control_args['label']        = esc_html__( 'Background-size:', 'businessx' );
+					$control_args['settings']     = $setting_id . '_size';
+					$control_args['choices']      = businessx_bg_options_size();
+					$settings_args['sanitize']    = 'businessx_sanitize_select';
+					$settings_args['default']     = 'cover';
+					$wp_customize->add_setting( $setting_id . '_size', $settings_args );
+					$wp_customize->add_control( $setting_id . '_size', $control_args );
+
+					// Select how the background repeats
+					$control_args['label']        = esc_html__( 'Background-repeat:', 'businessx' );
+					$control_args['choices']      = businessx_bg_options_repeat();
+					$control_args['settings']     = $setting_id . '_repeat';
+					$settings_args['default']     = 'no-repeat';
+					$wp_customize->add_setting( $setting_id . '_repeat', $settings_args );
+					$wp_customize->add_control( $setting_id . '_repeat', $control_args );
+
+					// Select a background position
+					$control_args['label']        = esc_html__( 'Background-position:', 'businessx' );
+					$control_args['choices']      = businessx_bg_options_position();
+					$control_args['settings']     = $setting_id . '_position';
+					$settings_args['default']     = 'center center';
+					$wp_customize->add_setting( $setting_id . '_position', $settings_args );
+					$wp_customize->add_control( $setting_id . '_position', $control_args );
+					break;
+
+				/**
+				 * Image uploader
+				 */
+				case 'image':
 					$control_args['type']         = 'image';
 					$settings_args['sanitize']    = $sanitize !== 'esc_html' ? $sanitize : 'esc_url_raw';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $setting_id, $control_args ) );
 					break;
 
-				case 'rgba': // RGBA Color picker
+				/**
+				 * RGBA color picker
+				 */
+				case 'rgba':
 					$control_args['type']         = 'alpha-color';
 					$control_args['show_opacity'] = ! empty( $args['show_opacity'] ) ? $args['show_opacity'] : true;
 					$control_args['palette']      = ! empty( $args['palette'] ) ? $args['palette'] : array();
@@ -212,14 +257,20 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 					$wp_customize->add_control( new Businessx_Control_RGBA( $wp_customize, $setting_id, $control_args ) );
 					break;
 
-				case 'rgb': // RGB Color picker
+				/**
+				 * RGB color picker
+				 */
+				case 'rgb':
 					$control_args['type']      = 'color';
 					$settings_args['sanitize'] = $sanitize !== 'esc_html' ? $sanitize : 'sanitize_hex_color';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $setting_id, $control_args ) );
 					break;
 
-				case 'select': // Select
+				/**
+				 * Select box
+				 */
+				case 'select':
 					$control_args['type']    = 'select';
 					$control_args['width']   = ! empty( $args['width'] ) ? $args['width'] : '100';
 					$control_args['choices'] = ! empty( $args['choices'] ) ? $args['choices'] : array();
@@ -227,21 +278,31 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 					$wp_customize->add_control( $setting_id, $control_args );
 					break;
 
-				case 'checkbox': // Checkbox
+				/**
+				 * Checkbox input
+				 */
+				case 'checkbox':
 					$control_args['type'] = 'checkbox';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( $setting_id, $control_args );
 					break;
 
-				case 'textarea': // Textarea field
+				/**
+				 * Textarea field
+				 */
+				case 'textarea':
 					$control_args['type'] = 'textarea';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( $setting_id, $control_args );
 					break;
 
-				default: // Text field
+				/**
+				 * Simple text field
+				 */
+				default:
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( $setting_id, $control_args );
+					
 			}
 		}
 
@@ -249,7 +310,7 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 		do_action( 'bx_ext_controller_register__new', $defaults, $args, $type, $settings_args, $control_args );
 
 		/* Selective refresh in case transport is set to true */
-		if( $args['transport'] && $type !== 'rgb' && $type !== 'rgba' ) {
+		if( $args['transport'] && $type !== 'rgb' && $type !== 'rgba' && $type !== 'image' && $type !== 'background' ) {
 			$wp_customize->selective_refresh->add_partial( $setting_id, array(
 				'selector' => $selector,
 				'render_callback' => function() use ( &$setting_id, &$escape )  {
