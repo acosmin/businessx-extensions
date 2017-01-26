@@ -68,6 +68,32 @@
 		) );
 		/*=====*/
 
+		// TEST
+		bx_ext_controller_register( array(
+			'type'        => 'rgb',
+			'setting_id'  => 'contact_section_rgb',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'RGB Picker', 'businessx-extensions' ),
+			'default'     => '#f7f7f7',
+		) );
+
+		bx_ext_controller_register( array(
+			'type'        => 'rgba',
+			'setting_id'  => 'contact_section_rgba',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'RGBA Picker', 'businessx-extensions' ),
+			'default'     => '#f7f7f7',
+		) );
+
+		bx_ext_controller_register( array(
+			'type'        => 'image',
+			'setting_id'  => 'contact_section_image',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'Image Upload', 'businessx-extensions' ),
+			'default'     => BUSINESSX_EXTS_URL . 'images/contact-bg.jpg'
+		) );
+		/*=====*/
+
 		// Contact Shortcode
 		bx_ext_controller_register( array(
 			'type'        => 'textarea',

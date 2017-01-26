@@ -144,7 +144,19 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 		/* New args */
 		$args = wp_parse_args( $args, $defaults );
 		$args = apply_filters( 'bx_ext_controller_register___' . $type .'_args', $args, $defaults, $type );
-		$type = $args['type'];
+		$type         = $args['type'];
+		$setting_id   = $args['setting_id'];
+		$section_id   = $args['section_id'];
+		$label        = $args['label'];
+		$description  = $args['description'];
+		$default      = $args['default'];
+		$selector     = $args['selector'];
+		$sanitize     = $args['sanitize'];
+		$escape       = $args['escape'];
+		$priority     = $args['priority'];
+		$capability   = $args['capability'];
+
+
 
 		/**
 		 * Transport type
@@ -155,46 +167,81 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 
 		/* Default section args */
 		$settings_args = apply_filters( 'bx_ext_controller_register___' . $type .'_settings_args', array(
-			'default'           => $args['default'],
-			'sanitize_callback' => $args['sanitize'],
-			'capability'        => $args['capability'],
+			'default'           => $default,
+			'sanitize_callback' => $sanitize,
+			'capability'        => $capability,
 			'transport'         => $transport,
 		), $args, $type, $transport );
 
 		/* Default control args */
 		$control_args  = apply_filters( 'bx_ext_controller_register___' . $type .'_control_args', array(
-			'label'             => $args['label'],
-			'description'       => $args['description'],
-			'section'           => $args['section_id'],
-			'settings'          => $args['setting_id'],
+			'label'             => $label,
+			'description'       => $description,
+			'section'           => $section_id,
+			'settings'          => $setting_id,
 			'type'              => $type,
-			'priority'          => intval( $args['priority'] ),
+			'priority'          => intval( $priority ),
 		), $args, $type );
 
 		/* The type of control and setting we display and register. */
 		$types = array(
+			'select'   => 1,
 			'checkbox' => 1,
 			'textarea' => 1,
 			'text'     => 1,
+			'rgb'      => 1,
+			'rgba'     => 1,
+			'image'    => 1,
 		);
 
-		if( array_key_exists( $type, $types) ) {
+		if( array_key_exists( $type, $types ) ) {
 			switch( $type ) {
+				case 'image': // RGBA Color picker
+					$control_args['type']         = 'image';
+					$settings_args['sanitize']    = $sanitize !== 'esc_html' ? $sanitize : 'esc_url_raw';
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, $setting_id, $control_args ) );
+					break;
+
+				case 'rgba': // RGBA Color picker
+					$control_args['type']         = 'alpha-color';
+					$control_args['show_opacity'] = ! empty( $args['show_opacity'] ) ? $args['show_opacity'] : true;
+					$control_args['palette']      = ! empty( $args['palette'] ) ? $args['palette'] : array();
+					$settings_args['sanitize']    = $sanitize !== 'esc_html' ? $sanitize : 'businessx_sanitize_rgba';
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( new Businessx_Control_RGBA( $wp_customize, $setting_id, $control_args ) );
+					break;
+
+				case 'rgb': // RGB Color picker
+					$control_args['type']      = 'color';
+					$settings_args['sanitize'] = $sanitize !== 'esc_html' ? $sanitize : 'sanitize_hex_color';
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $setting_id, $control_args ) );
+					break;
+
+				case 'select': // Select
+					$control_args['type']    = 'select';
+					$control_args['width']   = ! empty( $args['width'] ) ? $args['width'] : '100';
+					$control_args['choices'] = ! empty( $args['choices'] ) ? $args['choices'] : array();
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( $setting_id, $control_args );
+					break;
+
 				case 'checkbox': // Checkbox
 					$control_args['type'] = 'checkbox';
-					$wp_customize->add_setting( $args['setting_id'], $settings_args );
-					$wp_customize->add_control( $args['setting_id'], $control_args );
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( $setting_id, $control_args );
 					break;
 
 				case 'textarea': // Textarea field
 					$control_args['type'] = 'textarea';
-					$wp_customize->add_setting( $args['setting_id'], $settings_args );
-					$wp_customize->add_control( $args['setting_id'], $control_args );
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( $setting_id, $control_args );
 					break;
 
 				default: // Text field
-					$wp_customize->add_setting( $args['setting_id'], $settings_args );
-					$wp_customize->add_control( $args['setting_id'], $control_args );
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( $setting_id, $control_args );
 			}
 		}
 
@@ -202,12 +249,7 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 		do_action( 'bx_ext_controller_register__new', $defaults, $args, $type, $settings_args, $control_args );
 
 		/* Selective refresh in case transport is set to true */
-		if( $args['transport'] ) {
-			$setting_id = $args['setting_id'];
-			$sanitize   = $args['sanitize'];
-			$selector   = $args['selector'];
-			$escape     = $args['escape'];
-
+		if( $args['transport'] && $type !== 'rgb' && $type !== 'rgba' ) {
 			$wp_customize->selective_refresh->add_partial( $setting_id, array(
 				'selector' => $selector,
 				'render_callback' => function() use ( &$setting_id, &$escape )  {
