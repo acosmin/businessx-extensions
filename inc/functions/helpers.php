@@ -113,8 +113,11 @@ if ( ! function_exists( 'bx_ext_controller_register' ) ) {
 	 * Wrapper for $wp_customize->add_*, registers a Customizer
 	 * setting and control
 	 *
+	 * @see    https://developer.wordpress.org/reference/classes/wp_customize_manager/add_control/
+	 * @see    https://developer.wordpress.org/reference/classes/wp_customize_manager/add_setting/
+	 * @since  1.0.4.3
 	 * @param  array  $args An array containing new arguments for add_setting & add_control
-	 * @return object       $wp_customize instance
+	 * @return object       WP_Customize_Manager instance
 	 */
 	function bx_ext_controller_register( $args = array() ) {
 		global $wp_customize;
