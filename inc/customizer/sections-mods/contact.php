@@ -32,40 +32,54 @@
 		/* ------------------------------------ */
 
 		// Hide section
-		businessx_controller_checkbox(
-			'contact_section_hide',
-			'businessx_section__contact',
-			esc_html__( 'Hide this section', 'businessx-extensions' ), '', true );
+		bx_ext_controller_register( array(
+			'type'        => 'checkbox',
+			'setting_id'  => 'contact_section_hide',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'Hide this section', 'businessx-extensions' ),
+			'default'     => true,
+			'transport'   => false,
+			'sanitize'    => 'businessx_sanitize_checkbox',
+		) );
 		/*=====*/
 
 		// Section title
-		businessx_controller_txt(
-			'contact_section_title',
-			'businessx_section__contact',
-			esc_html__( 'Section title', 'businessx-extensions' ),
-			esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
-			esc_html__( 'Contact Us', 'businessx-extensions' ),
-			'.sec-contact .section-title' );
+		bx_ext_controller_register( array(
+			'setting_id'  => 'contact_section_title',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'Section title', 'businessx-extensions' ),
+			'description' => esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
+			'default'     => esc_html__( 'Contact Us', 'businessx-extensions' ),
+			'selector'    => '.sec-contact .section-title',
+		) );
 		/*=====*/
 
 		// Section description
-		businessx_controller_txt_area_filtered(
-			'contact_section_description',
-			'businessx_section__contact',
-			esc_html__( 'Section description', 'businessx-extensions' ),
-			esc_html__( 'Set a description for this section. It will automatically add paragraph tags. You can also use html tags and shortcodes (not recommended).', 'businessx-extensions' ),
-			esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
-			'.sec-contact .section-description' );
+		bx_ext_controller_register( array(
+			'type'        => 'textarea',
+			'setting_id'  => 'contact_section_description',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'Section description', 'businessx-extensions' ),
+			'description' => esc_html__( 'Set a description for this section. It will automatically add paragraph tags. You can also use html tags and shortcodes (not recommended).', 'businessx-extensions' ),
+			'default'     => esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
+			'selector'    => '.sec-contact .section-description',
+			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+			'escape'      => 'businessx_ext_escape_content_filtered',
+		) );
 		/*=====*/
 
 		// Contact Shortcode
-		businessx_controller_txt_area_filtered(
-			'contact_section_shortcode',
-			'businessx_section__contact',
-			esc_html__( 'Contact form shortcode', 'businessx-extensions' ),
-			esc_html__( 'You can paste your contact form shortcode here. We recommend the Contact Form 7 plugin. You can also add text before or after the shortcode (with html tags if needed).', 'businessx-extensions' ),
-			esc_html__( 'Your contact form shortcode appears here...', 'businessx-extensions' ),
-			'.sec-contact .sec-contact-form' );
+		bx_ext_controller_register( array(
+			'type'        => 'textarea',
+			'setting_id'  => 'contact_section_shortcode',
+			'section_id'  => 'businessx_section__contact',
+			'label'       => esc_html__( 'Contact form shortcode', 'businessx-extensions' ),
+			'description' => esc_html__( 'You can paste your contact form shortcode here. We recommend the Contact Form 7 plugin. You can also add text before or after the shortcode (with html tags if needed).', 'businessx-extensions' ),
+			'default'     => esc_html__( 'Your contact form shortcode appears here...', 'businessx-extensions' ),
+			'selector'    => '.sec-contact .sec-contact-form',
+			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+			'escape'      => 'businessx_ext_escape_content_filtered',
+		) );
 		/*=====*/
 
 		businessx_controller_info(
@@ -96,16 +110,18 @@
 			</p>', 'businessx-extensions' ) );
 
 		// Social Shortcodes
-		businessx_controller_txt_area_filtered(
-			'contact_section_social',
-			'businessx_section__contact',
-			'',
-			'',
-			'[bx_contact_social icon="facebook" link="https://www.facebook.com/acosmincom"]
+		bx_ext_controller_register( array(
+			'type'        => 'textarea',
+			'setting_id'  => 'contact_section_social',
+			'section_id'  => 'businessx_section__contact',
+			'default'     => '[bx_contact_social icon="facebook" link="https://www.facebook.com/acosmincom"]
 [bx_contact_social icon="twitter" link="https://twitter.com/acosmin"]
 [bx_contact_social icon="google-plus" link="#"]
 [bx_contact_phone number="tel:055222312" text="Call 055 222 312"]',
-			'.sec-contact .sec-contact-social' );
+			'selector'    => '.sec-contact .sec-contact-social',
+			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+			'escape'      => 'businessx_ext_escape_content_filtered',
+		) );
 		/*=====*/
 
 

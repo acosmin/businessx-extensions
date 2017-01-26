@@ -54,6 +54,24 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 
 
+/*  Get theme mod wrapper
+/* ------------------------------------ */
+if( ! function_exists( 'bx_ext_tm' ) ) {
+	/**
+	 * Wrapper for get_theme_mod with a filter applied on the default value.
+	 * @param  string  $theme_mod Theme modification name.
+	 * @param  boolean $default   The default value. If not set, returns false.
+	 * @return mixed              Returns theme modification value.
+	 */
+	function bx_ext_tm( $theme_mod, $default = false ) {
+		$def = $default ? apply_filters( 'bx_ext___tm_' . $theme_mod . '_default', $default ) : $default;
+		$mod = get_theme_mod( $theme_mod, $def );
+		return $mod;
+	}
+}
+
+
+
 /*  Sanitization
 /* ------------------------------------ */
 
@@ -88,53 +106,99 @@ if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
 
 
 
-/*  Get theme mod wrapper
-/* ------------------------------------ */
-if( ! function_exists( 'bx_ext_tm' ) ) {
-	/**
-	 * Wrapper for get_theme_mod with a filter applied on the default value.
-	 * @param  string  $theme_mod Theme modification name.
-	 * @param  boolean $default   The default value. If not set, returns false.
-	 * @return mixed              Returns theme modification value.
-	 */
-	function bx_ext_tm( $theme_mod, $default = false ) {
-		$def = $default ? apply_filters( 'bx_ext___tm_' . $theme_mod . '_default', $default ) : $default;
-		$mod = get_theme_mod( $theme_mod, $def );
-		return $mod;
-	}
-}
-
-
-
 /*  New controllers
 /* ------------------------------------ */
-if ( ! function_exists( 'businessx_controller_txt_area_filtered' ) ) {
-	function businessx_controller_txt_area_filtered( $setting_id, $section_id, $label = '', $description = '', $default = '', $selector = '', $transport = true, $sanitize = 'businessx_ext_sanitize_content_filtered', $priority = 10 ) {
+if ( ! function_exists( 'bx_ext_controller_register' ) ) {
+	function bx_ext_controller_register( $args = array() ) {
 		global $wp_customize;
-		if( $transport ) { $transport_type = 'postMessage'; } else { $transport_type = 'refresh'; }
 
-		$wp_customize->add_setting( $setting_id, array(
-			'default'			=> $default,
-			'sanitize_callback' => $sanitize,
-			'capability'		=> 'edit_theme_options',
-			'transport'         => $transport_type,
-		) );
-		$wp_customize->add_control( $setting_id, array(
-			'label'				=> $label,
-			'description'		=> $description,
-			'section'			=> $section_id,
-			'settings'			=> $setting_id,
-			'type'     			=> 'textarea',
-			'priority'			=> intval( $priority ),
-		) );
-		if( $transport ) {
+		/* Vars */
+		$setting_args = $control_args = array();
+
+		/* Defaults */
+		$defaults = array(
+			'type'        => 'text',
+			'setting_id'  => '',
+			'section_id'  => '',
+			'label'       => '',
+			'description' => '',
+			'default'     => '',
+			'selector'    => '',
+			'transport'   => true,
+			'sanitize'    => 'sanitize_text_field',
+			'escape'      => 'esc_html',
+			'priority'    => 10,
+			'capability'  => 'edit_theme_options'
+		);
+
+		/* New args */
+		$args = wp_parse_args( $args, $defaults );
+		$args = apply_filters( 'bx_ext_controller_register___' . $args['type'] .'_args', $args, $defaults );
+
+		/**
+		 * Transport type
+		 * @see https://codex.wordpress.org/Theme_Customization_API#Part_2:_Generating_Live_CSS
+		 * @var string
+		 */
+		$transport = $args['transport'] ? 'postMessage' : 'refresh';
+
+		/* Default section args */
+		$settings_args = apply_filters( 'bx_ext_controller_register___' . $args['type'] .'_settings_args', array(
+			'default'           => $args['default'],
+			'sanitize_callback' => $args['sanitize'],
+			'capability'        => $args['capability'],
+			'transport'         => $transport,
+		), $args, $transport );
+
+		/* Default control args */
+		$control_args  = apply_filters( 'bx_ext_controller_register___' . $args['type'] .'_control_args', array(
+			'label'             => $args['label'],
+			'description'       => $args['description'],
+			'section'           => $args['section_id'],
+			'settings'          => $args['setting_id'],
+			'type'              => $args['type'],
+			'priority'          => intval( $args['priority'] ),
+		), $args );
+
+		/* The type of control and setting we display and register. */
+		switch( $args['type'] ) {
+			case 'checkbox': // Checkbox
+				$control_args['type'] = 'checkbox';
+				$wp_customize->add_setting( $args['setting_id'], $settings_args );
+				$wp_customize->add_control( $args['setting_id'], $control_args );
+				break;
+
+			case 'textarea': // Textarea field
+				$control_args['type'] = 'textarea';
+				$wp_customize->add_setting( $args['setting_id'], $settings_args );
+				$wp_customize->add_control( $args['setting_id'], $control_args );
+				break;
+
+			default: // Text field
+				$wp_customize->add_setting( $args['setting_id'], $settings_args );
+				$wp_customize->add_control( $args['setting_id'], $control_args );
+		}
+
+		/* Selective refresh in case transport is set to true */
+		if( $args['transport'] ) {
+			$setting_id = $args['setting_id'];
+			$sanitize   = $args['sanitize'];
+			$selector   = $args['selector'];
+			$escape     = $args['escape'];
+
 			$wp_customize->selective_refresh->add_partial( $setting_id, array(
 				'selector' => $selector,
-				'render_callback' => function() use ( &$setting_id ) {
-					return businessx_ext_escape_content_filtered( get_theme_mod( $setting_id ) );
+				'render_callback' => function() use ( &$setting_id, &$escape )  {
+					$tm = get_theme_mod( $setting_id );
+					if( function_exists( $escape ) ) {
+						return call_user_func( $escape, $tm );
+					} else {
+						return esc_html( $tm );
+					}
 				},
 			) );
 		}
+
 	}
 }
 
