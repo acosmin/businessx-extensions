@@ -369,6 +369,15 @@ $businessx_extensions_cs_mods = apply_filters( 'businessx_extensions_cs_mods___f
 	'slider_dots_bg_hover' => 'rgba(255,255,255,0.4)',
 	'slider_dots_active' => '#ffffff',
 
+	/* Contact Section */
+	'contact_color_background' => '#2e910e',
+
+	'contact_bg_image' => '',
+	'contact_bg_image_size' => 'cover',
+	'contact_bg_image_repeat' => 'no-repeat',
+	'contact_bg_image_position' => 'center center',
+	'contact_bg_overlay_color' => '#000000',
+	'contact_bg_overlay_opacity' => '0.5',
 ) );
 
 
@@ -711,6 +720,19 @@ if( ! function_exists( 'businessx_extensions_czr_output_css' ) ) {
 		}
 		.sec-slider .owl-dot.active {
 			border-color: {$settings['slider_dots_active']};
+		}
+
+		/* Contact Section */
+		.sec-contact {
+			background-image: url( {$settings['contact_bg_image']} );
+			background-color: {$settings['contact_color_background']};
+			background-size: {$settings['contact_bg_image_size']};
+			background-repeat: {$settings['contact_bg_image_repeat']};
+			background-position: {$settings['contact_bg_image_position']};
+		}
+		.sec-contact .grid-overlay {
+			background-color: {$settings['contact_bg_overlay_color']};
+			opacity: {$settings['contact_bg_overlay_opacity']};
 		}
 
 CSS;
@@ -1207,6 +1229,28 @@ if( ! function_exists( 'businessx_extensions_final_inline_css' ) ) {
 
 			if( businessx_cd( 'slider_dots_active', $slider_dots_active ) ) {
 			$css .= businessx_gcs( '.sec-slider .owl-dot.active', 'border-color', 'slider_dots_active' ); }
+
+			/* Contact Section */
+			if( businessx_cd( 'contact_color_background', $contact_color_background ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-color', 'contact_color_background' ); }
+
+			if( businessx_cd( 'contact_bg_image', $contact_bg_image ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-image', 'contact_bg_image', 'url(', ')' ); }
+
+			if( businessx_cd( 'contact_bg_image_size', $contact_bg_image_size ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-size', 'contact_bg_image_size' ); }
+
+			if( businessx_cd( 'contact_bg_image_repeat', $contact_bg_image_repeat ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-repeat', 'contact_bg_image_repeat' ); }
+
+			if( businessx_cd( 'contact_bg_image_position', $contact_bg_image_position ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-position', 'contact_bg_image_position' ); }
+
+			if( businessx_cd( 'contact_bg_overlay_color', $contact_bg_overlay_color ) ) {
+			$css .= businessx_gcs( '.sec-contact .grid-overlay', 'background-color', 'contact_bg_overlay_color' ); }
+
+			if( businessx_cd( 'contact_bg_overlay_opacity', $contact_bg_overlay_opacity ) ) {
+			$css .= businessx_gcs( '.sec-contact .grid-overlay', 'opacity', 'contact_bg_overlay_opacity' ); }
 
 
 		// Adds inline css

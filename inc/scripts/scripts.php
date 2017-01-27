@@ -104,4 +104,4 @@ if( ! function_exists( 'businessx_extensions_theme_styles') ) {
 		wp_enqueue_script( 'bx-ext-sections-scripts', BUSINESSX_EXTS_URL . 'js/front/sections.js', array( 'jquery' ), '20170125', true );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'businessx_extensions_theme_styles', 11 );
+add_action( 'wp_enqueue_scripts', 'businessx_extensions_theme_styles', 9 );

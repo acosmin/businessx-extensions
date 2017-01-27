@@ -9,6 +9,8 @@
 if( ! function_exists( 'bx_ext_tm' ) ) {
 	/**
 	 * Wrapper for get_theme_mod with a filter applied on the default value.
+	 *
+	 * @since 1.0.4.3
 	 * @param  string  $theme_mod Theme modification name.
 	 * @param  boolean $default   The default value. If not set, returns false.
 	 * @return mixed              Returns theme modification value.
@@ -26,6 +28,7 @@ if( ! function_exists( 'bx_ext_controller_register' ) ) {
 	 * Adds multiple settings and controls based on callback functions
 	 * and arguments
 	 *
+	 * @since 1.0.4.3
 	 * @param  array  $options An array containing callback functions and arguments for them
 	 * @return object          Multiple instances of WP_Customize_Manager
 	 */
@@ -83,7 +86,8 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 			'sanitize'    => 'sanitize_text_field',
 			'escape'      => 'esc_html',
 			'priority'    => 10,
-			'capability'  => 'edit_theme_options'
+			'capability'  => 'edit_theme_options',
+			'postmsg'     => false
 		);
 
 		/* New args */
@@ -100,6 +104,7 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 		$escape       = $args['escape'];
 		$priority     = $args['priority'];
 		$capability   = $args['capability'];
+		$postmsg      = $args['postmsg'];
 
 
 
@@ -217,7 +222,7 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 		}
 
 		/* Selective refresh in case transport is set to true */
-		if( $transport && $type !== 'rgb' && $type !== 'rgba' && $type !== 'image' && $type !== 'background' && $type !== 'opacity' ) {
+		if( $transport && $type !== 'rgb' && $type !== 'rgba' && $type !== 'image' && $type !== 'background' && $type !== 'opacity' && $postmsg === false ) {
 			$wp_customize->selective_refresh->add_partial( $setting_id, array(
 				'selector' => $selector,
 				'render_callback' => function() use ( &$setting_id, &$escape )  {
@@ -304,6 +309,7 @@ if( ! function_exists( 'bx_ext_controller_custom' ) ) {
 						'label'       => esc_html__( 'Background overlay opacity:', 'businessx-extensions' ),
 						'default'     => '0.5',
 						'choices'     => bx_ext_controller_overlay_opacity( $setting_id ),
+						'postmsg'     => true,
 					), $type, $setting_id, $section_id ) );
 					break;
 
@@ -328,6 +334,7 @@ if( ! function_exists( 'bx_ext_controller_custom' ) ) {
 						'label'       => esc_html__( 'Background-size:', 'businessx-extensions' ),
 						'default'     => 'cover',
 						'choices'     => businessx_bg_options_size(),
+						'postmsg'     => true,
 					), $type, $setting_id . '_size', $section_id ) );
 
 					// Select how the background repeats
@@ -338,6 +345,7 @@ if( ! function_exists( 'bx_ext_controller_custom' ) ) {
 						'label'       => esc_html__( 'Background-repeat:', 'businessx-extensions' ),
 						'default'     => 'no-repeat',
 						'choices'     => businessx_bg_options_repeat(),
+						'postmsg'     => true,
 					), $type, $setting_id . '_repeat', $section_id ) );
 
 					// Select a background position
@@ -348,6 +356,7 @@ if( ! function_exists( 'bx_ext_controller_custom' ) ) {
 						'label'       => esc_html__( 'Background-position:', 'businessx-extensions' ),
 						'default'     => 'center center',
 						'choices'     => businessx_bg_options_position(),
+						'postmsg'     => true,
 					), $type, $setting_id . '_position', $section_id ) );
 
 			}

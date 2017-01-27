@@ -28,7 +28,8 @@
 	// Section wrapper - start
 	if( ! function_exists( 'bx_ext_part__contact_wrap_start' ) ) {
 		function bx_ext_part__contact_wrap_start() {
-			?><section id="section-contact" class="grid-wrap sec-contact"><?php
+			$parallax = businessx_section_parallax( 'contact_bg_parallax', 'contact_bg_parallax_img', true );
+			?><section id="section-contact" class="grid-wrap sec-contact"<?php echo $parallax; ?>><?php
 		}
 	}
 
