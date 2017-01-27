@@ -18,143 +18,204 @@
 
 
 
-	/*  Add section
-	/* ------------------------------------ */
+	/**
+	 * Add section
+	 */
 	$wp_customize->add_section( 'businessx_section__contact', array(
 		'title'     => esc_html__( 'Contact Section', 'businessx-extensions' ),
 		'panel'     => 'businessx_panel__sections',
 		'priority'  => absint( businessx_extensions_sec_prio( 'businessx_section__contact' ) ),
 	) );
 
+		/**
+		 * A list of options to register based on a callback function and arguments
+		 * Use the `bx_contact_section___options` to add options
+		 *
+		 * @var array
+		 */
+		$bx_contact_section = apply_filters( 'bx_contact_section___options', array(
+
+			/* Hide section */
+			'hide_section' => array(
+				'callback'   => 'simple',
+				'args'       => array(
+					'type'        => 'checkbox',
+					'setting_id'  => 'contact_section_hide',
+					'section_id'  => 'businessx_section__contact',
+					'label'       => esc_html__( 'Hide this section', 'businessx-extensions' ),
+					'default'     => true,
+					'transport'   => false,
+					'sanitize'    => 'businessx_sanitize_checkbox',
+				)
+			),
+
+			/* Section title */
+			'section_title' => array(
+				'callback'    => 'simple',
+				'args'        => array(
+					'setting_id'  => 'contact_section_title',
+					'section_id'  => 'businessx_section__contact',
+					'label'       => esc_html__( 'Section title', 'businessx-extensions' ),
+					'description' => esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
+					'default'     => esc_html__( 'Contact Us', 'businessx-extensions' ),
+					'selector'    => '.sec-contact .section-title',
+				)
+			),
+
+			/* Section description */
+			'section_description' => array(
+				'callback'          => 'simple',
+				'args'              => array(
+					'type'        => 'textarea',
+					'setting_id'  => 'contact_section_description',
+					'section_id'  => 'businessx_section__contact',
+					'label'       => esc_html__( 'Section description', 'businessx-extensions' ),
+					'description' => esc_html__( 'Set a description for this section. It will automatically add paragraph tags. You can also use html tags and shortcodes (not recommended).', 'businessx-extensions' ),
+					'default'     => esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
+					'selector'    => '.sec-contact .section-description',
+					'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+					'escape'      => 'businessx_ext_escape_content_filtered',
+				)
+			),
+
+			/* Contact form shortcode */
+			'contact_form' => array(
+				'callback'   => 'simple',
+				'args'       => array(
+					'type'        => 'textarea',
+					'setting_id'  => 'contact_section_shortcode',
+					'section_id'  => 'businessx_section__contact',
+					'label'       => esc_html__( 'Contact form shortcode', 'businessx-extensions' ),
+					'description' => esc_html__( 'You can paste your contact form shortcode here. We recommend the Contact Form 7 plugin. You can also add text before or after the shortcode (with html tags if needed).', 'businessx-extensions' ),
+					'default'     => esc_html__( 'Your contact form shortcode appears here...', 'businessx-extensions' ),
+					'selector'    => '.sec-contact .sec-contact-form',
+					'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+					'escape'      => 'businessx_ext_escape_content_filtered',
+				)
+			),
+
+			/* Social buttons shortcodes */
+			'social_buttons' => array(
+				'callback'     => 'simple',
+				'args'         => array(
+					'type'        => 'textarea',
+					'setting_id'  => 'contact_section_social',
+					'section_id'  => 'businessx_section__contact',
+					'default'     => '[bx_contact_social icon="facebook" link="https://www.facebook.com/acosmincom"]
+		[bx_contact_social icon="twitter" link="https://twitter.com/acosmin"]
+		[bx_contact_social icon="google-plus" link="#"]
+		[bx_contact_phone number="tel:055222312" text="Call 055 222 312"]',
+					'selector'    => '.sec-contact .sec-contact-social',
+					'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+					'escape'      => 'businessx_ext_escape_content_filtered',
+				)
+			),
+
+		) ); // End options
+
+		/**
+		 * Register controls based on the above options
+		 */
+		bx_ext_controller_register( $bx_contact_section );
+
 
 
 		/*  Contact Section options
 		/* ------------------------------------ */
 
-		// Hide section
-		bx_ext_controller_register( array(
-			'type'        => 'checkbox',
-			'setting_id'  => 'contact_section_hide',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'Hide this section', 'businessx-extensions' ),
-			'default'     => true,
-			'transport'   => false,
-			'sanitize'    => 'businessx_sanitize_checkbox',
-		) );
-		/*=====*/
+// 		// Hide section
+// 		bx_ext_controller_register( array(
+// 			'type'        => 'checkbox',
+// 			'setting_id'  => 'contact_section_hide',
+// 			'section_id'  => 'businessx_section__contact',
+// 			'label'       => esc_html__( 'Hide this section', 'businessx-extensions' ),
+// 			'default'     => true,
+// 			'transport'   => false,
+// 			'sanitize'    => 'businessx_sanitize_checkbox',
+// 		) );
+// 		/*=====*/
+//
+// 		// Section title
+// 		bx_ext_controller_register( array(
+// 			'setting_id'  => 'contact_section_title',
+// 			'section_id'  => 'businessx_section__contact',
+// 			'label'       => esc_html__( 'Section title', 'businessx-extensions' ),
+// 			'description' => esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
+// 			'default'     => esc_html__( 'Contact Us', 'businessx-extensions' ),
+// 			'selector'    => '.sec-contact .section-title',
+// 		) );
+// 		/*=====*/
+//
+// 		// Section description
+// 		bx_ext_controller_register( array(
+// 			'type'        => 'textarea',
+// 			'setting_id'  => 'contact_section_description',
+// 			'section_id'  => 'businessx_section__contact',
+// 			'label'       => esc_html__( 'Section description', 'businessx-extensions' ),
+// 			'description' => esc_html__( 'Set a description for this section. It will automatically add paragraph tags. You can also use html tags and shortcodes (not recommended).', 'businessx-extensions' ),
+// 			'default'     => esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
+// 			'selector'    => '.sec-contact .section-description',
+// 			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+// 			'escape'      => 'businessx_ext_escape_content_filtered',
+// 		) );
+// 		/*=====*/
+//
+// 		// Contact Shortcode
+// 		bx_ext_controller_register( array(
+// 			'type'        => 'textarea',
+// 			'setting_id'  => 'contact_section_shortcode',
+// 			'section_id'  => 'businessx_section__contact',
+// 			'label'       => esc_html__( 'Contact form shortcode', 'businessx-extensions' ),
+// 			'description' => esc_html__( 'You can paste your contact form shortcode here. We recommend the Contact Form 7 plugin. You can also add text before or after the shortcode (with html tags if needed).', 'businessx-extensions' ),
+// 			'default'     => esc_html__( 'Your contact form shortcode appears here...', 'businessx-extensions' ),
+// 			'selector'    => '.sec-contact .sec-contact-form',
+// 			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+// 			'escape'      => 'businessx_ext_escape_content_filtered',
+// 		) );
+// 		/*=====*/
+//
+// 		businessx_controller_info(
+// 			'contact_section_social_about',
+// 			'businessx_section__contact',
+// 			__( 'Social buttons', 'businessx' ),
+// 			__( '<p>You can use the following shortcodes, one on each new line</p>
+// 			<p>
+// 				<code>[bx_contact_social]</code>
+// 			</p>
+// 			<p>
+// 				<code>icon</code> attribute, represents the icon name without <code>fa fa-</code> prefix. You can find a list of <a href="http://fontawesome.io/icons/"  target="_blank">supported icons here</a>.
+// 			</p>
+// 			<p>
+// 				<code>link</code> attribute, represents the URL to the social network profile, ex: <code>https://twitter.com/acosmin</code>.
+// 			</p>
+// 			<p>
+// 				<code>[bx_contact_phone]</code>
+// 			</p>
+// 			<p>
+// 				<code>number</code> attribute, represents the phone number, ex: <code>tel:055222312</code>.
+// 			</p>
+// 			<p>
+// 				<code>text</code> attribute, represents some text added next to the icon.
+// 			</p>
+// 			<p>
+// 				<a href="https://codex.wordpress.org/Shortcode" target="_blank">More info about Shortcodes</a>
+// 			</p>', 'businessx-extensions' ) );
+//
+// 		// Social Shortcodes
+// 		bx_ext_controller_register( array(
+// 			'type'        => 'textarea',
+// 			'setting_id'  => 'contact_section_social',
+// 			'section_id'  => 'businessx_section__contact',
+// 			'default'     => '[bx_contact_social icon="facebook" link="https://www.facebook.com/acosmincom"]
+// [bx_contact_social icon="twitter" link="https://twitter.com/acosmin"]
+// [bx_contact_social icon="google-plus" link="#"]
+// [bx_contact_phone number="tel:055222312" text="Call 055 222 312"]',
+// 			'selector'    => '.sec-contact .sec-contact-social',
+// 			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
+// 			'escape'      => 'businessx_ext_escape_content_filtered',
+// 		) );
+// 		/*=====*/
 
-		// Section title
-		bx_ext_controller_register( array(
-			'setting_id'  => 'contact_section_title',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'Section title', 'businessx-extensions' ),
-			'description' => esc_html__( 'Set a title for this section.', 'businessx-extensions' ),
-			'default'     => esc_html__( 'Contact Us', 'businessx-extensions' ),
-			'selector'    => '.sec-contact .section-title',
-		) );
-		/*=====*/
-
-		// Section description
-		bx_ext_controller_register( array(
-			'type'        => 'textarea',
-			'setting_id'  => 'contact_section_description',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'Section description', 'businessx-extensions' ),
-			'description' => esc_html__( 'Set a description for this section. It will automatically add paragraph tags. You can also use html tags and shortcodes (not recommended).', 'businessx-extensions' ),
-			'default'     => esc_html__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
-			'selector'    => '.sec-contact .section-description',
-			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
-			'escape'      => 'businessx_ext_escape_content_filtered',
-		) );
-		/*=====*/
-
-		// TEST
-		bx_ext_controller_register( array(
-			'type'        => 'rgb',
-			'setting_id'  => 'contact_section_rgb',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'RGB Picker', 'businessx-extensions' ),
-			'default'     => '#f7f7f7',
-		) );
-
-		bx_ext_controller_register( array(
-			'type'        => 'rgba',
-			'setting_id'  => 'contact_section_rgba',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'RGBA Picker', 'businessx-extensions' ),
-			'default'     => '#f7f7f7',
-		) );
-
-		bx_ext_controller_register( array(
-			'type'        => 'image',
-			'setting_id'  => 'contact_section_image',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'Image Upload', 'businessx-extensions' ),
-			'default'     => BUSINESSX_EXTS_URL . 'images/contact-bg.jpg'
-		) );
-
-		bx_ext_controller_register( array(
-			'type'        => 'background',
-			'setting_id'  => 'contact_section_bg',
-			'section_id'  => 'businessx_section__contact',
-		) );
-		/*=====*/
-
-		// Contact Shortcode
-		bx_ext_controller_register( array(
-			'type'        => 'textarea',
-			'setting_id'  => 'contact_section_shortcode',
-			'section_id'  => 'businessx_section__contact',
-			'label'       => esc_html__( 'Contact form shortcode', 'businessx-extensions' ),
-			'description' => esc_html__( 'You can paste your contact form shortcode here. We recommend the Contact Form 7 plugin. You can also add text before or after the shortcode (with html tags if needed).', 'businessx-extensions' ),
-			'default'     => esc_html__( 'Your contact form shortcode appears here...', 'businessx-extensions' ),
-			'selector'    => '.sec-contact .sec-contact-form',
-			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
-			'escape'      => 'businessx_ext_escape_content_filtered',
-		) );
-		/*=====*/
-
-		businessx_controller_info(
-			'contact_section_social_about',
-			'businessx_section__contact',
-			__( 'Social buttons', 'businessx' ),
-			__( '<p>You can use the following shortcodes, one on each new line</p>
-			<p>
-				<code>[bx_contact_social]</code>
-			</p>
-			<p>
-				<code>icon</code> attribute, represents the icon name without <code>fa fa-</code> prefix. You can find a list of <a href="http://fontawesome.io/icons/"  target="_blank">supported icons here</a>.
-			</p>
-			<p>
-				<code>link</code> attribute, represents the URL to the social network profile, ex: <code>https://twitter.com/acosmin</code>.
-			</p>
-			<p>
-				<code>[bx_contact_phone]</code>
-			</p>
-			<p>
-				<code>number</code> attribute, represents the phone number, ex: <code>tel:055222312</code>.
-			</p>
-			<p>
-				<code>text</code> attribute, represents some text added next to the icon.
-			</p>
-			<p>
-				<a href="https://codex.wordpress.org/Shortcode" target="_blank">More info about Shortcodes</a>
-			</p>', 'businessx-extensions' ) );
-
-		// Social Shortcodes
-		bx_ext_controller_register( array(
-			'type'        => 'textarea',
-			'setting_id'  => 'contact_section_social',
-			'section_id'  => 'businessx_section__contact',
-			'default'     => '[bx_contact_social icon="facebook" link="https://www.facebook.com/acosmincom"]
-[bx_contact_social icon="twitter" link="https://twitter.com/acosmin"]
-[bx_contact_social icon="google-plus" link="#"]
-[bx_contact_phone number="tel:055222312" text="Call 055 222 312"]',
-			'selector'    => '.sec-contact .sec-contact-social',
-			'sanitize'    => 'businessx_ext_sanitize_content_filtered',
-			'escape'      => 'businessx_ext_escape_content_filtered',
-		) );
-		/*=====*/
 
 
 		//

@@ -12,6 +12,7 @@
 
 /*  Get all theme mods
 /* ------------------------------------ */
+require_once ( BUSINESSX_EXTS_PATH . 'inc/customizer/helpers.php' );
 require_once ( BUSINESSX_EXTS_PATH . 'inc/customizer/theme-mods.php' );
 
 
