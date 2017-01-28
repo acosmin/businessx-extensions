@@ -371,7 +371,18 @@ $businessx_extensions_cs_mods = apply_filters( 'businessx_extensions_cs_mods___f
 
 	/* Contact Section */
 	'contact_color_background' => '#2e910e',
-
+	'contact_color_font' => '#ffffff',
+	'contact_color_link' => '#feffc9',
+	'contact_color_link_hover' => '#ffffff',
+	'contact_color_headings' => '#ffffff',
+	'contact_color_title_border' => '#76bc1c',
+	'contact_color_social' => '#ffffff',
+	'contact_color_social_bg' => 'rgba(255,255,255,0.2)',
+	'contact_color_social_bg_hover' => 'rgba(255,255,255,0.4)',
+	'contact_color_submit' => '#ffffff',
+	'contact_color_submit_bg' => '#76bc1c',
+	'contact_color_submit_bg_hover' => '#82cf1f',
+	'contact_color_submit_bg_active' => '#69a619',
 	'contact_bg_image' => '',
 	'contact_bg_image_size' => 'cover',
 	'contact_bg_image_repeat' => 'no-repeat',
@@ -733,6 +744,40 @@ if( ! function_exists( 'businessx_extensions_czr_output_css' ) ) {
 		.sec-contact .grid-overlay {
 			background-color: {$settings['contact_bg_overlay_color']};
 			opacity: {$settings['contact_bg_overlay_opacity']};
+		}
+		.sec-contact .section-title,
+		.sec-contact h1, .sec-contact h2, .sec-contact h3, .sec-contact h4, .sec-contact h5, .sec-contact h6 {
+			color: {$settings['contact_color_headings']};
+		}
+		.sec-contact .section-title {
+			border-color: {$settings['contact_color_title_border']};
+		}
+		.sec-contact { color: {$settings['contact_color_font']}; }
+		.sec-contact a, .sec-contact a:focus, .sec-contact a:active {
+			color: {$settings['contact_color_link']};
+		}
+		.sec-contact a:hover{
+			color: {$settings['contact_color_link_hover']};
+		}
+		.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active {
+			background-color: {$settings['contact_color_social_bg']};
+			color: {$settings['contact_color_social']};
+		}
+		.sec-contact .sec-contact-social a:hover {
+			color: {$settings['contact_color_social']};
+			background-color: {$settings['contact_color_social_bg_hover']};
+		}
+		.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button {
+			color: {$settings['contact_color_submit']};
+			background-color: {$settings['contact_color_submit_bg']};
+		}
+		.sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover {
+			background-color: {$settings['contact_color_submit_bg_hover']};
+			color: {$settings['contact_color_submit']};
+		}
+		.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active {
+			background-color: {$settings['contact_color_submit_bg_active']};
+			color: {$settings['contact_color_submit']};
 		}
 
 CSS;
@@ -1234,6 +1279,30 @@ if( ! function_exists( 'businessx_extensions_final_inline_css' ) ) {
 			if( businessx_cd( 'contact_color_background', $contact_color_background ) ) {
 			$css .= businessx_gcs( '.sec-contact', 'background-color', 'contact_color_background' ); }
 
+			if( businessx_cd( 'contact_color_font', $contact_color_font ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'color', 'contact_color_font' ); }
+
+			if( businessx_cd( 'contact_color_link', $contact_color_link ) ) {
+			$css .= businessx_gcs( '.sec-contact a, .sec-contact a:focus, .sec-contact a:active', 'color', 'contact_color_link' ); }
+
+			if( businessx_cd( 'contact_color_link_hover', $contact_color_link_hover ) ) {
+			$css .= businessx_gcs( '.sec-contact a:hover', 'color', 'contact_color_link_hover' ); }
+
+			if( businessx_cd( 'contact_color_headings', $contact_color_headings ) ) {
+			$css .= businessx_gcs( '.sec-contact .section-title, .sec-contact h1, .sec-contact h2, .sec-contact h3, .sec-contact h4, .sec-contact h5, .sec-contact h6', 'color', 'contact_color_headings' ); }
+
+			if( businessx_cd( 'contact_color_title_border', $contact_color_title_border ) ) {
+			$css .= businessx_gcs( '.sec-contact .section-title', 'border-color', 'contact_color_title_border' ); }
+
+			if( businessx_cd( 'contact_color_social', $contact_color_social ) ) {
+			$css .= businessx_gcs( '.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active, .sec-contact .sec-contact-social a:hover', 'color', 'contact_color_social' ); }
+
+			if( businessx_cd( 'contact_color_social_bg', $contact_color_social_bg ) ) {
+			$css .= businessx_gcs( '.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active', 'background-color', 'contact_color_social_bg' ); }
+
+			if( businessx_cd( 'contact_color_social_bg_hover', $contact_color_social_bg_hover ) ) {
+			$css .= businessx_gcs( '.sec-contact .sec-contact-social a:hover', 'background-color', 'contact_color_social_bg_hover' ); }
+
 			if( businessx_cd( 'contact_bg_image', $contact_bg_image ) ) {
 			$css .= businessx_gcs( '.sec-contact', 'background-image', 'contact_bg_image', 'url(', ')' ); }
 
@@ -1251,6 +1320,18 @@ if( ! function_exists( 'businessx_extensions_final_inline_css' ) ) {
 
 			if( businessx_cd( 'contact_bg_overlay_opacity', $contact_bg_overlay_opacity ) ) {
 			$css .= businessx_gcs( '.sec-contact .grid-overlay', 'opacity', 'contact_bg_overlay_opacity' ); }
+
+			if( businessx_cd( 'contact_color_submit', $contact_color_submit ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button, .sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover, .sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active', 'color', 'contact_color_submit' ); }
+
+			if( businessx_cd( 'contact_color_submit_bg', $contact_color_submit_bg ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button', 'background-color', 'contact_color_submit_bg' ); }
+
+			if( businessx_cd( 'contact_color_submit_bg_hover', $contact_color_submit_bg_hover ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover', 'background-color', 'contact_color_submit_bg_hover' ); }
+
+			if( businessx_cd( 'contact_color_submit_bg_active', $contact_color_submit_bg_active ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active', 'background-color', 'contact_color_submit_bg_active' ); }
 
 
 		// Adds inline css

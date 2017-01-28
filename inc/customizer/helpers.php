@@ -142,12 +142,20 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 			'rgb'        => 1,
 			'rgba'       => 1,
 			'image'      => 1,
-			'background' => 1,
-			'overlay'    => 1
+			'info'       => 1,
 		);
 
 		if( array_key_exists( $type, $types ) ) {
 			switch( $type ) {
+
+				/**
+				 * Information
+				 */
+				case 'info':
+					$control_args['type']         = 'info-control';
+					$wp_customize->add_setting( $setting_id, $settings_args );
+					$wp_customize->add_control( new Businessx_Control_Info( $wp_customize, $setting_id, $control_args ) );
+					break;
 
 				/**
 				 * Image uploader
@@ -176,7 +184,7 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 				 */
 				case 'rgb':
 					$control_args['type']      = 'color';
-						$settings_args['sanitize'] = $sanitize !== 'esc_html' ? $sanitize : 'sanitize_hex_color';
+					$settings_args['sanitize'] = $sanitize !== 'esc_html' ? $sanitize : 'sanitize_hex_color';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $setting_id, $control_args ) );
 					break;

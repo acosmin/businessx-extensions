@@ -90,6 +90,39 @@
 				)
 			),
 
+			/* Social buttons information */
+			'social_buttons_info' => array(
+				'callback'          => 'simple',
+				'args'              => array(
+					'type'               => 'info',
+					'setting_id'         => 'contact_section_social_about',
+					'section_id'         => 'businessx_section__contact',
+					'label'              => esc_html__( 'Social buttons', 'businessx' ),
+					'description'        => __( '<p>You can use the following shortcodes, one on each new line</p>
+			<p>
+				<code>[bx_contact_social]</code>
+			</p>
+			<p>
+				<code>icon</code> attribute, represents the icon name without <code>fa fa-</code> prefix. You can find a list of <a href="http://fontawesome.io/icons/"  target="_blank">supported icons here</a>.
+			</p>
+			<p>
+				<code>link</code> attribute, represents the URL to the social network profile, ex: <code>https://twitter.com/acosmin</code>.
+			</p>
+			<p>
+				<code>[bx_contact_phone]</code>
+			</p>
+			<p>
+				<code>number</code> attribute, represents the phone number, ex: <code>tel:055222312</code>.
+			</p>
+			<p>
+				<code>text</code> attribute, represents some text added next to the icon.
+			</p>
+			<p>
+				<a href="https://codex.wordpress.org/Shortcode" target="_blank">More info about Shortcodes</a>
+			</p>', 'businessx-extensions' ),
+				)
+			),
+
 			/* Social buttons shortcodes */
 			'social_buttons' => array(
 				'callback'     => 'simple',
@@ -117,6 +150,150 @@
 					'label'       => esc_html__( 'Section background color:', 'businessx-extensions' ),
 					'description' => esc_html__( 'In case you do not have a background image', 'businessx-extensions' ),
 					'default'     => '#2e910e',
+				)
+			),
+
+			/* Section font color */
+			'section_font_color' => array(
+				'callback'         => 'simple',
+				'args'             => array(
+					'type'           => 'rgb',
+					'setting_id'     => 'contact_color_font',
+					'section_id'     => 'businessx_section__contact',
+					'label'          => esc_html__( 'Font color:', 'businessx-extensions' ),
+					'default'        => '#ffffff',
+				)
+			),
+
+			/* Section links color */
+			'section_link_color' => array(
+				'callback'         => 'simple',
+				'args'             => array(
+					'type'           => 'rgb',
+					'setting_id'     => 'contact_color_link',
+					'section_id'     => 'businessx_section__contact',
+					'label'          => esc_html__( 'Links color:', 'businessx-extensions' ),
+					'default'        => '#feffc9',
+				)
+			),
+
+			/* Section links color */
+			'section_link_hover' => array(
+				'callback'         => 'simple',
+				'args'             => array(
+					'type'           => 'rgb',
+					'setting_id'     => 'contact_color_link_hover',
+					'section_id'     => 'businessx_section__contact',
+					'label'          => esc_html__( 'Links hover color:', 'businessx-extensions' ),
+					'default'        => '#ffffff',
+				)
+			),
+
+			/* Section title color */
+			'section_h1_color' => array(
+				'callback'       => 'simple',
+				'args'           => array(
+					'type'        => 'rgb',
+					'setting_id'  => 'contact_color_headings',
+					'section_id'  => 'businessx_section__contact',
+					'label'       => esc_html__( 'Headings color:', 'businessx-extensions' ),
+					'default'     => '#ffffff',
+				)
+			),
+
+			/* Section title border color */
+			'section_title_border' => array(
+				'callback'           => 'simple',
+				'args'               => array(
+					'type'             => 'rgb',
+					'setting_id'       => 'contact_color_title_border',
+					'section_id'       => 'businessx_section__contact',
+					'label'            => esc_html__( 'Title border color:', 'businessx-extensions' ),
+					'default'          => '#76bc1c',
+				)
+			),
+
+			/* Social button font color */
+			'section_social_color' => array(
+				'callback'           => 'simple',
+				'args'               => array(
+					'type'             => 'rgb',
+					'setting_id'       => 'contact_color_social',
+					'section_id'       => 'businessx_section__contact',
+					'label'            => esc_html__( 'Social button font color:', 'businessx-extensions' ),
+					'default'          => '#ffffff',
+				)
+			),
+
+			/* Social button background */
+			'section_social_bg' => array(
+				'callback'        => 'simple',
+				'args'            => array(
+					'type'          => 'rgba',
+					'setting_id'    => 'contact_color_social_bg',
+					'section_id'    => 'businessx_section__contact',
+					'label'         => esc_html__( 'Social button background color:', 'businessx-extensions' ),
+					'default'       => 'rgba(255,255,255,0.2)',
+				)
+			),
+
+			/* Social button hover background */
+			'section_social_hover' => array(
+				'callback'           => 'simple',
+				'args'               => array(
+					'type'             => 'rgba',
+					'setting_id'       => 'contact_color_social_bg_hover',
+					'section_id'       => 'businessx_section__contact',
+					'label'            => esc_html__( 'Social button hover background:', 'businessx-extensions' ),
+					'default'          => 'rgba(255,255,255,0.4)',
+				)
+			),
+
+			/* Submit button font color */
+			'section_submit_color' => array(
+				'callback'           => 'simple',
+				'args'               => array(
+					'type'             => 'rgb',
+					'setting_id'       => 'contact_color_submit',
+					'section_id'       => 'businessx_section__contact',
+					'label'            => esc_html__( 'Submit button font color:', 'businessx-extensions' ),
+					'default'          => '#ffffff',
+				)
+			),
+
+			/* Submit button background */
+			'section_submit_bg' => array(
+				'callback'        => 'simple',
+				'args'            => array(
+					'type'          => 'rgb',
+					'setting_id'    => 'contact_color_submit_bg',
+					'section_id'    => 'businessx_section__contact',
+					'label'         => esc_html__( 'Submit button background:', 'businessx-extensions' ),
+					'default'       => '#76bc1c',
+				)
+			),
+
+			/* Submit button background:hover */
+			'section_submit_bg_hover' => array(
+				'callback'              => 'simple',
+				'args'                  => array(
+					'type'                => 'rgb',
+					'setting_id'          => 'contact_color_submit_bg_hover',
+					'section_id'          => 'businessx_section__contact',
+					'label'               => esc_html__( 'Submit button background hover:', 'businessx-extensions' ),
+					'default'             => '#82cf1f',
+				)
+			),
+
+			/* Submit button background:active */
+			'section_submit_bg_active' => array(
+				'callback'               => 'simple',
+				'args'                   => array(
+					'type'                 => 'rgb',
+					'setting_id'           => 'contact_color_submit_bg_active',
+					'section_id'           => 'businessx_section__contact',
+					'label'                => esc_html__( 'Submit button background active:', 'businessx-extensions' ),
+					'default'              => '#69a619',
 				)
 			),
 

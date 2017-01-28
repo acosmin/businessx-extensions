@@ -25,13 +25,21 @@
 	background-color: #2e910e;
 	color: #fff;
 }
-.sec-contact .section-title {
+.sec-contact .section-title, .sec-contact h1, .sec-contact h2, .sec-contact h3, .sec-contact h4, .sec-contact h5, .sec-contact h6 {
 	color: #fff;
+}
+.sec-contact .section-title {
 	border-color: #76bc1c;
 }
 .sec-contact .section-title,
 .sec-contact .section-description {
 	max-width: 100%;
+}
+.sec-contact a, .sec-contact a:focus, .sec-contact a:active {
+	color: #feffc9;
+}
+.sec-contact a:hover{
+	color: #ffffff;
 }
 .sec-contact-info > *:last-child,
 .sec-contact-form > *:last-child,
@@ -52,12 +60,25 @@
 .sec-contact .grid-items > div.sec-contact-box:nth-child(2n+1) {
 	clear: both;
 }
+/* Submit button */
+.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button {
+	background-color: #76bc1c;
+	color: #ffffff;
+}
+.sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover {
+	background-color: #82cf1f;
+	color: #ffffff;
+}
+.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active {
+	background-color: #69a619;
+	color: #ffffff;
+}
 
 /* Social Buttons */
 .sec-contact-social br {
 	display: none;
 }
-.sec-contact-social a {
+.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active {
 	float: left;
 	background-color: rgba(255,255,255,.2);
 	color: #fff;
@@ -67,11 +88,14 @@
 	border-radius: 0.222em;
 	margin: 0 2px 2px 0;
 }
-.sec-contact-social a:hover {
+.sec-contact .sec-contact-social a:hover {
 	color: #fff;
 	background-color: rgba(255,255,255,.4);
 }
-.sec-contact-social-btn.scsb-with-span {
+.sec-contact .sec-contact-social-btn.scsb-with-span,
+.sec-contact .sec-contact-social-btn.scsb-with-span:focus,
+.sec-contact .sec-contact-social-btn.scsb-with-span:active,
+.sec-contact .sec-contact-social-btn.scsb-with-span:hover {
 	width: auto;
 	padding-left: 0.833em;
 	padding-right: 0.833em;
