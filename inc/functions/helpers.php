@@ -63,6 +63,24 @@ if( ! function_exists( 'businessx_ext_sanitize_content_filtered' ) ) {
 	}
 }
 
+// Google Maps iframe
+if( ! function_exists( 'businessx_ext_sanitize_gmaps_iframe' ) ) {
+	function businessx_ext_sanitize_gmaps_iframe( $content ) {
+		$allowed = apply_filters( 'businessx_ext_sanitize_gmaps_iframe___allowed', array(
+			'iframe' => array(
+				'src'             => true,
+				'width'           => true,
+				'height'          => true,
+				'frameborder'     => true,
+				'style'           => true,
+				'allowfullscreen' => true,
+			)
+		) );
+
+		return wp_kses( $content, $allowed );
+	}
+}
+
 
 
 /*  Escaping
@@ -82,6 +100,13 @@ if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
 		}
 
 		return $new_content;
+	}
+}
+
+// Unfiltered
+if( ! function_exists( 'businessx_ext_escape_unfiltered' ) ) {
+	function businessx_ext_escape_unfiltered( $content ) {
+		return $content;
 	}
 }
 

@@ -389,6 +389,15 @@ $businessx_extensions_cs_mods = apply_filters( 'businessx_extensions_cs_mods___f
 	'contact_bg_image_position' => 'center center',
 	'contact_bg_overlay_color' => '#000000',
 	'contact_bg_overlay_opacity' => '0.5',
+
+	/* Maps Section */
+	'maps_overlay_bg' => 'rgba(0,0,0,0.8)',
+	'maps_overlay_bg_hover' => 'rgba(0,0,0,0.75)',
+	'maps_overlay_inner' => 'rgba(0,0,0,0.4)',
+	'maps_overlay_inner_hover' => 'rgba(0,0,0,0.3)',
+	'maps_title_color' => '#ffffff',
+	'maps_icon_color' => '#d72f2f',
+
 ) );
 
 
@@ -778,6 +787,22 @@ if( ! function_exists( 'businessx_extensions_czr_output_css' ) ) {
 		.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active {
 			background-color: {$settings['contact_color_submit_bg_active']};
 			color: {$settings['contact_color_submit']};
+		}
+
+		/* Maps Section */
+		.sec-maps .sec-maps-overlay {
+			background-color: {$settings['maps_overlay_bg']};
+			box-shadow: inset 0 0 7.222em 0.833em {$settings['maps_overlay_inner']};
+		}
+		.sec-maps .sec-maps-overlay:hover {
+			background-color: {$settings['maps_overlay_bg_hover']};
+			box-shadow: inset 0 0 7.222em 0.833em {$settings['maps_overlay_inner_hover']};
+		}
+		.sec-maps .smo-title, .sec-maps a:not(.smo-icon), .sec-maps a:not(.smo-icon):hover, .sec-maps a:not(.smo-icon):focus, .sec-maps a:not(.smo-icon):active {
+			color: {$settings['maps_title_color']};
+		}
+		.sec-maps a.smo-icon {
+			background-color: {$settings['maps_icon_color']};
 		}
 
 CSS;
@@ -1332,6 +1357,26 @@ if( ! function_exists( 'businessx_extensions_final_inline_css' ) ) {
 
 			if( businessx_cd( 'contact_color_submit_bg_active', $contact_color_submit_bg_active ) ) {
 			$css .= businessx_gcs( '.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active', 'background-color', 'contact_color_submit_bg_active' ); }
+
+
+			/* Maps Section */
+			if( businessx_cd( 'maps_overlay_bg', $maps_overlay_bg ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay', 'background-color', 'maps_overlay_bg' ); }
+
+			if( businessx_cd( 'maps_overlay_bg_hover', $maps_overlay_bg_hover ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay:hover', 'background-color', 'maps_overlay_bg_hover' ); }
+
+			if( businessx_cd( 'maps_overlay_inner', $maps_overlay_inner ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay', 'box-shadow', 'maps_overlay_inner', 'inset 0 0 7.222em 0.833em ' ); }
+
+			if( businessx_cd( 'maps_overlay_inner_hover', $maps_overlay_inner_hover ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay', 'box-shadow', 'maps_overlay_inner_hover', 'inset 0 0 7.222em 0.833em ' ); }
+
+			if( businessx_cd( 'maps_title_color', $maps_title_color ) ) {
+			$css .= businessx_gcs( '.sec-maps .smo-title, .sec-maps a:not(.smo-icon), .sec-maps a:not(.smo-icon):hover, .sec-maps a:not(.smo-icon):focus, .sec-maps a:not(.smo-icon):active', 'color', 'maps_title_color' ); }
+
+			if( businessx_cd( 'maps_icon_color', $maps_icon_color ) ) {
+			$css .= businessx_gcs( '.sec-maps a.smo-icon', 'background-color', 'maps_icon_color' ); }
 
 
 		// Adds inline css
