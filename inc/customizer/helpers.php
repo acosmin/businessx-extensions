@@ -6,23 +6,6 @@
  */
 
 
-if( ! function_exists( 'bx_ext_tm' ) ) {
-	/**
-	 * Wrapper for get_theme_mod with a filter applied on the default value.
-	 *
-	 * @since 1.0.4.3
-	 * @param  string  $theme_mod Theme modification name.
-	 * @param  boolean $default   The default value. If not set, returns false.
-	 * @return mixed              Returns theme modification value.
-	 */
-	function bx_ext_tm( $theme_mod, $default = false ) {
-		$def = $default ? apply_filters( 'bx_ext___tm_' . $theme_mod . '_default', $default ) : $default;
-		$mod = get_theme_mod( $theme_mod, $def );
-		return $mod;
-	}
-}
-
-
 if( ! function_exists( 'bx_ext_controller_register' ) ) {
 	/**
 	 * Adds multiple settings and controls based on callback functions

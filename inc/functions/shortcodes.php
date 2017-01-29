@@ -49,7 +49,35 @@ if( ! function_exists( 'businessx_ext_sc_contact_phone_btn' ) ) {
 		);
 		$output = apply_filters( 'businessx_ext_sc_contact_phone_btn___output', $output, $format, $args, $text );
 
-	    return $output;
+		return $output;
 	}
 }
 add_shortcode( 'bx_contact_phone', 'businessx_ext_sc_contact_phone_btn' );
+
+// Get section
+if( ! function_exists( 'businessx_ext_sc_get_section' ) ) {
+	function businessx_ext_sc_get_section( $atts ) {
+		/* Args */
+		$args = shortcode_atts( array(
+			'name'  => ''
+		), $atts );
+
+		$section = sanitize_key( $args[ 'name' ] );
+
+		/* If we can't get the template part, do nothing */
+		if( ! function_exists( 'businessx_extensions_get_template_part' ) ) return;
+
+		/* Get a list of all the sections */
+		$sections = (array) businessx_extensions_sections();
+
+		/* If the section doesn't exist, do nothing */
+		if( ! in_array( $section, $sections ) ) return;
+
+		/* Display the template part even if it's set to hidden in the Customizer */
+		set_query_var( $section . '_sec__shortcode', 1 );
+
+		/* Get the template part if it exists */
+		businessx_extensions_get_template_part( 'sections/section', $section );
+	}
+}
+add_shortcode( 'bx_section', 'businessx_ext_sc_get_section' );

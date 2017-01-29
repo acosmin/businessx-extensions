@@ -54,6 +54,52 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 
 
+/*  Get theme mod
+/* ------------------------------------ */
+if( ! function_exists( 'bx_ext_tm' ) ) {
+	/**
+	 * Wrapper for get_theme_mod with a filter applied on the default value.
+	 *
+	 * @since 1.0.4.3
+	 * @param  string  $theme_mod Theme modification name.
+	 * @param  boolean $default   The default value. If not set, returns false.
+	 * @return mixed              Returns theme modification value.
+	 */
+	function bx_ext_tm( $theme_mod, $default = false ) {
+		$def = $default ? apply_filters( 'bx_ext___tm_' . $theme_mod . '_default', $default ) : $default;
+		$mod = get_theme_mod( $theme_mod, $def );
+		return $mod;
+	}
+}
+
+
+
+/*  Show section
+/* ------------------------------------ */
+if( ! function_exists( 'bx_ext_show_section' ) ) {
+	/**
+	 * Show section if it's not hidden or in a shortcode
+	 * @since 1.0.4.3
+	 * @param  string  $section Section name, for example `contact`.
+	 * @param  boolean $echo    Return or echo the value.
+	 * @return mixed            Returns boolean if `$echo` is false else `true` or `false` as strings.
+	 */
+	function bx_ext_show_section( $section, $echo = false ) {
+		$var       = $section . '_sec__shortcode';
+		$default   = apply_filters( $section . '_section_hide___def', 1 );
+		$hide      = bx_ext_tm( $section . '_section_hide', $default ) == 0 ? true : false;
+		$shortcode = get_query_var( $var ) ? true : false;
+
+		if( $echo ) {
+			echo ( $hide || $shortcode ) ? 'show' : 'hide';
+		} else {
+			return ( $hide || $shortcode ) ? true : false;
+		}
+	}
+}
+
+
+
 /*  Sanitization
 /* ------------------------------------ */
 // Textarea with autop
