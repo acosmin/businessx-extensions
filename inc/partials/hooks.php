@@ -47,3 +47,37 @@ add_action( 'bx_ext_part__contact_info_output', 'bx_ext_part__contact_info_outpu
 add_action( 'bx_ext_part__contact_form', 'bx_ext_part__contact_form_start',   10 );
 add_action( 'bx_ext_part__contact_form', 'bx_ext_part__contact_form_output',  20 );
 add_action( 'bx_ext_part__contact_form', 'bx_ext_part__contact_form_end',    999 );
+
+
+/**
+ * Blog Section
+ */
+add_action( 'bx_ext_part__blog', 'bx_ext_part__blog_wrap_start', 10 );
+add_action( 'bx_ext_part__blog', 'bx_ext_part__blog_overlay',    20 );
+add_action( 'bx_ext_part__blog', 'bx_ext_part__blog_container',  30 );
+add_action( 'bx_ext_part__blog', 'bx_ext_part__blog_wrap_end',  999 );
+
+add_action( 'bx_ext_part__blog_container', 'bx_ext_part__blog_container_start', 10 );
+add_action( 'bx_ext_part__blog_container', 'bx_ext_part__blog_items',           20 );
+add_action( 'bx_ext_part__blog_container', 'bx_ext_part__blog_container_end',  999 );
+
+add_action( 'bx_ext_part__blog_items', 'bx_ext_part__blog_items_header', 10 );
+add_action( 'bx_ext_part__blog_items', 'bx_ext_part__blog_items_posts',  20 );
+
+add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_start',          10 );
+add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_title',          20 );
+add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_description',    30 );
+add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_end',           999 );
+
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_start',  10 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_sizers', 20 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_loop',   30 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_end',   999 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_js',   1010 );
+
+add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_start',   10 );
+add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_thumb',   20 );
+add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_title',   30 );
+add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_excerpt', 40 );
+add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_meta',    50 );
+add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_end',    999 );
