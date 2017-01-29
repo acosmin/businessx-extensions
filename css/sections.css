@@ -204,3 +204,22 @@
 	text-shadow: none;
 	margin-top: 1.333em;
 }
+
+/**
+ * Blog section
+ */
+.blog-action-btn {
+	color: #fff !important;
+	font-size: 18px !important;
+}
+.blog-action-btn:hover {
+	text-decoration: none !important;
+}
+
+/**
+ * Team section
+ */
+.sec-team .no-pos {
+	height: 1px;
+	padding-bottom: 0;
+}

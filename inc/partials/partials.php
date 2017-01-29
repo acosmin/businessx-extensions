@@ -19,3 +19,11 @@
 	 * Section - blog
 	 */
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/blog.php' );
+
+	/**
+	 * Section - team
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/team.php' );
+
+		// Team item
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/team-item.php' );

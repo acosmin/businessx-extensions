@@ -84,5 +84,11 @@
 			}
 		} );
 	} );
+	
+	wp.customize( 'blog_action_btn_url', function( value ) {
+		value.bind( function( to ) {
+			$( '.blog-action-btn' ).attr( 'href', to );
+		} );
+	} );
 
 } )( jQuery );

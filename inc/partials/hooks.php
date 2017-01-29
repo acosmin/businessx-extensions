@@ -69,11 +69,12 @@ add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_ti
 add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_description',    30 );
 add_action( 'bx_ext_part__blog_items_header', 'bx_ext_part__blog_items_header_end',           999 );
 
-add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_start',  10 );
-add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_sizers', 20 );
-add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_loop',   30 );
-add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_end',   999 );
-add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_js',   1010 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_start',    10 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_sizers',   20 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_loop',     30 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_end',     999 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_js',     1010 );
+add_action( 'bx_ext_part__blog_items_posts', 'bx_ext_part__blog_items_posts_action', 1020 );
 
 add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_start',   10 );
 add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_thumb',   20 );
@@ -81,3 +82,28 @@ add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_
 add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_excerpt', 40 );
 add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_meta',    50 );
 add_action( 'bx_ext_part__blog_items_posts_loop_post', 'bx_ext_part__blog_items_posts_loop_post_end',    999 );
+
+
+/**
+ * Team Section
+ */
+add_action( 'bx_ext_part__team', 'bx_ext_part__team_wrap_start', 10 );
+add_action( 'bx_ext_part__team', 'bx_ext_part__team_overlay',    20 );
+add_action( 'bx_ext_part__team', 'bx_ext_part__team_container',  30 );
+add_action( 'bx_ext_part__team', 'bx_ext_part__team_wrap_end',  999 );
+
+add_action( 'bx_ext_part__team_container', 'bx_ext_part__team_container_start', 10 );
+add_action( 'bx_ext_part__team_container', 'bx_ext_part__team_items',           20 );
+add_action( 'bx_ext_part__team_container', 'bx_ext_part__team_container_end',  999 );
+
+add_action( 'bx_ext_part__team_items', 'bx_ext_part__team_items_header',  10 );
+add_action( 'bx_ext_part__team_items', 'bx_ext_part__team_items_members', 20 );
+
+add_action( 'bx_ext_part__team_items_header', 'bx_ext_part__team_items_header_start',          10 );
+add_action( 'bx_ext_part__team_items_header', 'bx_ext_part__team_items_header_title',          20 );
+add_action( 'bx_ext_part__team_items_header', 'bx_ext_part__team_items_header_description',    30 );
+add_action( 'bx_ext_part__team_items_header', 'bx_ext_part__team_items_header_end',           999 );
+
+add_action( 'bx_ext_part__team_items_members', 'bx_ext_part__team_items_members_start',     10 );
+add_action( 'bx_ext_part__team_items_members', 'bx_ext_part__team_items_members_display',   20 );
+add_action( 'bx_ext_part__team_items_members', 'bx_ext_part__team_items_members_end',      999 );

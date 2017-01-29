@@ -92,8 +92,8 @@
 					/**
 					 * Hooked:
 					 * bx_ext_part__blog_items_header   - 10
-					 * bx_ext_part__blog_items_display - 20
-					 * bx_ext_part__blog_items_end     - 999
+					 * bx_ext_part__blog_items_posts    - 20
+					 * bx_ext_part__blog_items_end      - 999
 					 */
 					do_action( 'bx_ext_part__blog_items' );
 				}
@@ -104,10 +104,10 @@
 					function bx_ext_part__blog_items_header() {
 						/**
 						 * Hooked:
-						 * bx_ext_part__blog_items_header_start   - 10
-						 * bx_ext_part__blog_items_header_title - 20
+						 * bx_ext_part__blog_items_header_start       - 10
+						 * bx_ext_part__blog_items_header_title       - 20
 						 * bx_ext_part__blog_items_header_description - 30
-						 * bx_ext_part__blog_items_header_end    - 999
+						 * bx_ext_part__blog_items_header_end         - 999
 						 */
 						do_action( 'bx_ext_part__blog_items_header' );
 					}
@@ -178,6 +178,7 @@
 						 * bx_ext_part__blog_items_posts_loop    - 30
 						 * bx_ext_part__blog_items_posts_end     - 999
 						 * bx_ext_part__blog_items_posts_js      - 1010
+						 * bx_ext_part__blog_items_posts_action  - 1020
 						 */
 						do_action( 'bx_ext_part__blog_items_posts' );
 					}
@@ -210,6 +211,23 @@
 								});
 							</script>
 							<?php
+						}
+					}
+
+					// Action button
+					if( ! function_exists( 'bx_ext_part__blog_items_posts_action' ) ) {
+						function bx_ext_part__blog_items_posts_action() {
+							$show   = bx_ext_tm( 'blog_action_btn_show', false );
+							$label  = bx_ext_tm( 'blog_action_btn', esc_html__( 'View More Articles', 'businessx-extensions' ) );
+							$url    = bx_ext_tm( 'blog_action_btn_url', '#' );
+							$format = '<div class="grid-col grid-4x-col blog-action ta-center"><a href="%1$s" class="ac-btn btn-biggest blog-action-btn">%2$s</a></div>';
+
+							$output = sprintf( $format, esc_url( $url ), esc_html( $label ) );
+							$output = apply_filters( 'bx_ext_part___blog_items_posts_action', $output, $format, $label, $url, $show );
+
+							if( ! $show ) return;
+
+							echo $output;
 						}
 					}
 

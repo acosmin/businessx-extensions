@@ -188,7 +188,8 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 				 * Checkbox input
 				 */
 				case 'checkbox':
-					$control_args['type'] = 'checkbox';
+					$control_args['type']         = 'checkbox';
+					$settings_args['sanitize']    = 'businessx_sanitize_checkbox';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( $setting_id, $control_args );
 					break;
