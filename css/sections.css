@@ -223,3 +223,10 @@
 	height: 1px;
 	padding-bottom: 0;
 }
+
+/**
+ * Clients section
+ */
+.sec-clients .sec-client-logo-url {
+	display: inline-block;
+}

@@ -1,16 +1,34 @@
 <?php
 /* ------------------------------------------------------------------------- *
- *
  *  Clients Item
- *  ________________
- *
- *	Variables (using set_query_var()):
- *	$wid - returns widget's id number, you can use it to target specific widgets.
- *	$title - outputs the title.
- *	$logo - returns the logo url.
- *	________________
- *
 /* ------------------------------------------------------------------------- */
-?>
 
-<?php if( $logo != '' ) { echo '<img src="' . esc_url( $logo ) . '" alt="' . esc_attr( $title ) . '" />'; } ?>
+/**
+ * All the options in an array, needed to create the widget output
+ *
+ * @since 1.0.4.3
+ *
+ * @var array $widget_options All the options needed to display this widget
+ *     @param int     $widget_options['wid']    Widget ID
+ *     @param string  $widget_options['title']  Client title
+ *     @param string  $widget_options['logo']   Uploaded client logo
+ *     @param string  $widget_options['url']    A link to the client's website, as a wrapper for the logo
+ *     @param boolean $widget_options['target'] Open the link in a new window, true or false
+ */
+$widget_options = array(
+	'wid'    => $wid,
+	'title'  => $title,
+	'logo'   => $logo,
+	'url'    => $url,
+	'target' => $target
+);
+
+/**
+ * @since 1.0.4.3
+ *
+ * Hooked:
+ * bx_ext_item__client   - 10
+ *
+ * @see ../inc/partials/items/clients-item.php
+ */
+do_action( 'bx_ext_item__clients', $widget_options );
