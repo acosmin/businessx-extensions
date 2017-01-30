@@ -4,7 +4,7 @@
  * Item partials
  * -------------
  *
- * @see ../inc/partials/sections/hooks.php
+ * @see ../inc/partials/items-hooks.php
  */
 
 

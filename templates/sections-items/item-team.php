@@ -9,15 +9,16 @@
  * @since 1.0.4.3
  *
  * @var array $widget_options All the options needed to display this widget
- *     @param key $widget_options['wid']          Widget ID
- *     @param key $widget_options['title']        Widget title
- *     @param key $widget_options['title_output'] Widget title with `after_title` & `before_title`
- *     @param key $widget_options['description']  Member description, a paragraph
- *     @param key $widget_options['position']     Member position in company
- *     @param key $widget_options['avatar']       Member avatar image URL
- *     @param key $widget_options['avatar_url']   Member URL on avatar
- *     @param key $widget_options['allowed_html'] Allowed html tags for description
- *     @param key $widget_options['social_links'] An array containg social links for this member
+ *     @param int     $widget_options['wid']          Widget ID
+ *     @param string  $widget_options['title']        Member name
+ *     @param string  $widget_options['title_output'] Widget title with `after_title` & `before_title`
+ *     @param string  $widget_options['description']  Member description, a paragraph
+ *     @param string  $widget_options['position']     Member position in company
+ *     @param string  $widget_options['avatar']       Member avatar image URL
+ *     @param string  $widget_options['avatar_url']   Member URL on avatar
+ *     @param boolean $widget_options['avatar_trg']   Open member url in a new window, true or false
+ *     @param array   $widget_options['allowed_html'] Allowed html tags for description
+ *     @param array   $widget_options['social_links'] An array containg social links for this member
  */
 $widget_options = array(
 	'wid'          => $wid,
