@@ -107,3 +107,31 @@ add_action( 'bx_ext_part__team_items_header', 'bx_ext_part__team_items_header_en
 add_action( 'bx_ext_part__team_items_members', 'bx_ext_part__team_items_members_start',     10 );
 add_action( 'bx_ext_part__team_items_members', 'bx_ext_part__team_items_members_display',   20 );
 add_action( 'bx_ext_part__team_items_members', 'bx_ext_part__team_items_members_end',      999 );
+
+
+/**
+ * Cliens Section
+ */
+add_action( 'bx_ext_part__clients', 'bx_ext_part__clients_wrap_start', 10 );
+add_action( 'bx_ext_part__clients', 'bx_ext_part__clients_overlay',    20 );
+add_action( 'bx_ext_part__clients', 'bx_ext_part__clients_container',  30 );
+add_action( 'bx_ext_part__clients', 'bx_ext_part__clients_js',         40 );
+add_action( 'bx_ext_part__clients', 'bx_ext_part__clients_wrap_end',  999 );
+
+add_action( 'bx_ext_part__clients_container', 'bx_ext_part__clients_container_start', 10 );
+add_action( 'bx_ext_part__clients_container', 'bx_ext_part__clients_items',           20 );
+add_action( 'bx_ext_part__clients_container', 'bx_ext_part__clients_container_end',  999 );
+
+add_action( 'bx_ext_part__clients_items', 'bx_ext_part__clients_items_header',  10 );
+add_action( 'bx_ext_part__clients_items', 'bx_ext_part__clients_items_helper',  20 );
+add_action( 'bx_ext_part__clients_items', 'bx_ext_part__clients_items_display', 30 );
+
+add_action( 'bx_ext_part__clients_items_header', 'bx_ext_part__clients_items_header_start',          10 );
+add_action( 'bx_ext_part__clients_items_header', 'bx_ext_part__clients_items_header_title',          20 );
+add_action( 'bx_ext_part__clients_items_header', 'bx_ext_part__clients_items_header_description',    30 );
+add_action( 'bx_ext_part__clients_items_header', 'bx_ext_part__clients_items_header_end',           999 );
+
+add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_start',     10 );
+add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_carousel',  20 );
+add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_arrows',    30 );
+add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_end',      999 );
