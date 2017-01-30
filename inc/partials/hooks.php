@@ -135,3 +135,30 @@ add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_di
 add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_carousel',  20 );
 add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_arrows',    30 );
 add_action( 'bx_ext_part__clients_items_display', 'bx_ext_part__clients_items_display_end',      999 );
+
+
+/**
+ * Portfolio Section
+ */
+add_action( 'bx_ext_part__portfolio', 'bx_ext_part__portfolio_wrap_start', 10 );
+add_action( 'bx_ext_part__portfolio', 'bx_ext_part__portfolio_overlay',    20 );
+add_action( 'bx_ext_part__portfolio', 'bx_ext_part__portfolio_container',  30 );
+add_action( 'bx_ext_part__portfolio', 'bx_ext_part__portfolio_wrap_end',  999 );
+
+add_action( 'bx_ext_part__portfolio_container', 'bx_ext_part__portfolio_container_start', 10 );
+add_action( 'bx_ext_part__portfolio_container', 'bx_ext_part__portfolio_items',           20 );
+add_action( 'bx_ext_part__portfolio_container', 'bx_ext_part__portfolio_container_end',  999 );
+
+add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_header',   10 );
+add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_projects', 20 );
+add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_js',       30 );
+
+add_action( 'bx_ext_part__portfolio_items_header', 'bx_ext_part__portfolio_items_header_start',          10 );
+add_action( 'bx_ext_part__portfolio_items_header', 'bx_ext_part__portfolio_items_header_title',          20 );
+add_action( 'bx_ext_part__portfolio_items_header', 'bx_ext_part__portfolio_items_header_description',    30 );
+add_action( 'bx_ext_part__portfolio_items_header', 'bx_ext_part__portfolio_items_header_end',           999 );
+
+add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_start',     10 );
+add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_sizers',    20 );
+add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_display',   30 );
+add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_end',      999 );

@@ -35,3 +35,8 @@
 
 		// Clients item
 		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/clients-item.php' );
+
+	/**
+	 * Section - portfolio
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/portfolio.php' );
