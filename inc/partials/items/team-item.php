@@ -17,10 +17,14 @@
 	if( ! function_exists( 'bx_ext_item__team_thumbnail' ) ) {
 		function bx_ext_item__team_thumbnail( $widget_options ) {
 			$avatar = $widget_options['avatar'];
+			$url    = $widget_options['avatar_url'];
+			$target = $widget_options['avatar_trg'] ? '_blank' : '_self';
+			$before = $url != '' ? '<a target="' . $target . '" href="' . esc_url( $url ) . '">' : '';
+			$after  = $url != '' ? '</a>' : '';
 			$title  = $widget_options['title'];
-			$format = '<figure class="sec-team-member-avatar"><img src="%1$s" alt="%2$s" /></figure>';
+			$format = '<figure class="sec-team-member-avatar">%1$s<img src="%2$s" alt="%3$s" />%4$s</figure>';
 
-			$output = sprintf( $format, esc_url( $avatar ), esc_attr( $title ) );
+			$output = sprintf( $format, $before, esc_url( $avatar ), esc_attr( $title ), $after );
 			$output = apply_filters( 'bx_ext_item___team_thumbnail', $output, $format, $widget_options );
 
 			if( $avatar == '' ) return;

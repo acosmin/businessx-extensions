@@ -4,8 +4,8 @@
  *  Team Section Item
  *  ________________
  *
- *	Adds a Team member - name, avatar, position, description, social buttons
- *	________________
+ *  Adds a Team member - name, avatar, position, description, social buttons
+ *  ________________
  *
 /* ------------------------------------------------------------------------- */
 
@@ -46,11 +46,13 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 			// Set some widget defaults
 			$this->defaults = array (
-				'title'			=> '',
-				'position'		=> '',
-				'description'	=> '',
-				'avatar'		=> '',
-				'social_links'	=> '',
+				'title'         => '',
+				'position'      => '',
+				'description'   => '',
+				'avatar'        => '',
+				'avatar_url'    => '',
+				'avatar_trg'    => false,
+				'social_links'  => '',
 			);
 
 		}
@@ -69,11 +71,13 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			$instance = wp_parse_args( $instance, $instance_defaults );
 
 			// Options
-			$title 			= apply_filters( 'widget_title', empty( $instance[ 'title' ] ) ? '' : $instance[ 'title' ], $instance, $this->id_base );
-			$position		= ! empty( $instance[ 'position' ] ) ? $instance[ 'position' ] : '';
-			$description	= ! empty( $instance[ 'description' ] ) ? $instance[ 'description' ] : '';
-			$avatar			= ! empty( $instance[ 'avatar' ] ) ? $instance[ 'avatar' ] : '';
-			$social_links	= ! empty( $instance[ 'social_links' ] ) ? $instance[ 'social_links' ] : array();
+			$title          = apply_filters( 'widget_title', empty( $instance[ 'title' ] ) ? '' : $instance[ 'title' ], $instance, $this->id_base );
+			$position       = ! empty( $instance[ 'position' ] ) ? $instance[ 'position' ] : '';
+			$description    = ! empty( $instance[ 'description' ] ) ? $instance[ 'description' ] : '';
+			$avatar         = ! empty( $instance[ 'avatar' ] ) ? $instance[ 'avatar' ] : '';
+			$avatar_url     = ! empty( $instance[ 'avatar_url' ] ) ? $instance[ 'avatar_url' ] : '';
+			$avatar_trg     = ! empty( $instance[ 'avatar_trg' ] ) ? 1 : 0;
+			$social_links   = ! empty( $instance[ 'social_links' ] ) ? $instance[ 'social_links' ] : array();
 
 			// Some variables
 			$wid = $this->number;
@@ -85,23 +89,23 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 			$allowed_html = apply_filters( 'businessx_extensions_team_item___allowed_html', $allowed_html = $this->allowed_html );
 
-			$widget_options = array(
-				'wid' => $wid,
-				'title' => $title,
-				'title_output' => $title_output,
-				'description' => $description,
-				'position' => $position,
-				'avatar' => $avatar,
-				'allowed_html' => $allowed_html,
-				'social_links' => $social_links
-			);
-			set_query_var( 'widget_options', $widget_options );
+			// Template vars
+			set_query_var( 'wid', $wid );
+			set_query_var( 'title', $title );
+			set_query_var( 'position', $position );
+			set_query_var( 'description', $description );
+			set_query_var( 'avatar', $avatar );
+			set_query_var( 'avatar_url', $avatar_url );
+			set_query_var( 'avatar_trg', $avatar_trg );
+			set_query_var( 'social_links', $social_links );
+			set_query_var( 'title_output', $title_output );
+			set_query_var( 'allowed_html', $allowed_html );
 
 			// Add more widget classes
-			$css_class = array();
+			$css_class   = array();
 			$css_class[] = 'grid-col';
 			$css_class[] = 'grid-1x-col';
-			$css_class = apply_filters( 'businessx_extensions_team_item___css_classes', $css_class );
+			$css_class   = apply_filters( 'businessx_extensions_team_item___css_classes', $css_class );
 			$css_classes = join(' ', $css_class);
 
 			if ( ! empty( $css_classes ) ) {
@@ -135,9 +139,13 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			$allowed_html = apply_filters( 'businessx_extensions_team_item___allowed_html', $allowed_html = $this->allowed_html );
 
 			// Fields
-			$instance[ 'title' ] 		= sanitize_text_field( $new_instance[ 'title' ] );
-			$instance[ 'position' ]		= sanitize_text_field( $new_instance[ 'position' ] );
-			$instance[ 'avatar' ] 		= esc_url_raw( $new_instance[ 'avatar' ] );
+			$instance[ 'title' ]        = sanitize_text_field( $new_instance[ 'title' ] );
+			$instance[ 'position' ]     = sanitize_text_field( $new_instance[ 'position' ] );
+			$instance[ 'avatar' ]       = esc_url_raw( $new_instance[ 'avatar' ] );
+			$instance[ 'avatar_url' ]   = esc_url_raw( $new_instance[ 'avatar_url' ] );
+
+			// Checkboxes
+			$instance[ 'avatar_trg' ] = ! empty( $new_instance[ 'avatar_trg' ] ) ? 1 : 0;
 
 			// Social Links
 			$instance[ 'social_links' ] = businessx_sanitize_array_map( 'esc_url_raw', $new_instance[ 'social_links' ] );
@@ -163,12 +171,14 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			extract( $instance, EXTR_SKIP );
 
 			// Variables
-			$title 			= $instance[ 'title' ];
-			$position		= $instance[ 'position' ];
-			$description	= $instance[ 'description' ];
-			$avatar			= $instance[ 'avatar' ];
-			$social_links 	= $instance[ 'social_links' ];
-			$md5s 			= substr(md5(rand()), 0, 7);
+			$title          = $instance[ 'title' ];
+			$position       = $instance[ 'position' ];
+			$description    = $instance[ 'description' ];
+			$avatar         = $instance[ 'avatar' ];
+			$avatar_url     = $instance[ 'avatar_url' ];
+			$avatar_trg     = isset( $instance[ 'avatar_trg' ] ) ? (bool) $instance[ 'avatar_trg' ] : false;
+			$social_links   = $instance[ 'social_links' ];
+			$md5s           = substr(md5(rand()), 0, 7);
 
 			// Form output
 
@@ -183,6 +193,12 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 			/* Avatar */
 			parent::select_image( $avatar, 'avatar', '', __( 'Avatar - suggested size: 250x250px', 'businessx-extensions' ) );
+
+			/* Avatar URL */
+			parent::text_input( $avatar_url, 'avatar_url', __( 'Link on avatar', 'businessx-extensions' ), 'url', '', esc_attr__( 'http://google.com', 'businessx-extensions' ) );
+
+			/* Avatar URL target */
+			parent::check_box( $avatar_trg, 'avatar_trg', __( 'Open link in a new window', 'businessx-extensions' ) );
 
 			/* Tabs */
 			?>
