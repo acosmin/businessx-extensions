@@ -40,3 +40,11 @@
 	 * Section - portfolio
 	 */
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/portfolio.php' );
+
+	/**
+	 * Section - testimonials
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/testimonials.php' );
+
+		// Testimonials item
+		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/testimonials-item.php' ); TO DO

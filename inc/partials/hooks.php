@@ -162,3 +162,33 @@ add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_ite
 add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_sizers',    20 );
 add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_display',   30 );
 add_action( 'bx_ext_part__portfolio_items_projects', 'bx_ext_part__portfolio_items_projects_end',      999 );
+
+
+/**
+ * Testimonials Section
+ */
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_wrap_start', 10 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_overlay',    20 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_container',  30 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_helper',     40 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_items',      50 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_nav',        60 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_js',         70 );
+add_action( 'bx_ext_part__testimonials', 'bx_ext_part__testimonials_wrap_end',  999 );
+
+add_action( 'bx_ext_part__testimonials_container', 'bx_ext_part__testimonials_container_start', 10 );
+add_action( 'bx_ext_part__testimonials_container', 'bx_ext_part__testimonials_header',          20 );
+add_action( 'bx_ext_part__testimonials_container', 'bx_ext_part__testimonials_container_end',  999 );
+
+add_action( 'bx_ext_part__testimonials_header', 'bx_ext_part__testimonials_header_start',  10 );
+add_action( 'bx_ext_part__testimonials_header', 'bx_ext_part__testimonials_header_title',  20 );
+add_action( 'bx_ext_part__testimonials_header', 'bx_ext_part__testimonials_header_end',   999 );
+
+add_action( 'bx_ext_part__testimonials_items', 'bx_ext_part__testimonials_items_start',    10 );
+add_action( 'bx_ext_part__testimonials_items', 'bx_ext_part__testimonials_items_display',  20 );
+add_action( 'bx_ext_part__testimonials_items', 'bx_ext_part__testimonials_items_end',     999 );
+
+add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_start',    10 );
+add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_prev',     20 );
+add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_next',     30 );
+add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_end',     999 );
