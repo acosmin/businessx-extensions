@@ -104,3 +104,11 @@
 
 		// Features item
 		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/features-item.php' ); TO DO
+
+	/**
+	 * Section - pricing
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/pricing.php' );
+
+		// Features item
+		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/pricing-item.php' ); TO DO

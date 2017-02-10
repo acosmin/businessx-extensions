@@ -284,6 +284,7 @@ add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_sizer',    20 );
 add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_display',  30 );
 add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_end',     999 );
 
+
 /**
  * Features Section
  */
@@ -306,3 +307,27 @@ add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_items_start', 
 add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_items_display',  20 );
 add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_helper',         30 );
 add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_items_end',     999 );
+
+
+/**
+ * Pricing Section
+ */
+add_action( 'bx_ext_part__pricing', 'bx_ext_part__pricing_wrap_start',  10 );
+add_action( 'bx_ext_part__pricing', 'bx_ext_part__pricing_overlay',     20 );
+add_action( 'bx_ext_part__pricing', 'bx_ext_part__pricing_container',   30 );
+add_action( 'bx_ext_part__pricing', 'bx_ext_part__pricing_wrap_end',   999 );
+
+add_action( 'bx_ext_part__pricing_container', 'bx_ext_part__pricing_container_start',  10 );
+add_action( 'bx_ext_part__pricing_container', 'bx_ext_part__pricing_header',           20 );
+add_action( 'bx_ext_part__pricing_container', 'bx_ext_part__pricing_items',            30 );
+add_action( 'bx_ext_part__pricing_container', 'bx_ext_part__pricing_container_end',   999 );
+
+add_action( 'bx_ext_part__pricing_header', 'bx_ext_part__pricing_header_start',        10 );
+add_action( 'bx_ext_part__pricing_header', 'bx_ext_part__pricing_header_title',        20 );
+add_action( 'bx_ext_part__pricing_header', 'bx_ext_part__pricing_header_description',  30 );
+add_action( 'bx_ext_part__pricing_header', 'bx_ext_part__pricing_header_end',         999 );
+
+add_action( 'bx_ext_part__pricing_items', 'bx_ext_part__pricing_items_start',    10 );
+add_action( 'bx_ext_part__pricing_items', 'bx_ext_part__pricing_items_display',  20 );
+add_action( 'bx_ext_part__pricing_items', 'bx_ext_part__pricing_helper',         30 );
+add_action( 'bx_ext_part__pricing_items', 'bx_ext_part__pricing_items_end',     999 );
