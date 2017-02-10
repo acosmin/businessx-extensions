@@ -225,3 +225,10 @@ add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_start',    1
 add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_display',  20 );
 add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_helper',   30 );
 add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_end',     999 );
+
+
+/**
+ * Actions Section
+ */
+add_action( 'bx_ext_part__actions', 'bx_ext_part__actions_display', 10 );
+add_action( 'bx_ext_part__actions', 'bx_ext_part__actions_helper',  20 );

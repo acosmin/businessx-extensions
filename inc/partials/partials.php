@@ -61,3 +61,8 @@
 
 		// Testimonials item
 		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/slider-item.php' ); TO DO
+
+	/**
+	 * Section - actions
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/actions.php' );
