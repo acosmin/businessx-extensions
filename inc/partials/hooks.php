@@ -192,3 +192,36 @@ add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_star
 add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_prev',     20 );
 add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_next',     30 );
 add_action( 'bx_ext_part__testimonials_nav', 'bx_ext_part__testimonials_nav_end',     999 );
+
+
+/**
+ * Hero Section
+ */
+add_action( 'bx_ext_part__hero', 'bx_ext_part__hero_wrap_start',   10 );
+add_action( 'bx_ext_part__hero', 'bx_ext_part__hero_overlay',      20 );
+add_action( 'bx_ext_part__hero', 'bx_ext_part__hero_wrap_end',    999 );
+
+add_action( 'bx_ext_part__hero_overlay', 'bx_ext_part__hero_overlay_start',   10 );
+add_action( 'bx_ext_part__hero_overlay', 'bx_ext_part__hero_elements',        20 );
+add_action( 'bx_ext_part__hero_overlay', 'bx_ext_part__hero_overlay_end',    999 );
+
+add_action( 'bx_ext_part__hero_elements', 'bx_ext_part__hero_elements_start',         10 );
+add_action( 'bx_ext_part__hero_elements', 'bx_ext_part__hero_elements_title',         20 );
+add_action( 'bx_ext_part__hero_elements', 'bx_ext_part__hero_elements_description',   30 );
+add_action( 'bx_ext_part__hero_elements', 'bx_ext_part__hero_elements_buttons',       40 );
+add_action( 'bx_ext_part__hero_elements', 'bx_ext_part__hero_elements_end',          999 );
+
+
+/**
+ * Slider Section
+ */
+add_action( 'bx_ext_part__slider', 'bx_ext_part__slider_wrap_start',   10 );
+add_action( 'bx_ext_part__slider', 'bx_ext_part__slider_arrows',       20 );
+add_action( 'bx_ext_part__slider', 'bx_ext_part__slider_items',        30 );
+add_action( 'bx_ext_part__slider', 'bx_ext_part__slider_js',           40 );
+add_action( 'bx_ext_part__slider', 'bx_ext_part__slider_wrap_end',    999 );
+
+add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_start',    10 );
+add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_display',  20 );
+add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_helper',   30 );
+add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_end',     999 );

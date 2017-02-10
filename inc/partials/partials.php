@@ -48,3 +48,16 @@
 
 		// Testimonials item
 		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/testimonials-item.php' ); TO DO
+
+	/**
+	 * Section - hero
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/hero.php' );
+
+	/**
+	 * Section - slider
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/slider.php' );
+
+		// Testimonials item
+		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/slider-item.php' ); TO DO
