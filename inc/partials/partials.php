@@ -66,3 +66,8 @@
 	 * Section - actions
 	 */
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/actions.php' );
+
+	/**
+	 * Section - about
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/about.php' );

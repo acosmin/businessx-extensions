@@ -232,3 +232,28 @@ add_action( 'bx_ext_part__slider_items', 'bx_ext_part__slider_items_end',     99
  */
 add_action( 'bx_ext_part__actions', 'bx_ext_part__actions_display', 10 );
 add_action( 'bx_ext_part__actions', 'bx_ext_part__actions_helper',  20 );
+
+
+/**
+ * About Section
+ */
+add_action( 'bx_ext_part__about', 'bx_ext_part__about_wrap_start', 10 );
+add_action( 'bx_ext_part__about', 'bx_ext_part__about_overlay',    20 );
+add_action( 'bx_ext_part__about', 'bx_ext_part__about_container',  30 );
+add_action( 'bx_ext_part__about', 'bx_ext_part__about_wrap_end',  999 );
+
+add_action( 'bx_ext_part__about_container', 'bx_ext_part__about_container_start',  10 );
+add_action( 'bx_ext_part__about_container', 'bx_ext_part__about_header',           20 );
+add_action( 'bx_ext_part__about_container', 'bx_ext_part__about_items',            30 );
+add_action( 'bx_ext_part__about_container', 'bx_ext_part__about_button',           40 );
+add_action( 'bx_ext_part__about_container', 'bx_ext_part__about_container_end',   999 );
+
+add_action( 'bx_ext_part__about_header', 'bx_ext_part__about_header_start',        10 );
+add_action( 'bx_ext_part__about_header', 'bx_ext_part__about_header_title',        20 );
+add_action( 'bx_ext_part__about_header', 'bx_ext_part__about_header_description',  30 );
+add_action( 'bx_ext_part__about_header', 'bx_ext_part__about_header_end',         999 );
+
+add_action( 'bx_ext_part__about_items', 'bx_ext_part__about_items_start',    10 );
+add_action( 'bx_ext_part__about_items', 'bx_ext_part__about_items_display',  20 );
+add_action( 'bx_ext_part__about_items', 'bx_ext_part__about_items_helper',   30 );
+add_action( 'bx_ext_part__about_items', 'bx_ext_part__about_items_end',     999 );
