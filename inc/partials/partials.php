@@ -96,3 +96,11 @@
 
 		// FAQ item
 		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/faq-item.php' ); TO DO
+
+	/**
+	 * Section - features
+	 */
+	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/features.php' );
+
+		// Features item
+		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/features-item.php' ); TO DO

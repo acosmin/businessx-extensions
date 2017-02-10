@@ -265,7 +265,7 @@ add_action( 'bx_ext_part__about_items', 'bx_ext_part__about_items_end',     999 
 add_action( 'bx_ext_part__faq', 'bx_ext_part__faq_wrap_start',  10 );
 add_action( 'bx_ext_part__faq', 'bx_ext_part__faq_overlay',     20 );
 add_action( 'bx_ext_part__faq', 'bx_ext_part__faq_container',   30 );
-add_action( 'bx_ext_part__faq', 'bx_ext_part__faq_js',          30 );
+add_action( 'bx_ext_part__faq', 'bx_ext_part__faq_js',          40 );
 add_action( 'bx_ext_part__faq', 'bx_ext_part__faq_wrap_end',   999 );
 
 add_action( 'bx_ext_part__faq_container', 'bx_ext_part__faq_container_start',  10 );
@@ -283,3 +283,26 @@ add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_start',    10 );
 add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_sizer',    20 );
 add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_display',  30 );
 add_action( 'bx_ext_part__faq_items', 'bx_ext_part__faq_items_end',     999 );
+
+/**
+ * Features Section
+ */
+add_action( 'bx_ext_part__features', 'bx_ext_part__features_wrap_start',  10 );
+add_action( 'bx_ext_part__features', 'bx_ext_part__features_overlay',     20 );
+add_action( 'bx_ext_part__features', 'bx_ext_part__features_container',   30 );
+add_action( 'bx_ext_part__features', 'bx_ext_part__features_wrap_end',   999 );
+
+add_action( 'bx_ext_part__features_container', 'bx_ext_part__features_container_start',  10 );
+add_action( 'bx_ext_part__features_container', 'bx_ext_part__features_header',           20 );
+add_action( 'bx_ext_part__features_container', 'bx_ext_part__features_items',            30 );
+add_action( 'bx_ext_part__features_container', 'bx_ext_part__features_container_end',   999 );
+
+add_action( 'bx_ext_part__features_header', 'bx_ext_part__features_header_start',        10 );
+add_action( 'bx_ext_part__features_header', 'bx_ext_part__features_header_title',        20 );
+add_action( 'bx_ext_part__features_header', 'bx_ext_part__features_header_description',  30 );
+add_action( 'bx_ext_part__features_header', 'bx_ext_part__features_header_end',         999 );
+
+add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_items_start',    10 );
+add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_items_display',  20 );
+add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_helper',         30 );
+add_action( 'bx_ext_part__features_items', 'bx_ext_part__features_items_end',     999 );
