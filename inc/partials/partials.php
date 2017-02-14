@@ -86,7 +86,7 @@
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/about.php' );
 
 		// About item
-		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/about-item.php' ); TO DO
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/about-item.php' );
 
 
 	/**

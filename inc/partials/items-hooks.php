@@ -12,3 +12,9 @@ add_action( 'bx_ext_item__team', 'bx_ext_item__team_social',       50, 1 );
  * Clients items
  */
 add_action( 'bx_ext_item__clients', 'bx_ext_item__client', 10, 1 );
+
+/**
+ * About items
+ */
+add_action( 'bx_ext_item__about', 'bx_ext_item__about_title',   10, 1 );
+add_action( 'bx_ext_item__about', 'bx_ext_item__about_excerpt', 20, 1 );

@@ -1,19 +1,34 @@
 <?php
 /* ------------------------------------------------------------------------- *
- *
  *  Actions Item
- *  ________________
- *
- *	Variables (using set_query_var()):
- *	$title - outputs the title without the before/after args.
- *	$title_output - ^^ with the before/after args.
- *	$excerpt - outputs the paragraphs you wrote.
- *	$allowed_html - sets what html tags you can use in $excerpt; you can use this filter businessx_extensions_about_item___allowed_html( $allowed_html = array() );
- *	________________
- *
 /* ------------------------------------------------------------------------- */
-?>
 
-<?php if( $title != '' ) { ?>
-<h3 class="hs-secondary-large fw-light"><?php echo esc_html( $title_output ); ?></h3>
-<?php }; if( $excerpt != '' ) { echo wpautop( businessx_content_filter( $excerpt, $allowed_html, FALSE ) ); } ?>
+/**
+ * All the options in an array, needed to create the widget output
+ *
+ * @since 1.0.4.3
+ *
+ * @var array $widget_options All the options needed to display this widget
+ *     @param int     $widget_options['wid']          Widget ID
+ *     @param string  $widget_options['title']        About title
+ *     @param string  $widget_options['excerpt']      About box text
+ *     @param string  $widget_options['title_output'] Title output
+ *     @param boolean $widget_options['allowed_html'] Allowed html tags for excerpt
+ */
+$widget_options = array(
+	'wid'          => $wid,
+	'title'        => $title,
+	'excerpt'      => $excerpt,
+	'title_output' => $title_output,
+	'allowed_html' => $allowed_html
+);
+
+/**
+ * @since 1.0.4.3
+ *
+ * Hooked:
+ * bx_ext_item__about - 10
+ *
+ * @see ../inc/partials/items/about-item.php
+ */
+do_action( 'bx_ext_item__about', $widget_options );
