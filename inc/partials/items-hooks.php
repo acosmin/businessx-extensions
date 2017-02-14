@@ -24,3 +24,15 @@ add_action( 'bx_ext_item__about', 'bx_ext_item__about_excerpt', 20, 1 );
  */
 add_action( 'bx_ext_item__faq', 'bx_ext_item__faq_title',   10, 1 );
 add_action( 'bx_ext_item__faq', 'bx_ext_item__faq_excerpt', 20, 1 );
+
+/**
+ * Testimonial items
+ */
+add_action( 'bx_ext_item__testimonials', 'bx_ext_item__testimonials_avatar',   10, 1 );
+add_action( 'bx_ext_item__testimonials', 'bx_ext_item__testimonials_contents', 20, 1 );
+
+add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_start',        10, 1 );
+add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_title',        20, 1 );
+add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_testimonial',  30, 1 );
+add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_button',       40, 1 );
+add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_end',         999, 1 );
