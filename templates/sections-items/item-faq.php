@@ -1,19 +1,35 @@
 <?php
 /* ------------------------------------------------------------------------- *
- *
  *  FAQ Item
- *  ________________
- *
- *	Variables (using set_query_var()):
- *	$wid - returns widget's id number, you can use it to target specific widgets.
- *	$title - outputs the title without the before/after args.
- *	$title_output - ^^ with the before/after args.
- *	$excerpt - returns the excerpt/paragraphs.
- *	$allowed_html - sets what html tags you can use in $excerpt; you can use this filter businessx_extensions_faq_item___allowed_html( $allowed_html = array() );
- *	________________
- *
 /* ------------------------------------------------------------------------- */
-?>
 
-<?php if( $title != '' ) { ?><h3 class="hs-secondary-small hb-bottom-small"><?php echo $title_output; ?></h3><?php } ?>
-<?php if( $excerpt != '' ) { ?><?php echo wpautop( businessx_content_filter( $excerpt, $allowed_html, FALSE ) ); ?><?php } ?>
+/**
+ * All the options in an array, needed to create the widget output
+ *
+ * @since 1.0.4.3
+ *
+ * @var array $widget_options All the options needed to display this widget
+ *     @param int     $widget_options['wid']          Widget ID
+ *     @param string  $widget_options['title']        Question title
+ *     @param string  $widget_options['excerpt']      Question answer
+ *     @param string  $widget_options['title_output'] Question title output
+ *     @param boolean $widget_options['allowed_html'] Allowed html tags for excerpt
+ */
+$widget_options = array(
+	'wid'          => $wid,
+	'title'        => $title,
+	'excerpt'      => $excerpt,
+	'title_output' => $title_output,
+	'allowed_html' => $allowed_html
+);
+
+/**
+ * @since 1.0.4.3
+ *
+ * Hooked:
+ * bx_ext_item__faq_title   - 10
+ * bx_ext_item__faq_excerpt - 20
+ *
+ * @see ../inc/partials/items/faq-item.php
+ */
+do_action( 'bx_ext_item__faq', $widget_options );

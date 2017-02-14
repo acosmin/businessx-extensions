@@ -75,8 +75,8 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 
 		/* New args */
 		$args         = wp_parse_args( $args, $defaults );
-		$args         = apply_filters( 'bx_ext_controller_simple___' . $type .'_args', $args, $defaults, $type );
 		$type         = $args['type'];
+		$args         = apply_filters( 'bx_ext_controller_simple___' . $type .'_args', $args, $defaults, $type );
 		$setting_id   = $args['setting_id'];
 		$section_id   = $args['section_id'];
 		$label        = $args['label'];

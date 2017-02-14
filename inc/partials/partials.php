@@ -95,7 +95,7 @@
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/faq.php' );
 
 		// FAQ item
-		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/faq-item.php' ); TO DO
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/faq-item.php' );
 
 	/**
 	 * Section - features

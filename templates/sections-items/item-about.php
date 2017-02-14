@@ -27,7 +27,8 @@ $widget_options = array(
  * @since 1.0.4.3
  *
  * Hooked:
- * bx_ext_item__about - 10
+ * bx_ext_item__about_title   - 10
+ * bx_ext_item__about_excerpt - 20
  *
  * @see ../inc/partials/items/about-item.php
  */
