@@ -53,7 +53,7 @@
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/testimonials.php' );
 
 		// Testimonials item
-		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/testimonials-item.php' ); TO DO
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/testimonials-item.php' );
 
 
 	/**
