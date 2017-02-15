@@ -53,3 +53,15 @@ add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_contain
 add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_excerpt',   30, 1 );
 add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_buttons',   40, 1 );
 add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_end',      999, 1 );
+
+/**
+ * Features items
+ */
+add_action( 'bx_ext_item__features', 'bx_ext_item__features_figure',   10, 1 );
+add_action( 'bx_ext_item__features', 'bx_ext_item__features_contents', 20, 1 );
+
+add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_start',    10, 1 );
+add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_title',    20, 1 );
+add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_excerpt',  30, 1 );
+add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_button',   40, 1 );
+add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_end',     999, 1 );
