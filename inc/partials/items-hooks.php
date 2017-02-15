@@ -36,3 +36,20 @@ add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_con
 add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_testimonial',  30, 1 );
 add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_button',       40, 1 );
 add_action( 'bx_ext_item__testimonials_contents', 'bx_ext_item__testimonials_contents_end',         999, 1 );
+
+/**
+ * Actions items
+ */
+add_action( 'bx_ext_item__actions', 'bx_ext_item__actions_overlay',   10, 1 );
+add_action( 'bx_ext_item__actions', 'bx_ext_item__actions_container', 20, 1 );
+
+add_action( 'bx_ext_item__actions_container', 'bx_ext_item__actions_container_start',   10, 1 );
+add_action( 'bx_ext_item__actions_container', 'bx_ext_item__actions_container_image',   20, 1 );
+add_action( 'bx_ext_item__actions_container', 'bx_ext_item__actions_container_meta',    30, 1 );
+add_action( 'bx_ext_item__actions_container', 'bx_ext_item__actions_container_end',    999, 1 );
+
+add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_start',     10, 1 );
+add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_title',     20, 1 );
+add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_excerpt',   30, 1 );
+add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_buttons',   40, 1 );
+add_action( 'bx_ext_item__actions_container_meta', 'bx_ext_item__actions_container_meta_end',      999, 1 );

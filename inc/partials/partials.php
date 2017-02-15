@@ -77,7 +77,7 @@
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/actions.php' );
 
 		// Actions item
-		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/actions-item.php' ); TO DO
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/actions-item.php' );
 
 
 	/**
