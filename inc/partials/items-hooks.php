@@ -65,3 +65,18 @@ add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_ti
 add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_excerpt',  30, 1 );
 add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_button',   40, 1 );
 add_action( 'bx_ext_item__features_contents', 'bx_ext_item__features_contents_end',     999, 1 );
+
+/**
+ * Slider items
+ */
+add_action( 'bx_ext_item__slider', 'bx_ext_item__slider_overlay', 10, 1 );
+
+add_action( 'bx_ext_item__slider_overlay', 'bx_ext_item__slider_overlay_start',   10, 1 );
+add_action( 'bx_ext_item__slider_overlay', 'bx_ext_item__slider_elements',        20, 1 );
+add_action( 'bx_ext_item__slider_overlay', 'bx_ext_item__slider_overlay_end',    999, 1 );
+
+add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_start',      10, 1 );
+add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_title',      20, 1 );
+add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_paragraph',  30, 1 );
+add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_buttons',    40, 1 );
+add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_end',       999, 1 );

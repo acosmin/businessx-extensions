@@ -1,33 +1,50 @@
 <?php
 /* ------------------------------------------------------------------------- *
- *
  *  Slider Item
- *  ________________
- *
- *	Variables (using set_query_var()):
- *	$wid - returns widget's id number, you can use it to target specific widgets.
- *	$title - outputs the title without the before/after args.
- *	$paragraph - returns a paragraph bellow the title.
- *	$overlay - reutrns a style attribute with a gradient overlay, already escaped.
- *	$btn_show - show or hide buttons.
- *	$btn_type - button design, normal or opaque.
- *	$btn_between - text between buttons.
- *	$btn_1_text & $btn_2_text - returns button text.
- *	$btn_1_target & $btn_2_target - returns button target type.
- *	$btn_1_url & $btn_2_url - returns button url.
- *	________________
- *
 /* ------------------------------------------------------------------------- */
-?>
 
-<div class="sec-slider-overlay"<?php echo $overlay; ?>>
-    <div class="sec-hs-elements ta-center">
-        <?php if( $title != '' ) { ?><h2 class="hs-primary-large animated"><?php echo esc_html( $title ); ?></h2><?php } ?>
-        <?php if( $paragraph != '' ) { ?><p class="sec-hs-description fs-largest fw-regular"><?php echo esc_html( $paragraph ); ?></p><?php } ?>
-        <?php if( $btn_show ) { ?>
-        <div class="sec-hs-buttons">
-            <?php echo businessx_slider_btns_output( $btn_type, $btn_between, $btn_1_text, $btn_1_url, $btn_1_target, $btn_2_text, $btn_2_url, $btn_2_target ); ?>
-        </div>
-        <?php } ?>
-    </div>
-</div>
+/**
+ * All the options in an array, needed to create the widget output
+ *
+ * @since 1.0.4.3
+ *
+ * @var array $widget_options All the options needed to display this widget
+ *     @param int     $widget_options['wid']          Widget ID
+ *     @param string  $widget_options['title']        Slide heading
+ *     @param string  $widget_options['overlay']      Overlay
+ *     @param string  $widget_options['paragraph']    Slide paragraph
+ *     @param boolean $widget_options['btn_show']     Show buttons
+ *     @param string  $widget_options['btn_type']     Button type
+ *     @param string  $widget_options['btn_between']  Between buttons text
+ *     @param string  $widget_options['btn_1_text']   Button #1 text
+ *     @param string  $widget_options['btn_1_url']    Button #1 URL
+ *     @param string  $widget_options['btn_1_target'] Button #1 target
+ *     @param string  $widget_options['btn_2_text']   Button #2 text
+ *     @param string  $widget_options['btn_2_url']    Button #2 URL
+ *     @param string  $widget_options['btn_2_target'] Button #2 target
+ */
+$widget_options = apply_filters( 'bx_ext_item___slider_options', array(
+	'wid'          => $wid,
+	'title'        => $title,
+	'overlay'      => $overlay,
+	'paragraph'    => $paragraph,
+	'btn_show'     => $btn_show,
+	'btn_type'     => $btn_type,
+	'btn_between'  => $btn_between,
+	'btn_1_text'   => $btn_1_text,
+	'btn_1_url'    => $btn_1_url,
+	'btn_1_target' => $btn_1_target,
+	'btn_2_text'   => $btn_2_text,
+	'btn_2_url'    => $btn_2_url,
+	'btn_2_target' => $btn_2_target,
+) );
+
+/**
+ * @since 1.0.4.3
+ *
+ * Hooked:
+ * bx_ext_item__slider_overlay - 10
+ *
+ * @see ../inc/partials/items/slider-item.php
+ */
+do_action( 'bx_ext_item__slider', $widget_options );

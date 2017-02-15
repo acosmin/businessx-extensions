@@ -68,7 +68,7 @@
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/slider.php' );
 
 		// Slider item
-		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/slider-item.php' ); TO DO
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/slider-item.php' );
 
 
 	/**
