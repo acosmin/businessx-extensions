@@ -56,7 +56,7 @@
 			$class    = $position == '' ? ' no-pos' : '';
 			$format   = '<h4 class="fw-regular ls-min hb-bottom-abs-small%1$s">%2$s</h4>';
 
-			$output = sprintf( $format, $class, $position );
+			$output = sprintf( $format, $class, esc_html( $position ) );
 			$output = apply_filters( 'bx_ext_item___team_position', $output, $format, $widget_options );
 
 			echo $output;

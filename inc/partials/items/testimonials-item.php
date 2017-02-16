@@ -20,7 +20,7 @@
 			$avatar = $widget_options['avatar'];
 			$format = '<figure class="client-avatar"><img src="%1$s" alt="%2$s" /></figure>';
 
-			$output = sprintf( $format, $avatar, $title );
+			$output = sprintf( $format, esc_url( $avatar ), esc_attr( $title ) );
 			$output = apply_filters( 'bx_ext_item___testimonials_avatar', $output, $format, $widget_options );
 
 			if( $avatar == '' ) return;
