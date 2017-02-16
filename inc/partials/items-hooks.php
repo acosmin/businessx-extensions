@@ -80,3 +80,25 @@ add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_title'
 add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_paragraph',  30, 1 );
 add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_buttons',    40, 1 );
 add_action( 'bx_ext_item__slider_elements', 'bx_ext_item__slider_elements_end',       999, 1 );
+
+/**
+ * Pricing items
+ */
+add_action( 'bx_ext_item__pricing', 'bx_ext_item__pricing_badge',    10, 1 );
+add_action( 'bx_ext_item__pricing', 'bx_ext_item__pricing_info',     20, 1 );
+add_action( 'bx_ext_item__pricing', 'bx_ext_item__pricing_contents', 30, 1 );
+
+add_action( 'bx_ext_item__pricing_info', 'bx_ext_item__pricing_info_start',    10, 1 );
+add_action( 'bx_ext_item__pricing_info', 'bx_ext_item__pricing_info_title',    20, 1 );
+add_action( 'bx_ext_item__pricing_info', 'bx_ext_item__pricing_info_pricing',  30, 1 );
+add_action( 'bx_ext_item__pricing_info', 'bx_ext_item__pricing_info_end',     999, 1 );
+
+add_action( 'bx_ext_item__pricing_info_pricing', 'bx_ext_item__pricing_info_pricing_start',   10, 1 );
+add_action( 'bx_ext_item__pricing_info_pricing', 'bx_ext_item__pricing_info_pricing_price',   20, 1 );
+add_action( 'bx_ext_item__pricing_info_pricing', 'bx_ext_item__pricing_info_pricing_period',  30, 1 );
+add_action( 'bx_ext_item__pricing_info_pricing', 'bx_ext_item__pricing_info_pricing_end',    999, 1 );
+
+add_action( 'bx_ext_item__pricing_contents', 'bx_ext_item__pricing_contents_start',   10, 1 );
+add_action( 'bx_ext_item__pricing_contents', 'bx_ext_item__pricing_contents_list',    20, 1 );
+add_action( 'bx_ext_item__pricing_contents', 'bx_ext_item__pricing_contents_button',  30, 1 );
+add_action( 'bx_ext_item__pricing_contents', 'bx_ext_item__pricing_contents_end',    999, 1 );

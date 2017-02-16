@@ -111,4 +111,4 @@
 	require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/sections/pricing.php' );
 
 		// Pricing item
-		//require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/pricing-item.php' ); TO DO
+		require_once ( BUSINESSX_EXTS_PATH . '/inc/partials/items/pricing-item.php' );
