@@ -9,15 +9,15 @@
  * @since 1.0.4.3
  *
  * @var array $widget_options All the options needed to display this widget
- *     @param int     $widget_options['wid']         Widget ID
- *     @param string  $widget_options['title']       Testimonial author
- *     @param string  $widget_options['avatar']      Client avatar
- *     @param string  $widget_options['testimonial'] Testimonial content
- *     @param boolean $widget_options['btn_text']    Button anchor text
- *     @param boolean $widget_options['btn_url']     Button link
- *     @param boolean $widget_options['target']      Button target
+ *     @param int    $widget_options['wid']         Widget ID
+ *     @param string $widget_options['title']       Testimonial author
+ *     @param string $widget_options['avatar']      Client avatar
+ *     @param string $widget_options['testimonial'] Testimonial content
+ *     @param string $widget_options['btn_text']    Button anchor text
+ *     @param string $widget_options['btn_url']     Button link
+ *     @param string $widget_options['target']      Button target
  */
-$widget_options = array(
+$widget_options = apply_filters( 'bx_ext_item___testimonials_options', array(
 	'wid'          => $wid,
 	'title'        => $title,
 	'avatar'       => $avatar,
@@ -25,7 +25,7 @@ $widget_options = array(
 	'btn_text'     => $btn_text,
 	'btn_url'      => $btn_url,
 	'target'       => $target,
-);
+) );
 
 /**
  * @since 1.0.4.3

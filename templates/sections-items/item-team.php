@@ -20,7 +20,7 @@
  *     @param array   $widget_options['allowed_html'] Allowed html tags for description
  *     @param array   $widget_options['social_links'] An array containg social links for this member
  */
-$widget_options = array(
+$widget_options = apply_filters( 'bx_ext_item___team_options', array(
 	'wid'          => $wid,
 	'title'        => $title,
 	'title_output' => $title_output,
@@ -31,7 +31,7 @@ $widget_options = array(
 	'avatar_trg'   => $avatar_trg,
 	'allowed_html' => $allowed_html,
 	'social_links' => $social_links
-);
+) );
 
 /**
  * @since 1.0.4.3

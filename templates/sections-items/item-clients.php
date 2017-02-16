@@ -15,13 +15,13 @@
  *     @param string  $widget_options['url']    A link to the client's website, as a wrapper for the logo
  *     @param boolean $widget_options['target'] Open the link in a new window, true or false
  */
-$widget_options = array(
+$widget_options = apply_filters( 'bx_ext_item___clients_options', array(
 	'wid'    => $wid,
 	'title'  => $title,
 	'logo'   => $logo,
 	'url'    => $url,
 	'target' => $target
-);
+) );
 
 /**
  * @since 1.0.4.3

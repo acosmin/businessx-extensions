@@ -18,12 +18,12 @@
 		function bx_ext_item__faq_title( $widget_options ) {
 			$title        = $widget_options['title'];
 			$title_output = $widget_options['title_output'];
-			$format = '<h3 class="hs-secondary-small hb-bottom-small">%s</h3>';
-
-			if( $title == '' ) return;
+			$format       = '<h3 class="hs-secondary-small hb-bottom-small">%s</h3>';
 
 			$output = sprintf( $format, $title_output );
-			$output = apply_filters( 'bx_ext_item___faq_title', $output, $format, $title_output );
+			$output = apply_filters( 'bx_ext_item___faq_title', $output, $format, $widget_options );
+
+			if( $title == '' ) return;
 
 			echo $output;
 		}
@@ -35,11 +35,11 @@
 			$excerpt      = $widget_options['excerpt'];
 			$allowed_html = $widget_options['allowed_html'];
 
-			if( $excerpt == '' ) return;
-
 			$output = wpautop( businessx_content_filter( $excerpt, $allowed_html, FALSE ) );
-			$output = apply_filters( 'bx_ext_item___faq_excerpt', $output, $excerpt, $allowed_html );
+			$output = apply_filters( 'bx_ext_item___faq_excerpt', $output, $widget_options );
 
+			if( $excerpt == '' ) return;
+			
 			echo $output;
 		}
 	}

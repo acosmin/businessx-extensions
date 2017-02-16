@@ -15,13 +15,13 @@
  *     @param string  $widget_options['title_output'] Title output
  *     @param boolean $widget_options['allowed_html'] Allowed html tags for excerpt
  */
-$widget_options = array(
+$widget_options = apply_filters( 'bx_ext_item___about_options', array(
 	'wid'          => $wid,
 	'title'        => $title,
 	'excerpt'      => $excerpt,
 	'title_output' => $title_output,
 	'allowed_html' => $allowed_html
-);
+) );
 
 /**
  * @since 1.0.4.3

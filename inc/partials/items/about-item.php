@@ -20,10 +20,10 @@
 			$title_output = $widget_options['title_output'];
 			$format = '<h3 class="hs-secondary-large fw-light">%s</h3>';
 
-			if( $title == '' ) return;
-
 			$output = sprintf( $format, $title_output );
-			$output = apply_filters( 'bx_ext_item___about_title', $output, $format, $title_output );
+			$output = apply_filters( 'bx_ext_item___about_title', $output, $format, $widget_options );
+
+			if( $title == '' ) return;
 
 			echo $output;
 		}
@@ -35,10 +35,10 @@
 			$excerpt      = $widget_options['excerpt'];
 			$allowed_html = $widget_options['allowed_html'];
 
-			if( $excerpt == '' ) return;
-
 			$output = wpautop( businessx_content_filter( $excerpt, $allowed_html, FALSE ) );
-			$output = apply_filters( 'bx_ext_item___about_excerpt', $output, $excerpt, $allowed_html );
+			$output = apply_filters( 'bx_ext_item___about_excerpt', $output, $widget_options );
+
+			if( $excerpt == '' ) return;
 
 			echo $output;
 		}

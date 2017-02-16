@@ -20,10 +20,10 @@
 			$avatar = $widget_options['avatar'];
 			$format = '<figure class="client-avatar"><img src="%1$s" alt="%2$s" /></figure>';
 
-			if( $avatar == '' ) return;
-
 			$output = sprintf( $format, $avatar, $title );
-			$output = apply_filters( 'bx_ext_item___testimonials_avatar', $output, $format, $avatar, $title );
+			$output = apply_filters( 'bx_ext_item___testimonials_avatar', $output, $format, $widget_options );
+
+			if( $avatar == '' ) return;
 
 			echo $output;
 		}
@@ -65,7 +65,7 @@
 				$format = '<h3 class="hs-secondary-small">%s</h3>';
 
 				$output = sprintf( $format, esc_html( $title ) );
-				$output = apply_filters( 'bx_ext_item___testimonials_contents_title', $output, $format, $title );
+				$output = apply_filters( 'bx_ext_item___testimonials_contents_title', $output, $format, $widget_options );
 
 				echo $output;
 			}
@@ -78,7 +78,7 @@
 				$format       = '<p class="testimonial-excerpt">%s</p>';
 
 				$output = sprintf( $format, esc_html( $testimonial ) );
-				$output = apply_filters( 'bx_ext_item___testimonials_contents_testimonial', $output, $format, $testimonial );
+				$output = apply_filters( 'bx_ext_item___testimonials_contents_testimonial', $output, $format, $widget_options );
 
 				echo $output;
 			}
@@ -95,7 +95,7 @@
 				$after  = '</div>';
 
 				$output = $before . sprintf( $format, esc_attr( $target ), esc_url( $url ), esc_html( $text ) ) . $after;
-				$output = apply_filters( 'bx_ext_item___testimonials_contents_button', $output, $format, $target, $url, $text, $before, $after );
+				$output = apply_filters( 'bx_ext_item___testimonials_contents_button', $output, $format, $before, $after, $widget_options );
 
 				echo $output;
 			}
