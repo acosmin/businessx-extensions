@@ -24,6 +24,30 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 				'20160412', FALSE
 			);
 
+			$data = apply_filters( 'businessx_extensions___widgets_customizer', array(
+				/* A list of all the icons for autocomplete */
+				'icons'              => (array) $businessx_icons_simple,
+				/* Admin */
+				'admin_url'          => esc_url( admin_url() ),
+				/* Sections array */
+				'sections'           => (array) $businessx_sections,
+				'sections_position'  => (array) $sections_position,
+				/* Messages */
+				'msgs'               => (object) array(
+					'bk_bubble'          => esc_html__( 'Click on this button if you want to backup the position of your current widgets, including sections items (available for this theme).', 'businessx-extensions' ),
+					'bk_fail'            => esc_html__( 'You need to save your settings before you backup!', 'businessx-extensions' ),
+					'bk_success'         => esc_html__( 'Widgets and sections items positions backed up!', 'businessx-extensions' ),
+					'bk_restore_success' => esc_html__( 'Backup restored! Refreshing the page now...', 'businessx-extensions' ),
+				),
+			) );
+
+			// Add some data
+			wp_localize_script(
+				'businessx-extensions-widgets-customizer',
+				'bxext_widgets_customizer',
+				$data
+			);
+
 			// Add some data
 			wp_localize_script(
 				'businessx-extensions-widgets-customizer',

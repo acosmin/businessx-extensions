@@ -228,6 +228,8 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	box-sizing: border-box;
     padding: 0 15px 10px;
     position: relative;
+	margin-bottom: 8px;
+	border-top: 0 !important;
 }
 .bx_drag_and img {
 	position: absolute;

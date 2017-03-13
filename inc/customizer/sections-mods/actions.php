@@ -25,15 +25,15 @@
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__actions' ) ),
 	) );
-		
+
 
 
 		/*  Actions Section options
 		/* ------------------------------------ */
-		
+
 		// Hide section
 		businessx_controller_checkbox(
 			'actions_section_hide',
 			'businessx_section__actions',
-			esc_html__( 'Hide this section', 'businessx-extensions' ) ); 
+			esc_html__( 'Hide this section', 'businessx-extensions' ) );
 		/*=====*/

@@ -17,6 +17,10 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 	function businessx_extensions_customize_register( $wp_customize ) {
 		$sections = businessx_extensions_sections();
 
+		// Register custom sections/controls
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/section-dragdrop/drag-and-drop-info.php' );
+		$wp_customize->register_section_type( 'BXEXT_Section_DragAndDrop' );
+
 		/*  Add panels
 		/* ------------------------------------ */
 		// Front page
@@ -34,6 +38,13 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 
 			/*  Add sections
 			/* ------------------------------------ */
+			/// Drag & Drop msg
+			$wp_customize->add_section( new BXEXT_Section_DragAndDrop( $wp_customize, 'dragdrop', array(
+				'title'     => esc_html__( 'Drag and drop for position', 'businessx-extensions' ),
+				'panel'     => 'businessx_panel__sections',
+				'priority'  => 0
+			) ) );
+
 			/// Theme Settings
 			$wp_customize->add_section( 'backup_options', array(
 				'title'				=> __( 'Backups', 'businessx-extensions' ),
