@@ -30,6 +30,14 @@
 
 		/*  Actions Section options
 		/* ------------------------------------ */
+		$wp_customize->add_setting( 'actions-addedititems', array() );
+
+		$wp_customize->add_control( new BXEXT_Control_AddEditItems( $wp_customize, 'actions-addedititems', array(
+			'section'      => 'businessx_section__actions',
+			'type'         => 'add-edit-items',
+			'section_type' => 'actions',
+			'item_type'    => __( 'Add or edit actions', 'businessx-extensions' )
+		) ) );
 
 		// Hide section
 		businessx_controller_checkbox(

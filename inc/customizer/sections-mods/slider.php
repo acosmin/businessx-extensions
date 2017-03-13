@@ -30,6 +30,14 @@
 
 		/*  Slider Section options
 		/* ------------------------------------ */
+		$wp_customize->add_setting( 'slider-addedititems', array() );
+
+		$wp_customize->add_control( new BXEXT_Control_AddEditItems( $wp_customize, 'slider-addedititems', array(
+			'section'      => 'businessx_section__slider',
+			'type'         => 'add-edit-items',
+			'section_type' => 'slider',
+			'item_type'    => __( 'Add or edit slides', 'businessx-extensions' )
+		) ) );
 
 		// Hide section
 		businessx_controller_checkbox(

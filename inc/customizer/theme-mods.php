@@ -20,6 +20,10 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		// Register custom sections/controls
 		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/section-dragdrop/drag-and-drop-info.php' );
 		$wp_customize->register_section_type( 'BXEXT_Section_DragAndDrop' );
+		$wp_customize->register_section_type( 'BXEXT_Tester' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/control-addedititems/add-edit-items.php' );
+		$wp_customize->register_control_type( 'BXEXT_Control_AddEditItems' );
 
 		/*  Add panels
 		/* ------------------------------------ */

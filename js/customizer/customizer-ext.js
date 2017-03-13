@@ -20,7 +20,7 @@ window.BxExtensions = {
 
 	/**
 	 * Initiazlie BxExtensions
-	 * 
+	 *
 	 * @return {Mixed}
 	 */
 	init : function() {
@@ -222,6 +222,10 @@ window.BxExtensions = {
 		});
 	},
 
+	initSections : function() {
+
+	}
+
 }
 
 $( document ).ready( function( $ ) {
@@ -263,8 +267,6 @@ jQuery( document ).ready( function( $ ) {
 				bxSectionsItems			= $( '#accordion-panel-businessx_panel__sections_items' ),
 
 				styleBtnsTempl			= '<li class="customize-control bx-cz-tabs"><button data-bx-cz-tab-show="color" type="button" class="button bx-cz-tab-colors"><span class="dashicons bx-cz-tc"></span>' + businessx_ext_widgets_customizer[ 'bx_tabs_btb_colors' ] + '</button><button data-bx-cz-tab-show="bg" type="button" class="button bx-cz-tab-background"><span class="dashicons bx-cz-tb"></span>' + businessx_ext_widgets_customizer[ 'bx_tabs_btb_bg' ] + '</button></li>',
-
-				addWidgetBtnsTempl		= '<li class="customize-control bx-add-items-wrap" style="display: list-item"><button type="button" class="button bx-add-items" id="bx-section-add-some-' + value + '"><span class="dashicons bx-add"></span>' + businessx_ext_widgets_customizer[ 'bx_sec_btn_' + value ] + '</button></li>',
 
 				goBackBtnsTempl			= '<li class="customize-control" style="display: list-item"><button type="button" class="button bx-add-items" id="bx-section-go-back-' + value + '"><span class="dashicons bx-edit"></span>' + businessx_ext_widgets_customizer[ 'bx_anw_btn_go_back' ] + '</button></li>';
 
@@ -327,11 +329,6 @@ jQuery( document ).ready( function( $ ) {
 			// Section specific actions, just for adding widgets
 			if( section.id == bxSectionValue ) { // Just in the actual section
 				var bxSimpleSecName = section.id.replace( 'businessx_section__', '' );
-
-				// Add "Add some ..." button
-				if( $.inArray( bxSimpleSecName, businessx_ext_widgets_customizer[ 'bx_sec_item_btn_hide' ] ) === -1 ) {
-					$( currentSectionID + sectionDescription ).after( addWidgetBtnsTempl );
-				}
 
 				// If section is hidden
 				if( checkHiddenOption.is( ':checked' ) ) {

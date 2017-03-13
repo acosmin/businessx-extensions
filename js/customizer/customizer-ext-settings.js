@@ -33,8 +33,20 @@
 		}
 	} );
 
-	api.sectionConstructor['front-page-section'] = api.Section.extend();
+	api.sectionConstructor['tester'] = api.Section.extend({
+		ready : function() {
+			var section = this;
 
+			section.expanded.bind( 'toggleSectionExpansion', function( e, c ) {
+				if( e ) {
+					console.log( 'expnaded', section.id );
+				}
+				if( c ) {
+					console.log( 'collapsed', section.id );
+				}
+			});
+		},
+	});
 
 	// Update the CSS whenever a color setting is changed.
 	_.each( bx_ext_settings_values, function( new_value ) {
