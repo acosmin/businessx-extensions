@@ -26,6 +26,7 @@ window.BxExtensions = {
 	init : function() {
 		var self = this;
 
+		self.initFirstViewModal()
 		self.initSortableSections();
 		self.backup();
 	},
@@ -62,8 +63,7 @@ window.BxExtensions = {
 			},
 			update : function( event, ui ) {
 				// If a sections is moved, save position in a theme mod
-				list.find( '.bx_drag_and' )
-					.prepend( '<img src="' + self.v.admin + '/images/spinner.gif" />' );
+				list.find( '.bx_drag_and_spinner' ).show();
 				self.setSectionsPosition( self.sectionsArray() );
 
 				$( '.wp-full-overlay-sidebar-content' ).scrollTop( 0 );
@@ -120,7 +120,7 @@ window.BxExtensions = {
 			api.section( value ).priority( key );
 		});
 
-		list.find( '.bx_drag_and img' ).remove();
+		list.find( '.bx_drag_and_spinner' ).hide();
 
 		api.previewer.refresh();
 	},
@@ -222,8 +222,54 @@ window.BxExtensions = {
 		});
 	},
 
-	initSections : function() {
+	/**
+	 * Setup for Front Page with cusom template
+	 * @return {Void}
+	 */
+	initFirstViewModal : function() {
+		// Check if the modal window is ready or exists
+		if( $( '#businessx-frontpage-modal' ).length > 0 ) {
+			window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=330&inlineId=businessx-frontpage-modal' );
+			$( '#TB_window' ).css( 'z-index', '500002').addClass( 'bxext-stp-modal-window' );
+			$( '#TB_overlay' ).css( 'z-index', '500001' ).addClass( 'bxext-stp-modal-overlay' );
+			$( '#TB_overlay.bxext-stp-modal-overlay' ).off( 'click' );
+		}
 
+		// Insert front page on user action
+		$( '#bxext-insert-frontpage' ).on( 'click', function( event ) {
+			$.ajax({
+				url      : ajaxurl,
+				type     : 'post',
+				dataType : 'json',
+				data     : {
+					action: 'bxext_create_frontpage',
+					// @todo
+					bxext_create_frontpage: businessx_customizer_js_data.bxext_create_frontpage,
+				}
+			})
+			.done( function( data ) {
+				window.tb_remove();
+				location.reload( true );
+			});
+		});
+
+		// Use `.bxext-stp-modal-window #TB_closeWindowButton` to dismiss on X click
+		$( '#bxext-dismiss-frontpage' ).on( 'click', function( event ) {
+			$.ajax({
+				url      : ajaxurl,
+				type     : 'post',
+				dataType : 'json',
+				data     : {
+					action: 'bxext_dismiss_create_frontpage',
+					// @todo
+					bxext_create_frontpage: businessx_customizer_js_data.bxext_dismiss_create_frontpage,
+				}
+			})
+			.done( function( data ) {
+				window.tb_remove();
+				location.reload( true );
+			});
+		});
 	}
 
 }
@@ -286,26 +332,26 @@ jQuery( document ).ready( function( $ ) {
 			if( section.id == bxSectionValue ) { // Just in the actual section
 				var bxSimpleSecName = section.id.replace( 'businessx_section__', '' );
 
+				//checkHiddenOption = currentSectionSlctID.find( '#customize-control-' + value + '_section_hide input:checkbox' ),
 				// If section is hidden
-				if( checkHiddenOption.is( ':checked' ) ) {
-					currentSectionTab.addClass( hiddenSectionClass );
-					$( addNewWidgetSlct.selector ).attr( 'disabled', true );
-				} else {
-					currentSectionTab.removeClass( hiddenSectionClass );
-					$( addNewWidgetSlct.selector ).attr( 'disabled', false );
-				}
-				checkHiddenOption.on( 'change', function() {
-					if( $(this).is( ':checked' )  ) {
-						currentSectionTab.addClass( hiddenSectionClass );
-						$( addNewWidgetSlct.selector ).attr( 'disabled', true );
-					} else {
-						currentSectionTab.removeClass( hiddenSectionClass );
-						$( addNewWidgetSlct.selector ).attr( 'disabled', false );
-					}
-				});
 
-				// Change the title for adding widgets in sections
-				$( '#accordion-section-sidebar-widgets-section-' + bxSimpleSecName ).find('.customize-action').text( businessx_ext_widgets_customizer[ 'bx_add_items_to' ] );
+				// if( checkHiddenOption.is( ':checked' ) ) {
+				// 	currentSectionTab.addClass( hiddenSectionClass );
+				// 	$( addNewWidgetSlct.selector ).attr( 'disabled', true );
+				// } else {
+				// 	currentSectionTab.removeClass( hiddenSectionClass );
+				// 	$( addNewWidgetSlct.selector ).attr( 'disabled', false );
+				// }
+
+				// checkHiddenOption.on( 'change', function() {
+				// 	if( $(this).is( ':checked' )  ) {
+				// 		currentSectionTab.addClass( hiddenSectionClass );
+				// 		$( addNewWidgetSlct.selector ).attr( 'disabled', true );
+				// 	} else {
+				// 		currentSectionTab.removeClass( hiddenSectionClass );
+				// 		$( addNewWidgetSlct.selector ).attr( 'disabled', false );
+				// 	}
+				// });
 
 				$(document).on('click', addNewSecWidget, function( event ) {
 					wp.customize.section( bxSectionSidebar ).focus();
@@ -315,8 +361,6 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 			if( section.id == bxSectionSidebar ) { // Just in the selected sidebar
-				// Move sidebar to panel
-				wp.customize.section( bxSectionSidebar ).panel( 'businessx_panel__sections_items' );
 
 				var accordionSec = ( currentCheck > 0 ) ? '#sub-accordion-section-' : '#accordion-section-';
 
@@ -350,48 +394,5 @@ jQuery( document ).ready( function( $ ) {
 
 		});
 	}); // END wp.customize.section.each
-
-	// CHANGES
-	if( $('#businessx-frontpage-modal').length > 0 ) {
-		window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=330&inlineId=businessx-frontpage-modal');
-		$('#TB_window').css( 'z-index', '500002').addClass( 'bxext-stp-modal-window' );
-		$('#TB_overlay').css( 'z-index', '500001' ).addClass( 'bxext-stp-modal-overlay' );
-		$('#TB_overlay.bxext-stp-modal-overlay').off( 'click' );
-	}
-
-	$('#bxext-insert-frontpage').on('click', function(event){
-		$.ajax({
-			url: businessx_ext_widgets_customizer.bx_ajax_url,
-			type: 'post',
-			dataType: 'json',
-			data: {
-				action: 'bxext_create_frontpage',
-				bxext_create_frontpage: businessx_customizer_js_data.bxext_create_frontpage,
-			}
-		})
-		.done( function( data ) {
-			console.log( 'Inserted Front Page' );
-			window.tb_remove();
-			location.reload(true);
-		});
-	});
-
-	// Use `.bxext-stp-modal-window #TB_closeWindowButton` to dismiss on X click
-	$('#bxext-dismiss-frontpage').on('click', function(event){
-		$.ajax({
-			url: businessx_ext_widgets_customizer.bx_ajax_url,
-			type: 'post',
-			dataType: 'json',
-			data: {
-				action: 'bxext_dismiss_create_frontpage',
-				bxext_create_frontpage: businessx_customizer_js_data.bxext_dismiss_create_frontpage,
-			}
-		})
-		.done( function( data ) {
-			console.log( 'Dismissed Front Page Modal' );
-			window.tb_remove();
-			location.reload(true);
-		});
-	});
 
 });

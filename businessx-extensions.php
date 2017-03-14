@@ -97,6 +97,33 @@ if( ! function_exists( 'businessx_extensions_sections' ) ) {
 
 
 
+if( ! function_exists( 'businessx_extensions_sections_items' ) ) {
+	/**
+	 * Returns an array with names of sections
+	 * that can add items
+	 *
+	 * @since 1.0.4.3
+	 * @return array
+	 */
+	function businessx_extensions_sections_items() {
+		$sections = apply_filters( 'businessx_extensions_sections_items___filter', array(
+			'slider',
+			'features',
+			'about',
+			'team',
+			'clients',
+			'actions',
+			'testimonials',
+			'pricing',
+			'faq',
+		) );
+
+		return array_map( 'sanitize_key', array_unique( $sections ) );
+	}
+}
+
+
+
 if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
 	/**
 	 * Connects with the theme and adds all supported sections

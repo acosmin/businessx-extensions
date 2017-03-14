@@ -223,6 +223,12 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	visibility: visible !important;
 }
 
+.bx-hide {
+	display: none !important;
+}
+.bx-show {
+	display: list-item !important;
+}
 /* Drag And Drop / Customizer */
 .bx_drag_and {
 	box-sizing: border-box;
@@ -231,11 +237,12 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	margin-bottom: 8px;
 	border-top: 0 !important;
 }
-.bx_drag_and img {
+.bx_drag_and_spinner {
 	position: absolute;
 	margin-top: -15px;
 	top: 50%;
 	right: 15px;
+	display: none;
 }
 .wp-customizer li[id*=accordion-section-businessx_section__] > h3:before {
 	content: "\f156";

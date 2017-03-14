@@ -56,10 +56,12 @@
 
 			control.container.on( 'click', '.bx-cz-tab-colors', function( e ) {
 				control.tabsItemsDisplay( items, [ color, bg ] );
+				e.preventDefault();
 			});
 
 			control.container.on( 'click', '.bx-cz-tab-background', function( e ) {
 				control.tabsItemsDisplay( items, [ bg, color ] );
+				e.preventDefault();
 			});
 		},
 
@@ -72,11 +74,15 @@
 		 */
 		tabsItemsDisplay: function( items, types ) {
 			_.each( items.controls(), function( item, i ) {
+				/**
+				 * Because item.activate() and item.deactivate() reset each time the previewer refreshes,
+				 * we use some CSS to do our dirty work.
+				 */
 				if( item.id.indexOf( types[ 0 ] ) >= 0 ) {
-					item.activate({ duration: 0 });
+					$( item.selector ).addClass( 'bx-show' ).removeClass( 'bx-hide' );
 				}
 				if( item.id.indexOf( types[ 1 ] ) >= 0 ) {
-					item.deactivate({ duration: 0 });
+					$( item.selector ).addClass( 'bx-hide' ).removeClass( 'bx-show' );
 				}
 			}, items );
 		}
@@ -104,15 +110,63 @@
 			 * @type {Event}
 			 */
 			section.expanded.bind( 'toggleSectionExpansion', function( e, c ) {
+				/**
+				 * e = expanded
+				 * c = collapsed
+				 */
 				if( e || c ) {
 					_.each( section.controls(), function( control, i ) {
+						/**
+						 * Because control.activate() and control.deactivate() reset each time the previewer refreshes,
+						 * we use some CSS to do our dirty work.
+						 */
 						if( control.id.indexOf( '_bg_' ) >= 0 || control.id.indexOf( '_color_' ) >= 0 ) {
-							control.deactivate({ duration: 0 });
+							$( control.selector ).addClass( 'bx-hide').removeClass( 'bx-show' );
 						}
 					}, section );
+
+					section.changeHiddenOnExpand();
 				}
+
+				section.changeHiddenOnExpand( true );
 			});
 		},
+
+		// @todo
+		changeHiddenOnExpand: function( clicked = false ) {
+			var section    = this,
+			    type       = section.id.replace( 'businessx_section__', '' ),
+			    hideBtn    = api.control( type + '_section_hide' ),
+			    hideState  = hideBtn.setting(),
+			    addEditBtn = api.control( type + '-addedititems' );
+
+			if( typeof addEditBtn !== 'undefined' ) {
+
+				if( hideState ) {
+					$( section.container ).addClass( 'bx-hidden-section' );
+					$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', true );
+				} else {
+					$( section.container ).removeClass( 'bx-hidden-section' );
+					$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', false );
+				}
+
+			}
+
+			if( typeof addEditBtn !== 'undefined' && clicked ) {
+
+				$( hideBtn.selector ).on( 'change', 'input[type=checkbox]', function( e ) {
+					if( $( this ).is( ':checked' )  ) {
+						$( section.container ).addClass( 'bx-hidden-section' );
+						$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', true );
+					} else {
+						$( section.container ).removeClass( 'bx-hidden-section' );
+						$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', false );
+					}
+				});
+
+			}
+
+		}
 	});
 
 	/**

@@ -44,6 +44,16 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		  'active_callback' 	=> 'businessx_front_pt',
 		) );
 
+			// Move section sidebars to another panel
+			foreach ( $wp_customize->sections() as $id => $section ) {
+				$sections_items = businessx_extensions_sections_items();
+				foreach( $sections_items as $section_name ) {
+					$needle = 'sidebar-widgets-section-' . $section_name;
+					if( $needle === $id ) {
+						$section->panel = 'businessx_panel__sections_items';
+					}
+				}
+			}
 
 			/*  Add sections
 			/* ------------------------------------ */

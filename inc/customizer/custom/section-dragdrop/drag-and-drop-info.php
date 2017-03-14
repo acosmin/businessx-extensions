@@ -28,6 +28,7 @@ if( ! class_exists( 'BXEXT_Section_DragAndDrop' ) ) {
 		 */
 		protected function render_template() { ?>
 			<li id="accordion-section-{{ data.id }}" class="bx_drag_and accordion-section control-section control-section-{{ data.type }} cannot-expand">
+				<img class="bx_drag_and_spinner" src="<?php echo esc_url( admin_url() ) ?>images/spinner.gif" />
 				{{ data.title }}
 			</li>
 		<?php }

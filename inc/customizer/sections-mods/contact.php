@@ -140,6 +140,16 @@
 				)
 			),
 
+			/* Section tabs */
+			'section_tabs' => array(
+				'callback'       => 'simple',
+				'args'           => array(
+					'type'             => 'tabs',
+					'setting_id'       => 'contact-addedititems',
+					'section_id'       => 'businessx_section__contact',
+				)
+			),
+
 			/* Section background color */
 			'section_bg_color' => array(
 				'callback'       => 'simple',
