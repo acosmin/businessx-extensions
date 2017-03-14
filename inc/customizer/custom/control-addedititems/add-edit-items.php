@@ -9,15 +9,6 @@ if( ! class_exists( 'BXEXT_Control_AddEditItems' ) ) {
 		public $item_type = '';
 		public $section_type;
 
-		// public function json() {
-		// 	$json = parent::json();
-		//
-		// 	$json['item_type'] = $this->item_type;
-		// 	$json['section_type'] = $this->section_type;
-		//
-		// 	return $json;
-		// }
-
 		public function to_json() {
 			parent::to_json();
 			$this->json['item_type'] = $this->item_type;
@@ -32,6 +23,6 @@ if( ! class_exists( 'BXEXT_Control_AddEditItems' ) ) {
 			<?php
 		}
 
-		
+
 	}
 }

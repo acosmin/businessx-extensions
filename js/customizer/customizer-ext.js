@@ -86,7 +86,7 @@ window.BxExtensions = {
 	 * @return {DOMnode}
 	 */
 	panelSections : function() {
-		return api.panel( this.v.panel ).container.get( 1 );
+		return api.panel( this.v.panel ).contentContainer;
 	},
 
 	/**
@@ -266,53 +266,9 @@ jQuery( document ).ready( function( $ ) {
 				bxSectionSidebar		= 'sidebar-widgets-section-' + value,
 				bxSectionsItems			= $( '#accordion-panel-businessx_panel__sections_items' ),
 
-				styleBtnsTempl			= '<li class="customize-control bx-cz-tabs"><button data-bx-cz-tab-show="color" type="button" class="button bx-cz-tab-colors"><span class="dashicons bx-cz-tc"></span>' + businessx_ext_widgets_customizer[ 'bx_tabs_btb_colors' ] + '</button><button data-bx-cz-tab-show="bg" type="button" class="button bx-cz-tab-background"><span class="dashicons bx-cz-tb"></span>' + businessx_ext_widgets_customizer[ 'bx_tabs_btb_bg' ] + '</button></li>',
-
 				goBackBtnsTempl			= '<li class="customize-control" style="display: list-item"><button type="button" class="button bx-add-items" id="bx-section-go-back-' + value + '"><span class="dashicons bx-edit"></span>' + businessx_ext_widgets_customizer[ 'bx_anw_btn_go_back' ] + '</button></li>';
 
-			if( section.id.indexOf( bxSectionValue ) >= 0 ) {
-				// Adds "Tabs" buttons to show/hide color or background options
-				// Needs background color control to attach the buttons
-				currentSectionSlctID
-					.find( '#customize-control-' + value + '_color_background' )
-					.before( styleBtnsTempl );
 
-				// The actual "Tabs" action on click, show or hide
-				$(document).on('click', currentSectionID + ' .bx-cz-tabs button', function(event) {
-					$(this).addClass( theActivaClass );
-					var clickedData = $(this).attr( 'data-bx-cz-tab-show' );
-
-					if( clickedData == 'color' ) {
-						$(this).parent().find( '.bx-cz-tab-background' ).removeClass( theActivaClass );
-						currentSectionSlctID.find( customizeCtrlBg ).hide();
-						currentSectionSlctID.find( customizeCtrlColor ).show();
-
-					} else if ( clickedData == 'bg' ) {
-						$(this).parent().find( '.bx-cz-tab-colors' ).removeClass( theActivaClass );
-						currentSectionSlctID.find( customizeCtrlColor ).hide();
-						currentSectionSlctID.find( customizeCtrlBg ).show();
-
-						// Parallax Effect check
-						if( checkParallaxOption.is( ':checked' ) ) {
-							customizeCtrlBgImg.hide();
-							customizeCtrlBgPrx.show();
-						} else {
-							customizeCtrlBgImg.show();
-							customizeCtrlBgPrx.hide();
-						}
-
-						checkParallaxOption.on( 'change', function() {
-							if( $(this).is( ':checked' ) ){
-								customizeCtrlBgImg.hide();
-								customizeCtrlBgPrx.show();
-							} else {
-								customizeCtrlBgImg.show();
-								customizeCtrlBgPrx.hide();
-							}
-						});
-					}
-				});
-			}
 
 			// Hide widgets for specific sidebars
 			var widgetsSectionSide = ( currentCheck > 0 ) ?
@@ -394,18 +350,6 @@ jQuery( document ).ready( function( $ ) {
 
 		});
 	}); // END wp.customize.section.each
-
-	/* Controls specific JS */
-	wp.customize.control.each( function ( control ) {
-		$.each( bx_allsections, function( index, value ) {
-
-			// Hide all section colors/background controls on load
-			if( control.selector.indexOf( value + '_bg' ) >= 0 || control.selector.indexOf( value + '_color' ) >= 0 ) {
-				$( control.selector ).hide();
-			}
-
-		});
-	}); // END wp.customize.control.each;
 
 	// CHANGES
 	if( $('#businessx-frontpage-modal').length > 0 ) {

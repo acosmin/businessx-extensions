@@ -20,11 +20,11 @@
 
 	/*  Add section
 	/* ------------------------------------ */
-	$wp_customize->add_section( 'businessx_section__testimonials', array(
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__testimonials', array(
 		'title'				=> esc_html__( 'Testimonials Section', 'businessx-extensions' ),
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__testimonials' ) ),
-	) );
+	) ) );
 
 
 
@@ -55,6 +55,16 @@
 			esc_html__( 'Testimonials', 'businessx-extensions' ),
 			'.sec-testimonials .section-title' );
 		/*=====*/
+
+		// Section tabs
+		$wp_customize->add_setting( 'testimonials-sectiontabs', array() );
+
+		$wp_customize->add_control( new BXEXT_Control_Tabs( $wp_customize, 'testimonials-sectiontabs', array(
+			'section'          => 'businessx_section__testimonials',
+			'type'             => 'section-tabs',
+			'title_colors'     => __( 'Colors', 'businessx-extensions' ),
+			'title_background' => __( 'Background', 'businessx-extensions' )
+		) ) );
 
 		// Section colors
 		businessx_controller_color_picker(

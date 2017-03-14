@@ -20,11 +20,11 @@
 
 	/*  Add section
 	/* ------------------------------------ */
-	$wp_customize->add_section( 'businessx_section__about', array(
-		'title'				=> esc_html__( 'About Us Section', 'businessx-extensions' ),
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__about', array(
+		'title'				=>  esc_html__( 'About Us Section', 'businessx-extensions' ),
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__about' ) ),
-	) );
+	) ) );
 
 
 
@@ -96,6 +96,16 @@
 			'businessx_section__about',
 			esc_html__( 'Hide this button', 'businessx-extensions' ) );
 		/*=====*/
+
+		// Section tabs
+		$wp_customize->add_setting( 'about-sectiontabs', array() );
+
+		$wp_customize->add_control( new BXEXT_Control_Tabs( $wp_customize, 'about-sectiontabs', array(
+			'section'          => 'businessx_section__about',
+			'type'             => 'section-tabs',
+			'title_colors'     => __( 'Colors', 'businessx-extensions' ),
+			'title_background' => __( 'Background', 'businessx-extensions' )
+		) ) );
 
 		// Section colors
 		businessx_controller_color_picker(

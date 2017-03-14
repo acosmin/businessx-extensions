@@ -20,11 +20,11 @@
 
 	/*  Add section
 	/* ------------------------------------ */
-	$wp_customize->add_section( 'businessx_section__faq', array(
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__faq', array(
 		'title'				=> esc_html__( 'FAQ Section', 'businessx-extensions' ),
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__faq' ) ),
-	) );
+	) ) );
 
 
 
@@ -65,6 +65,16 @@
 			esc_html__( 'This is a description for the FAQ section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ),
 			'.sec-faq .section-description' );
 		/*=====*/
+
+		// Section tabs
+		$wp_customize->add_setting( 'faq-sectiontabs', array() );
+
+		$wp_customize->add_control( new BXEXT_Control_Tabs( $wp_customize, 'faq-sectiontabs', array(
+			'section'          => 'businessx_section__faq',
+			'type'             => 'section-tabs',
+			'title_colors'     => __( 'Colors', 'businessx-extensions' ),
+			'title_background' => __( 'Background', 'businessx-extensions' )
+		) ) );
 
 		// Section colors
 		businessx_controller_color_picker(

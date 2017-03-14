@@ -20,11 +20,11 @@
 
 	/*  Add section
 	/* ------------------------------------ */
-	$wp_customize->add_section( 'businessx_section__slider', array(
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__slider', array(
 		'title'				=> esc_html__( 'Slider Section', 'businessx-extensions' ),
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__slider' ) ),
-	) );
+	) ) );
 
 
 
