@@ -1,5 +1,5 @@
 /* Customizer Settings Manager */
-( function( api ) {
+( function( $, api ) {
 
 	var api = wp.customize;
 
@@ -101,7 +101,8 @@
 		 * @return {Void}
 		 */
 		ready: function() {
-			var section = this;
+			var section = this,
+			    panel   = api.panel( section.panel() );
 
 			/**
 			 * Show hide controls based on expanded/collapsed state
@@ -132,41 +133,108 @@
 			});
 		},
 
-		// @todo
+		/**
+		 * Disable the "Add items" button and add a hidden acction to
+		 * the section container if the "Hide Section" checkbox is true.
+		 * Also, remove the styles if it's false.
+		 *
+		 * @since  1.0.4.3
+		 * @see    controlHideShowSection()
+		 * @param  {Boolean} clicked Do this only if clicked checkbox, not on expanded section.
+		 * @return {Void}
+		 */
 		changeHiddenOnExpand: function( clicked = false ) {
 			var section    = this,
 			    type       = section.id.replace( 'businessx_section__', '' ),
 			    hideBtn    = api.control( type + '_section_hide' ),
 			    hideState  = hideBtn.setting(),
-			    addEditBtn = api.control( type + '-addedititems' );
+			    elements   = [ section, type ];
 
-			if( typeof addEditBtn !== 'undefined' ) {
-
+			if( clicked === false ) {
 				if( hideState ) {
-					$( section.container ).addClass( 'bx-hidden-section' );
-					$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', true );
+					section.controlHideShowSection( 'hide', elements );
 				} else {
-					$( section.container ).removeClass( 'bx-hidden-section' );
-					$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', false );
+					section.controlHideShowSection( 'show', elements );
 				}
-
-			}
-
-			if( typeof addEditBtn !== 'undefined' && clicked ) {
-
+			} else  {
 				$( hideBtn.selector ).on( 'change', 'input[type=checkbox]', function( e ) {
 					if( $( this ).is( ':checked' )  ) {
-						$( section.container ).addClass( 'bx-hidden-section' );
-						$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', true );
+						section.controlHideShowSection( 'hide', elements );
 					} else {
-						$( section.container ).removeClass( 'bx-hidden-section' );
-						$( addEditBtn.selector ).find( 'button' ).attr( 'disabled', false );
+						section.controlHideShowSection( 'show', elements );
 					}
 				});
+			}
+		},
 
+		/**
+		 * Used in changeHiddenOnExpand() to change styles/state When
+		 * the "Hide Section" is checked
+		 *
+		 * @since  1.0.4.3
+		 * @see    changeHiddenOnExpand()
+		 * @param  {String} state    Hide or show section
+		 * @param  {Array}  elements An array of: current section object, section type.
+		 * @return {Void}
+		 */
+		controlHideShowSection: function( state, elements ) {
+			var addEditBtn = api.control( elements[1] + '-addedititems' ),
+			    c = elements[0].container,
+			    s = ( typeof addEditBtn !== 'undefined' ) ? $( addEditBtn.selector ).find( 'button' ) : $( '#not-found' ),
+			    hiddenClss = 'bx-hidden-section';
+
+			if( state === 'show' ) {
+				c.removeClass( hiddenClss );
+				s.attr( 'disabled', false );
+			} else if( state === 'hide' ) {
+				c.addClass( hiddenClss );
+				s.attr( 'disabled', true );
+			} else {
+				return;
+			}
+		}
+	});
+
+	/**
+	 * On document ready
+	 *
+	 * @since 1.0.4.3
+	 */
+	$( document ).ready( function( $ ) {
+
+		/**
+		 * Add some CSS classes/states to sections on the first time the "Front Page Sections"
+		 * panel is expanded.
+		 */
+		var bx_ext_panelExpanded = 'notyet';
+
+		api.panel( 'businessx_panel__sections' ).expanded.bind( 'toggleFirstPanelExpansion', function( e, c ) {
+			if( bx_ext_panelExpanded === 'finished' ) return;
+
+			var panel    = api.panel( 'businessx_panel__sections' ),
+			    sections = panel.sections();
+
+			if( e && bx_ext_panelExpanded === 'notyet' ) { bx_ext_panelExpanded = 'expanded' };
+
+			if( bx_ext_panelExpanded === 'expanded' ) {
+				_.each( sections, function( section, i ) {
+					var type = section.id.replace( 'businessx_section__', '' );
+
+					if( type !== 'dragdrop' ) {
+						var control = api.control( type + '_section_hide' ),
+						    state   = control.setting();
+
+						if( state ) {
+							section.container.addClass( 'bx-hidden-section' );
+						} else {
+							section.container.removeClass( 'bx-hidden-section' );
+						}
+					}
+				});
 			}
 
-		}
+			bx_ext_panelExpanded = 'finished';
+		});
 	});
 
 	/**
@@ -201,4 +269,4 @@
 		} );
 	} );
 
-} )( wp.customize );
+} )( jQuery, wp.customize );

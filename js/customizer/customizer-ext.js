@@ -332,27 +332,6 @@ jQuery( document ).ready( function( $ ) {
 			if( section.id == bxSectionValue ) { // Just in the actual section
 				var bxSimpleSecName = section.id.replace( 'businessx_section__', '' );
 
-				//checkHiddenOption = currentSectionSlctID.find( '#customize-control-' + value + '_section_hide input:checkbox' ),
-				// If section is hidden
-
-				// if( checkHiddenOption.is( ':checked' ) ) {
-				// 	currentSectionTab.addClass( hiddenSectionClass );
-				// 	$( addNewWidgetSlct.selector ).attr( 'disabled', true );
-				// } else {
-				// 	currentSectionTab.removeClass( hiddenSectionClass );
-				// 	$( addNewWidgetSlct.selector ).attr( 'disabled', false );
-				// }
-
-				// checkHiddenOption.on( 'change', function() {
-				// 	if( $(this).is( ':checked' )  ) {
-				// 		currentSectionTab.addClass( hiddenSectionClass );
-				// 		$( addNewWidgetSlct.selector ).attr( 'disabled', true );
-				// 	} else {
-				// 		currentSectionTab.removeClass( hiddenSectionClass );
-				// 		$( addNewWidgetSlct.selector ).attr( 'disabled', false );
-				// 	}
-				// });
-
 				$(document).on('click', addNewSecWidget, function( event ) {
 					wp.customize.section( bxSectionSidebar ).focus();
 					bxSectionsItems.addClass( 'bx-display-important' ); // Review
