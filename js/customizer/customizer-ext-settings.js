@@ -244,6 +244,8 @@
 			    sections      = panel.sections(),
 			    searchWidgets = 'bx-search-change',
 			    displayWidget = 'bx-display-block',
+			    panelWidgets  = 'bx-display-widgets',
+			    btnAttr       = 'data-bx-anw-new-title',
 			    options       = bxext_widgets_customizer;
 
 			_.each( sections, function( section ) {
@@ -272,21 +274,21 @@
 				 */
 				section.expanded.bind( 'toggleSidebarSectionExpansion', function( e, c ) {
 					var widgetsFilter  = $( '#available-widgets-filter' ),
-					    sectionWidgets = $( '#available-widgets-list' ).children(),
+					    sectionWidgets = $( '#available-widgets-list' ),
 					    widgetTmpl     = $( 'div[id*=widget-tpl-bx-item-' + type +'-]' ),
 					    addWidget      = $( '.add-new-widget' );
 
 					if( e ) {
 						widgetsFilter.addClass( searchWidgets ).find( 'input' ).attr( 'disabled', true );
-						sectionWidgets.hide();
+						sectionWidgets.addClass( panelWidgets );
 						widgetTmpl.show().addClass( displayWidget );
-						addWidget.attr( 'data-bx-anw-new-title', options.add_widget[ type ] );
+						addWidget.attr( btnAttr, options.add_widget[ type ] );
 					}
 					if( c ) {
 						widgetsFilter.removeClass( searchWidgets ).find( 'input' ).attr( 'disabled', false );
-						sectionWidgets.show();
+						sectionWidgets.removeClass( panelWidgets );
 						widgetTmpl.hide().removeClass( displayWidget );
-						addWidget.removeAttr( 'data-bx-anw-new-title' );
+						addWidget.removeAttr( btnAttr );
 					}
 				});
 			}, panel );

@@ -91,8 +91,11 @@
 .wp-customizer li[id*=customize-control-widget_bx-item-] .move-widget {
 	display: none !important;
 }
-.wp-customizer #available-widgets-list div.bx-display-block {
+.wp-customizer #available-widgets-list.bx-display-widgets div.widget-tpl.bx-display-block {
 	display: block !important;
+}
+.wp-customizer #available-widgets-list.bx-display-widgets div.widget-tpl {
+	display: none !important;
 }
 .bx-search-change {
 	background-color: #ffffff !important;

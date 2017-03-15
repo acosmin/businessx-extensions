@@ -45,6 +45,7 @@ window.BxExtensions = {
 			items  : '> li.control-section:not(.cannot-expand)',
 			cancel : 'li.ui-sortable-handle.open',
 			delay  : 150,
+			axis   : 'y',
 			create : function( event, ui ) {
 				/**
 				 * When the sortable list is created make sure we have the right positions.
