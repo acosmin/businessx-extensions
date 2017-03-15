@@ -274,6 +274,9 @@ window.BxExtensions = {
 
 }
 
+/**
+ * Let the magic begin
+ */
 $( document ).ready( function( $ ) {
 	var bxextensions = window.BxExtensions;
 
@@ -281,79 +284,4 @@ $( document ).ready( function( $ ) {
 	 * Init Businessx Pro Customizer Class
 	 */
 	bxextensions.init();
-});
-
-/* Customizer JS */
-jQuery( document ).ready( function( $ ) {
-
-	/* Sections specific JS */
-	var bx_allsections = businessx_ext_widgets_customizer[ 'bx_sections' ];
-
-	wp.customize.section.each( function ( section ) {
-		$.each( bx_allsections, function( index, value ) {
-
-			var currentCheck			= $('#sub-accordion-section-businessx_section__slider').length,
-				currentSectionID	 	= ( currentCheck > 0 ) ?
-				'#sub-accordion-section-businessx_section__' + value : '#accordion-section-businessx_section__' + value,
-				currentSectionTab		= $( '#accordion-section-businessx_section__' + value ),
-				currentSectionSlctID	= $( currentSectionID ),
-				checkParallaxOption 	= currentSectionSlctID.find( '#customize-control-' + value + '_bg_parallax input:checkbox' ),
-				checkHiddenOption 		= currentSectionSlctID.find( '#customize-control-' + value + '_section_hide input:checkbox' ),
-				customizeCtrlBg			= 'li[id*="customize-control-' + value + '_bg"]',
-				customizeCtrlColor		= 'li[id*="customize-control-' + value + '_color"]',
-				customizeCtrlBgImg		= $( '#customize-control-' + value + '_bg_image' ),
-				customizeCtrlBgPrx		= $( '#customize-control-' + value + '_bg_parallax_img' ),
-				theActivaClass			= 'active',
-				addNewSecWidget			= '#bx-section-add-some-' + value,
-				addNewWidgetSlct		= $( addNewSecWidget ),
-				hiddenSectionClass		= 'bx-hidden-section',
-				sectionDescription		= ' .customize-section-description-container',
-				bxSectionValue			= 'businessx_section__' + value,
-				bxSectionSidebar		= 'sidebar-widgets-section-' + value,
-				bxSectionsItems			= $( '#accordion-panel-businessx_panel__sections_items' ),
-
-				goBackBtnsTempl			= '<li class="customize-control" style="display: list-item"><button type="button" class="button bx-add-items" id="bx-section-go-back-' + value + '"><span class="dashicons bx-edit"></span>' + businessx_ext_widgets_customizer[ 'bx_anw_btn_go_back' ] + '</button></li>';
-
-
-
-			// Hide widgets for specific sidebars
-			var widgetsSectionSide = ( currentCheck > 0 ) ?
-			'#sub-accordion-section-sidebar-widgets-section-' + value + ' .add-new-widget' :
-			'#accordion-section-sidebar-widgets-section-' + value + ' .add-new-widget';
-
-			if( section.id == bxSectionSidebar ) { // Just in the selected sidebar
-
-				var accordionSec = ( currentCheck > 0 ) ? '#sub-accordion-section-' : '#accordion-section-';
-
-				// Go back action for widgets
-				$(document).on('click', accordionSec + section.id + ' .customize-section-title .customize-section-back', function( event ) {
-					var newCurrentPanel = section.panel().replace('_items','');
-
-					if( wp.customize.panel( newCurrentPanel ).active() ) { // Check if the parent panel is active first
-						wp.customize.section( bxSectionValue ).focus();
-					} else {
-						alert( businessx_ext_widgets_customizer[ 'bx_wrong_page' ] );
-						if( currentCheck > 0 ){
-							$('#sub-accordion-section-title_tagline').find('button.customize-section-back').click().click();
-						} else {
-							$('#accordion-section-title_tagline').find('button.customize-section-back').click().click();
-						}
-						event.preventDefault();
-					}
-
-					bxSectionsItems.removeClass( 'bx-display-important' ); // Review
-					$( '#available-widgets-list' ).children().show();
-					$( 'div[id*=widget-tpl-bx-item-' + value +'-]' ).hide().removeClass( 'bx-display-block' );
-					$( '#available-widgets-filter' ).removeClass( 'bx-search-change' ).find( 'input' ).attr( 'disabled', false );
-				});
-
-				// Change button text
-				$(document).on( 'click', currentSectionID + ' .bx-add-items', function( event ) {
-					$( '.add-new-widget' ).attr( 'data-bx-anw-new-title', businessx_ext_widgets_customizer[ 'bx_anw_btn_' + value ] );
-				});
-			}
-
-		});
-	}); // END wp.customize.section.each
-
 });

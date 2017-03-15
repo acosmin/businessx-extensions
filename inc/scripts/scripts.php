@@ -38,6 +38,19 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 					'bk_fail'            => esc_html__( 'You need to save your settings before you backup!', 'businessx-extensions' ),
 					'bk_success'         => esc_html__( 'Widgets and sections items positions backed up!', 'businessx-extensions' ),
 					'bk_restore_success' => esc_html__( 'Backup restored! Refreshing the page now...', 'businessx-extensions' ),
+					'wrong_page'         => esc_html__( 'The current page does not contain this section. We will go back now!', 'businessx-extensions' ),
+				),
+				'add_widget'         => array(
+					// Features
+					'features'     => esc_html__( 'Add a Feature', 'businessx-extensions' ),
+					'faq'          => esc_html__( 'Add a Question', 'businessx-extensions' ),
+					'clients'      => esc_html__( 'Add a Client', 'businessx-extensions' ),
+					'actions'      => esc_html__( 'Add an Action', 'businessx-extensions' ),
+					'about'        => esc_html__( 'Add an About Box', 'businessx-extensions' ),
+					'testimonials' => esc_html__( 'Add a Testimonial', 'businessx-extensions' ),
+					'team'         => esc_html__( 'Add a Member', 'businessx-extensions' ),
+					'pricing'      => esc_html__( 'Add a Package', 'businessx-extensions' ),
+					'slider'       => esc_html__( 'Add a Slide', 'businessx-extensions' ),
 				),
 			) );
 
@@ -49,6 +62,7 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 			);
 
 			// Add some data
+			// @todo check this
 			wp_localize_script(
 				'businessx-extensions-widgets-customizer',
 				'businessx_ext_widgets_customizer',

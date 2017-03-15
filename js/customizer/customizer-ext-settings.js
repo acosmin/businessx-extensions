@@ -233,7 +233,7 @@
 	$( document ).ready( function( $ ) {
 
 		/**
-		 * Show the right sidebars & widgets if related 
+		 * Show the right sidebars & widgets if related
 		 * to a front page section.
 		 *
 		 * @since  1.0.4.3
@@ -243,24 +243,50 @@
 			var panel         = api.panel( 'businessx_panel__sections_items' ),
 			    sections      = panel.sections(),
 			    searchWidgets = 'bx-search-change',
-			    displayWidget = 'bx-display-block';
+			    displayWidget = 'bx-display-block',
+			    options       = bxext_widgets_customizer;
 
 			_.each( sections, function( section ) {
+				var type = section.id.replace( 'sidebar-widgets-section-', '' );
+
+				/**
+				 * Get back to the Front Page section instead of sidebar, when the
+				 * back button is clicked.
+				 */
+				section.container.find( '.accordion-section-title, .customize-section-back' ).on( 'click keydown', function( e ) {
+					if ( api.utils.isKeydownButNotEnterEvent( e ) ) {
+						return;
+					}
+					e.preventDefault();
+
+					if( api.panel( 'businessx_panel__sections' ).active() ) {
+						api.section( 'businessx_section__' + type ).focus();
+					} else {
+						alert( options.msgs.wrong_page );
+						api.section( 'title_tagline' ).focus();
+					}
+				});
+
+				/**
+				 * Display the right widgets and sidebar
+				 */
 				section.expanded.bind( 'toggleSidebarSectionExpansion', function( e, c ) {
-					var type           = section.id.replace( 'sidebar-widgets-section-', '' ),
-					    widgetsFilter  = $( '#available-widgets-filter' ),
+					var widgetsFilter  = $( '#available-widgets-filter' ),
 					    sectionWidgets = $( '#available-widgets-list' ).children(),
-					    widgetTmpl     = $( 'div[id*=widget-tpl-bx-item-' + type +'-]' );
+					    widgetTmpl     = $( 'div[id*=widget-tpl-bx-item-' + type +'-]' ),
+					    addWidget      = $( '.add-new-widget' );
 
 					if( e ) {
 						widgetsFilter.addClass( searchWidgets ).find( 'input' ).attr( 'disabled', true );
 						sectionWidgets.hide();
 						widgetTmpl.show().addClass( displayWidget );
+						addWidget.attr( 'data-bx-anw-new-title', options.add_widget[ type ] );
 					}
 					if( c ) {
 						widgetsFilter.removeClass( searchWidgets ).find( 'input' ).attr( 'disabled', false );
 						sectionWidgets.show();
 						widgetTmpl.hide().removeClass( displayWidget );
+						addWidget.removeAttr( 'data-bx-anw-new-title' );
 					}
 				});
 			}, panel );
