@@ -321,24 +321,6 @@ jQuery( document ).ready( function( $ ) {
 			'#sub-accordion-section-sidebar-widgets-section-' + value + ' .add-new-widget' :
 			'#accordion-section-sidebar-widgets-section-' + value + ' .add-new-widget';
 
-			$(document).on('click', widgetsSectionSide, function(event) {
-				$( '#available-widgets-filter' ).addClass( 'bx-search-change' ).find( 'input' ).attr( 'disabled', true );
-				$( '#available-widgets-list' ).children().hide();
-				$( 'div[id*=widget-tpl-bx-item-' + value +'-]' ).show().addClass( 'bx-display-block' );
-				event.preventDefault();
-			});
-
-			// Section specific actions, just for adding widgets
-			if( section.id == bxSectionValue ) { // Just in the actual section
-				var bxSimpleSecName = section.id.replace( 'businessx_section__', '' );
-
-				$(document).on('click', addNewSecWidget, function( event ) {
-					wp.customize.section( bxSectionSidebar ).focus();
-					bxSectionsItems.addClass( 'bx-display-important' ); // Review
-					event.preventDefault();
-				});
-			}
-
 			if( section.id == bxSectionSidebar ) { // Just in the selected sidebar
 
 				var accordionSec = ( currentCheck > 0 ) ? '#sub-accordion-section-' : '#accordion-section-';

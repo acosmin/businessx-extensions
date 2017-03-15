@@ -7,7 +7,7 @@
 	 * Drag & Drop section title
 	 *
 	 * @since 1.0.4.3
-	 * @type {Object}
+	 * @type  {Object}
 	 */
 	api.sectionConstructor['dragdrop'] = api.Section.extend( {
 		/**
@@ -28,10 +28,38 @@
 	} );
 
 	/**
+	 * Add edit items button control
+	 *
+	 * @since 1.0.4.3
+	 * @type  {Object}
+	 */
+	api.controlConstructor['add-edit-items'] = api.Control.extend( {
+		/**
+		 * When the control is ready, initialize it
+		 *
+		 * @return {Void}
+		 */
+		ready: function() {
+			var control = this,
+			    type    = control.id.replace( '-addedititems', '' );
+
+			/**
+			 * When the button is clicked focus the sidebar
+			 *
+			 * @todo check .bx-display-important in older version.
+			 */
+			control.container.on( 'click', '.bx-add-items', function( e ) {
+				api.section( 'sidebar-widgets-section-' + type ).focus();
+				e.preventDefault();
+			});
+		}
+	});
+
+	/**
 	 * Tabs for color and background controls
 	 *
 	 * @since 1.0.4.3
-	 * @type {Object}
+	 * @type  {Object}
 	 */
 	api.controlConstructor['section-tabs'] = api.Control.extend( {
 		/**
@@ -92,7 +120,7 @@
 	 * Assign/create a custom section for Front Page sections
 	 *
 	 * @since 1.0.4.3
-	 * @type {Object}
+	 * @type  {Object}
 	 */
 	api.sectionConstructor['front-page'] = api.Section.extend({
 		/**
@@ -195,6 +223,8 @@
 		}
 	});
 
+	api.panel( 'businessx_panel__sections_items' );
+
 	/**
 	 * On document ready
 	 *
@@ -203,45 +233,85 @@
 	$( document ).ready( function( $ ) {
 
 		/**
-		 * Add some CSS classes/states to sections on the first time the "Front Page Sections"
-		 * panel is expanded.
+		 * Show the right sidebars & widgets if related 
+		 * to a front page section.
+		 *
+		 * @since  1.0.4.3
+		 * @return {Void}
 		 */
-		var bx_ext_panelExpanded = 'notyet';
+		var bxShowRightSidebars = function() {
+			var panel         = api.panel( 'businessx_panel__sections_items' ),
+			    sections      = panel.sections(),
+			    searchWidgets = 'bx-search-change',
+			    displayWidget = 'bx-display-block';
 
-		api.panel( 'businessx_panel__sections' ).expanded.bind( 'toggleFirstPanelExpansion', function( e, c ) {
-			if( bx_ext_panelExpanded === 'finished' ) return;
+			_.each( sections, function( section ) {
+				section.expanded.bind( 'toggleSidebarSectionExpansion', function( e, c ) {
+					var type           = section.id.replace( 'sidebar-widgets-section-', '' ),
+					    widgetsFilter  = $( '#available-widgets-filter' ),
+					    sectionWidgets = $( '#available-widgets-list' ).children(),
+					    widgetTmpl     = $( 'div[id*=widget-tpl-bx-item-' + type +'-]' );
 
-			var panel    = api.panel( 'businessx_panel__sections' ),
-			    sections = panel.sections();
-
-			if( e && bx_ext_panelExpanded === 'notyet' ) { bx_ext_panelExpanded = 'expanded' };
-
-			if( bx_ext_panelExpanded === 'expanded' ) {
-				_.each( sections, function( section, i ) {
-					var type = section.id.replace( 'businessx_section__', '' );
-
-					if( type !== 'dragdrop' ) {
-						var control = api.control( type + '_section_hide' ),
-						    state   = control.setting();
-
-						if( state ) {
-							section.container.addClass( 'bx-hidden-section' );
-						} else {
-							section.container.removeClass( 'bx-hidden-section' );
-						}
+					if( e ) {
+						widgetsFilter.addClass( searchWidgets ).find( 'input' ).attr( 'disabled', true );
+						sectionWidgets.hide();
+						widgetTmpl.show().addClass( displayWidget );
+					}
+					if( c ) {
+						widgetsFilter.removeClass( searchWidgets ).find( 'input' ).attr( 'disabled', false );
+						sectionWidgets.show();
+						widgetTmpl.hide().removeClass( displayWidget );
 					}
 				});
-			}
+			}, panel );
+		}();
 
-			bx_ext_panelExpanded = 'finished';
-		});
+		/**
+		 * Add some CSS classes/states to sections on the first time the "Front Page Sections"
+		 * panel is expanded.
+		 *
+		 * @since  1.0.4.3
+		 * @return {Void}
+		 */
+		var bxPanelExpandedOnce = function() {
+			var expanded = 'notyet',
+			    panel    = api.panel( 'businessx_panel__sections' );
+			    sections = panel.sections();
+
+			panel.expanded.bind( 'toggleFirstPanelExpansion', function( e, c ) {
+				if( expanded === 'finished' ) return;
+
+				if( e && expanded === 'notyet' ) { expanded = 'expanded' };
+
+				if( expanded === 'expanded' ) {
+					_.each( sections, function( section, i ) {
+						var type = section.id.replace( 'businessx_section__', '' ),
+						    hidden = 'bx-hidden-section';
+
+						if( type !== 'dragdrop' ) {
+							var control = api.control( type + '_section_hide' ),
+							    state   = control.setting();
+
+							if( state ) {
+								section.container.addClass( hidden );
+							} else {
+								section.container.removeClass( hidden );
+							}
+						}
+					});
+				}
+
+				expanded = 'finished';
+
+			}, sections );
+		}();
 	});
 
 	/**
 	 * Live previewing colors and other settngs
 	 *
 	 * @since 1.0.0
-	 * @type {Mixed}
+	 * @type  {Mixed}
 	 */
 	var bx_ext_styles_template = wp.template( 'businessx-ext-czr-settings-output' ),
 	    bx_ext_simple_settings = _.map( bx_ext_customizer_settings, function( element, index ) { return index } ),
