@@ -23,6 +23,12 @@ if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 				array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'wp-color-picker' ),
 				'20160412', FALSE
 			);
+			wp_enqueue_script(
+				'bxext-widgets-repeater',
+				BUSINESSX_EXTS_URL . 'js/admin/widgets-repeater.js',
+				array( 'underscore', 'backbone', 'jquery-ui-sortable' ),
+				'20160412', TRUE
+			);
 
 			$data = apply_filters( 'businessx_extensions___widgets_customizer', array(
 				/* A list of all the icons for autocomplete */

@@ -45,7 +45,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 				'btn_anchor'	=> '',
 				'btn_url'		=> '',
 				'btn_target'	=> '_self',
-				'list'			=> '',
+				'list'			=> array(),
 				'icos'			=> true,
 				'item_bg'		=> apply_filters( 'businessx_extensions_pricing_item___bg_color', '#4eb5d5' ),
 				'item_btn'		=> apply_filters( 'businessx_extensions_pricing_item___btn_bg', '#76bc1c' ),
@@ -59,6 +59,8 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 				'list_color'		=> apply_filters( 'businessx_extensions_pricing_list___color', '#636363' ),
 				'details'		=> apply_filters( 'businessx_extensions_pricing_box___details', '#ffffff' ),
 			);
+
+			add_action( 'customize_controls_print_footer_scripts', array( $this, 'repeating_tmpl' ), 0 );
 
 		}
 
@@ -156,7 +158,8 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 			$instance[ 'details' ]		= sanitize_text_field( $new_instance[ 'details' ] );
 
 			// Repeatable
-			$instance[ 'list' ] 		= self::sanitize_list( $new_instance[ 'list' ] );
+			//$instance[ 'list' ] 		= self::sanitize_list( $new_instance[ 'list' ] )
+			$instance[ 'list' ] 		= $new_instance[ 'list' ];
 
 			// Checkboxes
 			$instance[ 'icos' ]			= ! empty( $new_instance[ 'icos' ] ) ? 1 : 0;
@@ -166,6 +169,28 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 			// Return
 			return $instance;
+		}
+
+		public function repeating_tmpl() {
+			?>
+			<script type="text/template" id="tmpl-acbuilder-repeater">
+				<div class="bx-pricing-repeatable-top bx-bs bx-clearfix">
+
+					<select name="{{ data.name }}[{{ data.key }}][status]" class="widefat" id="{{ data.wid }}[{{ data.key }}][status]">
+						<option value="available" {{ (data.value == 'available') ? 'selected' : '' }}><?php _e( 'Available', 'businessx-extensions' ) ?></option>
+						<option value="unavailable" {{ (data.value == 'unavailable') ? 'selected' : '' }}><?php _e( 'Unavailable', 'businessx-extensions' ) ?></option>
+					</select>
+
+					<span class="bx-pricing-repeatable-helper"><a class="bx-pricing-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
+					<span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
+
+				</div>
+
+				<input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="{{ data.name }}[{{ data.key }}][item]"  value="{{ data.value }}" class="widefat" id="{{ data.wid }}[{{ data.key }}][item]" />
+
+				<input type="hidden" class="acbuilder-element-key" data-acb-el-key="{{ data.key }}" />
+			</script>
+			<?php
 		}
 
 
@@ -186,7 +211,6 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 			$btn_url 		= $instance[ 'btn_url' ];
 			$btn_target		= $instance[ 'btn_target' ];
 			$list 			= $instance[ 'list' ];
-			$md5s 			= substr(md5(rand()), 0, 7);
 			$traget			= parent::link_target();
 			$icos 			= isset( $instance[ 'icos' ] ) ? (bool) $instance[ 'icos' ] : false;
 			$item_bg		= $instance[ 'item_bg' ];
@@ -239,41 +263,29 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 						parent::check_box( $icos, 'icos', __( 'Show icons', 'businessx-extensions' ) );
 						?>
 
-                    	<ul class="bx-pricing-repeatable-items <?php echo $md5s; ?> bx-clearfix">
-							<?php if ( $list ) :
-                                    $new_counter = max( array_keys( $list ) );
+                    	<ul class="bx-pricing-repeatable-items bx-clearfix">
+							<?php if ( ! empty( $list ) ) :
                                     foreach ( $list as $key => $value ) : ?>
                                     <li class="bx-pricing-repeatable-item bx-bs bx-clearfix">
                                     	<div class="bx-pricing-repeatable-top bx-bs bx-clearfix">
-                                            <select name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo absint( $key ); ?>][status]" class="widefat" id="<?php echo $this->get_field_id( 'list'); ?>[<?php echo absint( $key ); ?>][status]">
+                                            <select name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo $key; ?>][status]" class="widefat" id="<?php echo $this->get_field_id( 'list'); ?>[<?php echo $key; ?>][status]">
                                                 <option value="available"<?php selected($value[ 'status' ], 'available'); ?>><?php _e( 'Available', 'businessx-extensions' ) ?></option>
                                                 <option value="unavailable"<?php selected($value[ 'status' ], 'unavailable'); ?>><?php _e( 'Unavailable', 'businessx-extensions' ) ?></option>
                                             </select>
                                             <span class="bx-pricing-repeatable-helper"><a class="bx-pricing-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
                                             <span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
                                         </div>
-                                        <input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo absint( $key ); ?>][item]"  value="<?php echo esc_attr( $value['item'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[<?php echo absint( $key ); ?>][item]" />
+                                        <input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo $key; ?>][item]"  value="<?php echo esc_attr( $value['item'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[<?php echo $key; ?>][item]" />
+										<input type="hidden" class="acbuilder-element-key" data-acb-el-key="<?php echo $key; ?>" />
                                     </li>
 								<?php
 									endforeach;
-                                else :
-									$new_counter = 0; ?>
-                                    <li class="bx-pricing-repeatable-item bx-bs bx-clearfix">
-                                    	<div class="bx-pricing-repeatable-top bx-bs bx-clearfix">
-                                            <select name="<?php echo $this->get_field_name( 'list' ); ?>[0][status]" class="widefat" id="<?php echo $this->get_field_id( 'list'); ?>[0][status]">
-                                                <option value="available"><?php _e( 'Available', 'businessx-extensions' ) ?></option>
-                                                <option value="unavailable"><?php _e( 'Unavailable', 'businessx-extensions' ) ?></option>
-                                            </select>
-                                            <span class="bx-pricing-repeatable-helper"><a class="bx-pricing-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
-                                            <span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
-                                        </div>
-                                        <input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="<?php echo $this->get_field_name( 'list' ); ?>[0][item]"  value="" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[0][item]" />
-
-                                    </li>
-							<?php endif; ?>
+								endif; ?>
                         </ul>
 
-                        <p class="bx-pricing-add-wrap"><a id="bx-pricing-add-item-<?php echo $md5s; ?>" class="button bx-pricing-add-item" href="#"><?php _e( 'Add another item', 'businessx-extensions' ); ?></a></p>
+						<a class="button acbuilder-repeater-add" href="#"><?php _e( 'Add another item', 'businessx-extensions' ); ?></a>
+
+						<input type="hidden" class="acbuilder-change" name="acbuilder-change" />
 
                     </div>
 				</div>
@@ -312,46 +324,6 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 			</div><!-- Tabs -->
 
-            <script>
-				jQuery(document).ready(function ($) {
-
-					var counter = <?php echo absint( $new_counter ); ?>;
-
-					$('#bx-pricing-add-item-<?php echo $md5s; ?>').on('click', function (event) {
-						var currentParent = $(this).parents('.widget-content');
-						var new_counter = 1 + counter++;
-
-						var id_input = '<li class="bx-pricing-repeatable-item bx-bs bx-clearfix"><div class="bx-pricing-repeatable-top bx-bs bx-clearfix">'
-								+ '<select name="<?php echo $this->get_field_name( 'list' ); ?>[' + new_counter + '][status]" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[' + new_counter + '][status]">'
-								+ '<option value="available">' + businessx_ext_widgets_customizer[ 'bx_tabs_available' ] + '</option>'
-								+ '<option value="unavailable">' + businessx_ext_widgets_customizer[ 'bx_tabs_unavailable' ] + '</option></select>'
-								+ '<span class="bx-pricing-repeatable-helper"><a class="bx-pricing-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>'
-								+ '<span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span></div>'
-								+ '<input placeholder="' + businessx_ext_widgets_customizer[ 'bx_tabs_item_title' ] + '" type="text" class="widefat" name="<?php echo $this->get_field_name( 'list' ); ?>[' + new_counter + '][item]" id="<?php echo $this->get_field_id( 'list' ); ?>[' + new_counter + '][item]" />'
-								+ '</li>';
-
-						$(id_input).appendTo($(this).parents().find('.widget-content ul.<?php echo $md5s; ?>'));
-
-						currentParent.find('.p-widget-title input').trigger('change');
-						event.preventDefault();
-					});
-
-					$('.bx-pricing-repeatable-items').on("click", ".bx-pricing-remove-item", function (event) {
-						var currentParent = $(this).parents('.widget-content');
-						$(this).parents('li.bx-pricing-repeatable-item').remove();
-						currentParent.find('.p-widget-title input').trigger('change');
-						event.preventDefault();
-					})
-
-					$('.bx-pricing-repeatable-items').sortable({
-						helper: 'clone',
-						items: '> li.bx-pricing-repeatable-item',
-						cursor: 'move',
-						update: function( event, ui ) { ui.item.find('input').trigger('change'); }
-					});
-
-				});
-			</script>
             <?php
 		}
 
