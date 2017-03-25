@@ -15,7 +15,7 @@ window.BxExtWidgets = {
 		var self = this;
 
 		self.hideSidebars();
-		self.clickEvents();
+		self.events();
 	},
 
 	/**
@@ -62,7 +62,7 @@ window.BxExtWidgets = {
 	/**
 	 * Tabs toggle
 	 *
-	 * @see    clickEvents()
+	 * @see    events()
 	 * @param  {Object} selector Currently clicked item
 	 * @return {Void}
 	 */
@@ -95,6 +95,36 @@ window.BxExtWidgets = {
 		sel.next( next ).toggleClass( activeTab );
 	},
 
+	/**
+	 * Select media type toggle
+	 *
+	 * @see    events()
+	 * @param  {String} selector The current selector class name
+	 * @return {Void}
+	 */
+	showOnSelect : function( selector ) {
+		var sel      = $( selector ),
+		    widget   = sel.parents( '.widget' ),
+		    select   = widget.find( '[class*=' + sel.data( 'bx-select-class' ) + ']' ),
+		    elements = $.makeArray( select ),
+		    selected = sel.val();
+
+		$.each( elements, function( i, element ) {
+			if( element.className == selected ) {
+				select.hide();
+				widget.find( '.' + selected ).show();
+			}
+		});
+	},
+
+	/**
+	 * Upload/Remove media button for widget
+	 *
+	 * @see    events()
+	 * @param  {String}  selector       The current selector class name
+	 * @param  {Boolean} [remove=false] If this is used to remove media, set to true if so
+	 * @return {Void}
+	 */
 	mediaUpload : function( selector, remove = false ) {
 		var sel       = $( selector ).closest( 'div' ),
 		    upload    = wp.media({ multiple: false }),
@@ -133,29 +163,77 @@ window.BxExtWidgets = {
 	},
 
 	/**
+	 * Initialise widget
+	 *
+	 * @see    events()
+	 * @param  {Object} widget Widget instance
+	 * @return {Void}
+	 */
+	widgetInit : function( widget ) {
+		var fieldAutoComplete = widget.find( 'input.bx-is-autocomplete' );
+
+		// Add color picker fields
+		widget.find( '.bx-widget-color-piker' ).wpColorPicker({
+			change: _.throttle( function() {
+				if( $( 'body' ).hasClass( 'wp-customizer' ) ) {
+					$( this ).trigger( 'change' );
+				}
+			}, 200 ),
+			palettes: false
+		});
+
+		// Add autocomplete for widgets icons fields
+		fieldAutoComplete.autocomplete({
+			source: bxext_widgets_customizer.icons,
+			select: function( event, ui ) {
+				var _this = $( this ),
+				    icon  = _this.parent().find( '.bx-is-autocomplete-icon i' );
+
+				icon.removeAttr( 'class' ).addClass( 'fa ' +  ui.item.value );
+				_this.trigger( 'change' );
+			}
+		});
+	},
+
+	/**
 	 * What to do when something is clicked :)
 	 *
 	 * @return {Void}
 	 */
-	clickEvents : function() {
-		var self = this;
+	events : function() {
+		var self = this,
+		    _doc = $( document );
 
 		// Tabs toggle and init
-		$( document ).on( 'click', 'a.bx-wt-tab-toggle', function( e ) {
+		_doc.on( 'click', 'a.bx-wt-tab-toggle', function( e ) {
 			self.tabsInit( this );
 			e.preventDefault();
 		});
 
 		// Upload media
-		$( document ).on( 'click', '.bx-iu-image-upload', function( e ) {
+		_doc.on( 'click', '.bx-iu-image-upload', function( e ) {
 			e.preventDefault();
 			self.mediaUpload( this );
 		});
 
 		// Remove media
-		$( document ).on( 'click', '.bx-iu-image-remove', function( e ) {
+		_doc.on( 'click', '.bx-iu-image-remove', function( e ) {
 			e.preventDefault();
 			self.mediaUpload( this, true );
+		});
+
+		// Selec media type toggle
+		_doc.on( 'change', '.bx-select-type', function( e ) {
+			e.preventDefault();
+			self.showOnSelect( this );
+		});
+
+		// Initialise widget
+		_doc.on( 'widget-added', function( e, widget ) {
+			if ( widget.is( '[id*=bx-item]' ) ) {
+				self.widgetInit( widget );
+			}
+			e.preventDefault();
 		});
 	},
 }
@@ -168,76 +246,3 @@ $( document ).ready( function ( $ ) {
 	 */
 	bxextwidgets.init();
 });
-
-(function( $ ) {
-	$(document).ready(function () {
-
-		// Select type
-		$(document).on('change', '.bx-select-type', function(event) {
-			event.preventDefault();
-
-			var bx_widget 		= $(this).parents('.widget');
-			var bx_select_class	= $(this).data('bx-select-class');
-			var bx_select 		= bx_widget.find('[class*='+bx_select_class+']');
-			var bx_elements 	= $.makeArray( bx_select );
-			var bx_selected 	= $(this).val();
-
-			$.each(bx_elements, function( index, value ) {
-				if( value.className == bx_selected ) {
-					bx_select.hide();
-					bx_widget.find('.' + bx_selected ).show();
-				}
-			});
-		});
-
-		$(document).on('click', 'div.widget[id*=bx-item] .widget-title, div.widget[id*=bx-item] .widget-action', function (event) {
-			bx_widgetInit($(this).parents('.widget[id*=bx-item]'));
-			event.preventDefault();
-        });
-
-		// If a widget is added do this
-		$(document).on( 'widget-added', function(event, bx_widgetID) {
-			if ( bx_widgetID.is('[id*=bx-item]' )) {
-                bx_widgetInit(bx_widgetID);
-            }
-			event.preventDefault();
-		});
-
-		// If a widget is updated do this
-		$(document).on('widget-updated', function(event, bx_widgetID) {
-            if (bx_widgetID.is('[id*=bx-item]')) {
-                bx_widgetInit( bx_widgetID );
-            }
-			event.preventDefault();
-        });
-
-		// Initialise widget function
-		function bx_widgetInit( bx_widgetID ) {
-			var thisWidgetID = bx_widgetID;
-			var fieldCurrent = thisWidgetID.find( 'input.bx-is-autocomplete' );
-
-			// Color Picker
-			bx_widgetID.find('.bx-widget-color-piker').wpColorPicker({
-				/*change: _.throttle(function() {
-					if( $('body').hasClass('wp-customizer') ) { $(this).trigger( 'change' ); }
-				}, 2000),*/
-				change: _.throttle(function() {
-					if( $('body').hasClass('wp-customizer') ) { $(this).trigger( 'change' ); }
-				}, 200),
-				palettes: false
-			});
-
-			// Icons Autocomplet
-			fieldCurrent.autocomplete({
-      			source: businessx_ext_widgets_customizer['bx_icons_array'],
-				select: function( event, ui ) {
-					var bx_icon = $(this).parent().find('.bx-is-autocomplete-icon i')
-					bx_icon.removeAttr('class').addClass('fa ' +  ui.item.value);
-					$(this).trigger('change');
-				}
-    		});
-		}
-
-
-	});
-})( jQuery );
