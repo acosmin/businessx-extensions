@@ -61,12 +61,11 @@ window.BxExtWidgets = {
 
 		return Backbone.View.extend({
 			/**
-			 * Setting up this view with our own class name and wrapper tag
+			 * Setting up this view with our own wrapper tag
 			 *
-			 * @todo change class name
 			 * @type {String}
 			 */
-			tagName   : 'li',
+			tagName : 'li',
 
 			/**
 			 * Initialize Backbone view
@@ -119,6 +118,54 @@ window.BxExtWidgets = {
 					});
 				}, this );
 			}
+		});
+	},
+
+	/**
+	 * Make repeatable fields sortable
+	 *
+	 * @param  {String} widget Widget ID
+	 * @return {jQuery.sortable}
+	 */
+	repeaterSortable : function( widget ) {
+		var sel   = $( widget ),
+		    items = sel.find( '.bx-widget-repeatable-items' );
+
+		if( items.length === 0 ) return;
+
+		/**
+		 * Initialize jQuery UI Sortable module on our current elements
+		 */
+		items.sortable({
+
+			// Sortable options
+			helper : 'clone',
+			items  : '> li',
+			cursor : 'move',
+			axis   : 'y',
+
+			/**
+			 * Trigger change if the sortable elment is in the right place
+			 * at the end of sortable process. Also, make the "Apply" button
+			 * trigger if it appears.
+			 *
+			 * @param  {Event}    event This sortable event, on stop
+			 * @param  {Object}   ui    Current UI sortable object
+			 * @return {Function}
+			 */
+			stop : function( event, ui ) {
+				var widgetObj = ui.item.parents('.widget'),
+				    saveBtn   = widgetObj.find('.widget-control-save');
+
+				// Trigger change
+				widgetObj.find( '.bx-widget-repeatable-change' ).trigger( 'change' );
+
+				// Make "Apply" button disappear
+				if( typeof saveBtn !== 'undefined' ) {
+					saveBtn.click();
+				}
+			}
+
 		});
 	},
 
@@ -306,7 +353,11 @@ window.BxExtWidgets = {
 	 * @return {Void}
 	 */
 	widgetInit : function( widget ) {
-		var fieldAutoComplete = widget.find( 'input.bx-is-autocomplete' );
+		var self = this,
+		    fieldAutoComplete = widget.find( 'input.bx-is-autocomplete' );
+
+		// Make items sortable
+		self.repeaterSortable( widget );
 
 		// Add color picker fields
 		widget.find( '.bx-widget-color-piker' ).wpColorPicker({

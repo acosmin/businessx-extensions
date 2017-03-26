@@ -190,7 +190,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 			$instance[ 'details' ]         = sanitize_text_field( $new_instance[ 'details' ] );
 
 			// Repeatable
-			$instance[ 'list' ]      = $new_instance[ 'list' ];
+			$instance[ 'list' ]      = $this->sanitize_list( $new_instance[ 'list' ] );
 
 			// Checkboxes
 			$instance[ 'icos' ]      = ! empty( $new_instance[ 'icos' ] ) ? 1 : 0;
@@ -453,20 +453,20 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 		 * Sanitize repeating fields
 		 *
 		 * @since  1.0.4.3
-		 * @access private
+		 * @access public
 		 */
-		private function sanitize_list( $the_array ) {
+		public function sanitize_list( $the_array ) {
 			$newArr = array();
 
 			foreach( $the_array as $key => $value ) :
-					$newArr[ $key ] = $value;
-					foreach( $value as $new_key => $new_value ) :
-						if( $new_key == 'status' ) {
-							$newArr[ $key ][ $new_key ]	= in_array( $new_value, array( 'available', 'unavailable' ) ) ? $new_value : 'available';
-						}
-						if( $new_key == 'item' ) {
-							$newArr[ $key ][ $new_key ] = sanitize_text_field( $new_value );
-						}
+				$newArr[ $key ] = $value;
+				foreach( $value as $new_key => $new_value ) :
+					if( $new_key == 'status' ) {
+						$newArr[ $key ][ $new_key ]	= in_array( $new_value, array( 'available', 'unavailable' ) ) ? $new_value : 'available';
+					}
+					if( $new_key == 'item' ) {
+						$newArr[ $key ][ $new_key ] = sanitize_text_field( $new_value );
+					}
 				endforeach;
 			endforeach;
 
