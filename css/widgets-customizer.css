@@ -335,7 +335,11 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	margin-top: 15px;
 }
 
-.bx-team-repeatable-profiles,
+.bx-widget-repeatable-items a {
+	text-decoration: none !important;
+}
+
+.bx-item-team-repeatable-item,
 .bx-item-pricing-repeatable-item,
 .bx-pricing-repeatable-top
 .bx-item-pricing-repeatable-item input {
@@ -344,7 +348,8 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 .bx-pricing-add-wrap {
 	margin-top: 0;
 }
-.bx-item-pricing-repeatable-item {
+.bx-item-pricing-repeatable-item,
+.bx-item-team-repeatable-item {
 	padding: 5px;
     background-color: #EEEEEE;
     border: 1px solid #E5E5E5;
@@ -352,24 +357,24 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 .bx-pricing-repeatable-top {
 	margin-bottom: 5px;
 }
-.bx-team-repeatable-profile input,
+.bx-item-team-repeatable-item input,
 .bx-pricing-repeatable-top select,
-.bx-team-repeatable-profile .bx-team-repeatable-helper,
+.bx-item-team-repeatable-item .bx-team-repeatable-helper,
 .bx-pricing-repeatable-top .bx-pricing-repeatable-helper {
 	float: left;
 	margin-right: 2% !important;
 }
-.bx-team-repeatable-profile input,
+.bx-item-team-repeatable-item input,
 .bx-pricing-repeatable-top select {
 	width: 74% !important;
 }
-.bx-team-repeatable-profile .bx-team-repeatable-helper,
+.bx-item-team-repeatable-item .bx-team-repeatable-helper,
 .bx-pricing-repeatable-top .bx-pricing-repeatable-helper {
 	width: 10% !important;
 	text-align: center;
-	margin-top: 2%;
+	margin-top: 1%;
 }
-.bx-team-repeatable-profile .dashicons-sort:hover,
+.bx-item-team-repeatable-item .dashicons-sort:hover,
 .bx-pricing-repeatable-top .dashicons-sort:hover {
 	cursor: move !important;
 }

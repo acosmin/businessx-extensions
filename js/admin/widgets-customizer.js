@@ -416,11 +416,12 @@ window.BxExtWidgets = {
 		});
 
 		// Add repeating field
-		_doc.on( 'click', '.acbuilder-repeater-add', function( e ) {
+		_doc.on( 'click', '.bx-widget-repeater-add', function( e ) {
 			var widgetObj = $( this ).parents( '.widget' ),
 			    model     = self.repeaterModel(),
 			    view      = self.repeaterView(),
 			    idBase    = widgetObj.find( '.id_base' ).val(),
+			    elType    = widgetObj.find( '.bx-widget-repeater-el' ).attr( 'data-acb-el' ),
 			    thisModel, thisView, values;
 
 			values = {
@@ -429,7 +430,7 @@ window.BxExtWidgets = {
 					base   : idBase,
 					number : widgetObj.find( '.widget_number' ).val(),
 					object : widgetObj,
-					elem   : 'list',
+					elem   : elType,
 				},
 				value  : '',
 			};

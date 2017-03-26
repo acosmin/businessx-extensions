@@ -1,48 +1,71 @@
 <?php
-/* ------------------------------------------------------------------------- *
- *
- *  Team Section Item
- *  ________________
- *
- *  Adds a Team member - name, avatar, position, description, social buttons
- *  ________________
- *
-/* ------------------------------------------------------------------------- */
-
 if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
+	/**
+	 * Team Item
+	 * Adds a Team member - name, avatar, position, description, social buttons
+	 *
+	 * @since 1.0.0
+	 */
 	class Businessx_Extensions_Team_Item extends Businessx_Extensions_Base {
 
+		/**
+		 * Widget defaults
+		 *
+		 * @var    array
+		 * @since  1.0.0
+		 * @access protected
+		 */
 		protected $defaults;
+
+		/**
+		 * Allowed HTML
+		 *
+		 * @var    array
+		 * @since  1.0.0
+		 * @access protected
+		 */
 		protected $allowed_html = array(
 			'a' => array(
-				'href' => array(),
+				'href'  => array(),
 				'title' => array()
 			),
-			'em' => array(),
+			'em'     => array(),
 			'strong' => array(),
 		);
 
-
-		/*  Constructor
-		/* ------------------------------------ */
+		/**
+		 * Widget instance
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		function __construct() {
 
 			// Variables
 			$this->widget_title = __( 'BX: Team Member' , 'businessx-extensions' );
-			$this->widget_id = 'team';
+			$this->widget_id    = 'team';
 
 			// Settings
 			$widget_ops = array(
-				'classname' => 'sec-team-member',
+				'classname'   => 'sec-team-member',
 				'description' => esc_html__( 'Adds a Team member - name, avatar, position, description, social buttons', 'businessx-extensions' ),
 				'customize_selective_refresh' => true
 			);
 
 			// Control settings
-			$control_ops = array( 'width' => NULL, 'height' => NULL, 'id_base' => 'bx-item-' . $this->widget_id );
+			$control_ops = array(
+				'width'   => NULL,
+				'height'  => NULL,
+				'id_base' => 'bx-item-' . $this->widget_id
+			);
 
 			// Create the widget
-			parent::__construct( 'bx-item-' . $this->widget_id, $this->widget_title, $widget_ops, $control_ops );
+			parent::__construct(
+				'bx-item-' . $this->widget_id,
+				$this->widget_title,
+				$widget_ops,
+				$control_ops
+			);
 
 			// Set some widget defaults
 			$this->defaults = array (
@@ -52,14 +75,20 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 				'avatar'        => '',
 				'avatar_url'    => '',
 				'avatar_trg'    => false,
-				'social_links'  => '',
+				'social_links'  => array(),
 			);
+
+			// Underscore template for repeating fields
+			add_action( 'customize_controls_print_footer_scripts', array( $this, 'repeating_tmpl' ), 0 );
 
 		}
 
-
-		/*  Front-end display
-		/* ------------------------------------ */
+		/**
+		 * Widget output
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		public function widget( $args, $instance ) {
 			// Turn $args array into variables.
 			extract( $args );
@@ -81,13 +110,8 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 			// Some variables
 			$wid = $this->number;
-			if ( ! empty( $title ) ) {
-				$title_output = $args['before_title'] . $title . $args['after_title'];
-			} else {
-				$title_output = '';
-			}
-
-			$allowed_html = apply_filters( 'businessx_extensions_team_item___allowed_html', $allowed_html = $this->allowed_html );
+			$title_output = ( ! empty( $title ) ) ? $args['before_title'] . $title . $args['after_title'] : '';
+			$allowed_html = $this->allowed_html();
 
 			// Template vars
 			set_query_var( 'wid', $wid );
@@ -106,7 +130,7 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			$css_class[] = 'grid-col';
 			$css_class[] = 'grid-1x-col';
 			$css_class   = apply_filters( 'businessx_extensions_team_item___css_classes', $css_class );
-			$css_classes = join(' ', $css_class);
+			$css_classes = join( ' ', $css_class );
 
 			if ( ! empty( $css_classes ) ) {
 				if( strpos($args['before_widget'], 'class') === false ) {
@@ -129,14 +153,28 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 		}
 
+		/**
+		 * Allowed HTML
+		 *
+		 * @since  1.0.4.3
+		 * @access public
+		 */
+		public function allowed_html() {
+			$allowed_html = $this->allowed_html;
+			return apply_filters( 'businessx_extensions_team_item___allowed_html', $allowed_html );
+		}
 
-		/*  Update Widget
-		/* ------------------------------------ */
+		/**
+		 * Widget update
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
 			// Variables
-			$allowed_html = apply_filters( 'businessx_extensions_team_item___allowed_html', $allowed_html = $this->allowed_html );
+			$allowed_html = $this->allowed_html();
 
 			// Fields
 			$instance[ 'title' ]        = sanitize_text_field( $new_instance[ 'title' ] );
@@ -161,9 +199,32 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			return $instance;
 		}
 
+		/**
+		 * Repeating field Underscore template
+		 *
+		 * @since  1.0.4.3
+		 * @access public
+		 */
+		public function repeating_tmpl() {
+			?>
+			<script type="text/template" id="tmpl-<?php echo $this->id_base ?>-repeater">
 
-		/*  Widget's Form
-		/* ------------------------------------ */
+					<input type="url" name="{{ data.name }}[{{ data.key }}][url]"  value="{{ data.value }}" class="widefat" id="{{ data.wid }}[{{ data.key }}][url]" />
+					<span class="bx-team-repeatable-helper"><a class="bx-widget-repeater-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
+					<span class="bx-team-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
+
+					<input type="hidden" class="bx-widget-repeater-el-key" data-acb-el-key="{{ data.key }}" />
+
+			</script>
+			<?php
+		}
+
+		/**
+		 * Widget form
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		public function form( $instance ) {
 			// Parse $instance
 			$instance_defaults = $this->defaults;
@@ -178,7 +239,6 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			$avatar_url     = $instance[ 'avatar_url' ];
 			$avatar_trg     = isset( $instance[ 'avatar_trg' ] ) ? (bool) $instance[ 'avatar_trg' ] : false;
 			$social_links   = $instance[ 'social_links' ];
-			$md5s           = substr(md5(rand()), 0, 7);
 
 			// Form output
 
@@ -202,80 +262,44 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 			/* Tabs */
 			?>
-            <div class="bx-widget-tabs bx-bs">
+			<div class="bx-widget-tabs bx-bs">
 
-            	<div class="bx-wt-tab-wrap bx-bs">
-                    <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Social Profiles', 'businessx-extensions' ); ?></a>
-                    <div class="bx-wt-tab-contents bx-bs">
+				<div class="bx-wt-tab-wrap bx-bs">
 
-                        <p><?php _e( 'Enter your social profile URL, for example: http://twitter.com/acosmin/', 'businessx-extensions' ); ?></p>
-                        <p><?php _e( 'If the theme has an icon for your social profile, it will display it.', 'businessx-extensions' ); ?></p>
+				<a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Social Profiles', 'businessx-extensions' ); ?></a>
 
-                        <ul class="bx-team-repeatable-profiles <?php echo $md5s; ?> bx-clearfix">
-							<?php if ( $social_links ) :
-                                    $new_counter = max( array_keys( $social_links ) );
-                                    foreach ( $social_links as $key => $value ) : ?>
-                                    <li class="bx-team-repeatable-profile bx-clearfix">
-                                        <input type="url" name="<?php echo $this->get_field_name( 'social_links' ); ?>[<?php echo absint( $key ); ?>][url]"  value="<?php echo esc_url( $value['url'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'social_links' ); ?>[<?php echo absint( $key ); ?>][url]" />
-                                        <span class="bx-team-repeatable-helper"><a class="bx-team-remove-profile" href="#"><span class="dashicons dashicons-trash"></span></a></span>
-                                        <span class="bx-team-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
-                                    </li>
-								<?php
-									endforeach;
-                                else :
-									$new_counter = 0; ?>
-                                    <li class="bx-team-repeatable-profile bx-clearfix">
-                                        <input type="url" name="<?php echo $this->get_field_name( 'social_links' ); ?>[0][url]"  value="" class="widefat" id="<?php echo $this->get_field_id( 'social_links' ); ?>[0][url]" />
-                                        <span class="bx-team-repeatable-helper"><a class="bx-team-remove-profile" href="#"><span class="dashicons dashicons-trash"></span></a></span>
-                                        <span class="bx-team-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
-                                    </li>
-							<?php endif; ?>
-                        </ul>
+					<div class="bx-wt-tab-contents bx-bs">
 
-                        <p><a id="bx-team-add-profile-<?php echo $md5s; ?>" class="button bx-team-add-profile" href="#"><?php _e( 'Add another profile', 'businessx-extensions' ); ?></a></p>
+						<p><?php _e( 'Enter your social profile URL, for example: http://twitter.com/acosmin/', 'businessx-extensions' ); ?></p>
+						<p><?php _e( 'If the theme has an icon for your social profile, it will display it.', 'businessx-extensions' ); ?></p>
 
-                    </div>
-            	</div>
+						<ul class="bx-widget-repeatable-items bx-clearfix">
+							<?php
+							if ( ! empty( $social_links ) ) :
+								foreach ( $social_links as $key => $value ) :
+							?>
+								<li class="bx-item-team-repeatable-item bx-bs bx-clearfix">
+									<input type="url" name="<?php echo $this->get_field_name( 'social_links' ); ?>[<?php echo esc_attr( $key ); ?>][url]"  value="<?php echo esc_url( $value['url'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'social_links' ); ?>[<?php echo esc_attr( $key ); ?>][url]" />
+									<span class="bx-team-repeatable-helper"><a class="bx-widget-repeater-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
+									<span class="bx-team-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
+									<input type="hidden" class="bx-widget-repeater-el-key" data-acb-el-key="<?php echo esc_attr( $key ); ?>" />
+								</li>
+							<?php
+								endforeach;
+							endif;
+							?>
+						</ul>
+
+						<p><a class="button bx-widget-repeater-add" href="#"><?php _e( 'Add another profile', 'businessx-extensions' ); ?></a></p>
+
+						<input type="hidden" class="bx-widget-repeatable-change" name="bx-widget-repeatable-change" />
+						<input type="hidden" class="bx-widget-repeater-el" data-acb-el="social_links" />
+
+					</div>
+				</div>
 
 			</div> <!-- Tabs -->
-
-			<script>
-				jQuery(document).ready(function ($) {
-
-					var counter = <?php echo absint( $new_counter ); ?>;
-
-					$('#bx-team-add-profile-<?php echo $md5s; ?>').on('click', function (event) {
-						var currentParent = $(this).parents('.widget-content');
-						var new_counter = 1 + counter++;
-
-						var id_input = '<li class="bx-team-repeatable-profile bx-clearfix">'
-								+ '<input type="url" class="widefat" name="<?php echo $this->get_field_name( 'social_links' ); ?>[' + new_counter + '][url]" id="<?php echo $this->get_field_id( 'social_links' ); ?>[' + new_counter + '][url]" />'
-								+ '<span class="bx-team-repeatable-helper"><a class="bx-team-remove-profile" href="#"><span class="dashicons dashicons-trash"></span></a></span>'
-								+ '<span class="bx-team-repeatable-helper"><span class="dashicons dashicons-sort"></span></span></li>';
-
-						$(id_input).appendTo($(this).parents().find('.widget-content ul.<?php echo $md5s; ?>'));
-
-						currentParent.find('.p-widget-title input').trigger('change');
-						event.preventDefault();
-					});
-
-					$('.bx-team-repeatable-profiles').on("click", ".bx-team-remove-profile", function (event) {
-						var currentParent = $(this).parents('.widget-content');
-						$(this).parents('li.bx-team-repeatable-profile').remove();
-						currentParent.find('.p-widget-title input').trigger('change');
-						event.preventDefault();
-					})
-
-					$('.bx-team-repeatable-profiles').sortable({
-						helper: 'clone',
-						items: '> li.bx-team-repeatable-profile',
-						cursor: 'move',
-						update: function( event, ui ) { ui.item.find('input').trigger('change'); }
-					});
-
-				});
-			</script>
-            <?php
+			<?php
 		}
 
 

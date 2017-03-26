@@ -225,7 +225,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 				<input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="{{ data.name }}[{{ data.key }}][item]"  value="{{ data.value }}" class="widefat" id="{{ data.wid }}[{{ data.key }}][item]" />
 
-				<input type="hidden" class="acbuilder-element-key" data-acb-el-key="{{ data.key }}" />
+				<input type="hidden" class="bx-widget-repeater-el-key" data-acb-el-key="{{ data.key }}" />
 			</script>
 			<?php
 		}
@@ -319,7 +319,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 										<span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
 									</div>
 									<input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo esc_attr( $key ); ?>][item]"  value="<?php echo esc_attr( $value['item'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[<?php echo esc_attr( $key ); ?>][item]" />
-									<input type="hidden" class="acbuilder-element-key" data-acb-el-key="<?php echo esc_attr( $key ); ?>" />
+									<input type="hidden" class="bx-widget-repeater-el-key" data-acb-el-key="<?php echo esc_attr( $key ); ?>" />
 								</li>
 							<?php
 								endforeach;
@@ -327,10 +327,10 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 							?>
 						</ul>
 
-						<a class="button acbuilder-repeater-add" href="#"><?php _e( 'Add another item', 'businessx-extensions' ); ?></a>
+						<p><a class="button bx-widget-repeater-add" href="#"><?php _e( 'Add another item', 'businessx-extensions' ); ?></a></p>
 
 						<input type="hidden" class="bx-widget-repeatable-change" name="bx-widget-repeatable-change" />
-
+						<input type="hidden" class="bx-widget-repeater-el" data-acb-el="list" />
 					</div>
 				</div>
 
