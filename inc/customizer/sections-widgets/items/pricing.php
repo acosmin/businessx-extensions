@@ -1,72 +1,87 @@
 <?php
-/* ------------------------------------------------------------------------- *
- *
- *  Pricing Section Item
- *  ________________
- *
- *	Adds a Pricing package
- *	________________
- *
-/* ------------------------------------------------------------------------- */
-
 if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
+	/**
+	 * Pricing Item
+	 * Adds a Pricing package
+	 *
+	 * @since 1.0.0
+	 */
 	class Businessx_Extensions_Pricing_Item extends Businessx_Extensions_Base {
 
+		/**
+		 * Widget defaults
+		 *
+		 * @var    array
+		 * @since  1.0.0
+		 * @access protected
+		 */
 		protected $defaults;
 
-
-		/*  Constructor
-		/* ------------------------------------ */
+		/**
+		 * Widget instance
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		function __construct() {
 
 			// Variables
 			$this->widget_title = __( 'BX: Pricing Package' , 'businessx-extensions' );
-			$this->widget_id = 'pricing';
+			$this->widget_id    = 'pricing';
 
 			// Settings
 			$widget_ops = array(
-				'classname' => 'sec-pricing-box',
+				'classname'   => 'sec-pricing-box',
 				'description' => esc_html__( 'Adds a Pricing package', 'businessx-extensions' ),
 				'customize_selective_refresh' => true
 			);
 
 			// Control settings
-			$control_ops = array( 'width' => NULL, 'height' => NULL, 'id_base' => 'bx-item-' . $this->widget_id );
+			$control_ops = array(
+				'width'   => NULL,
+				'height'  => NULL,
+				'id_base' => 'bx-item-' . $this->widget_id
+			);
 
 			// Create the widget
 			parent::__construct( 'bx-item-' . $this->widget_id, $this->widget_title, $widget_ops, $control_ops );
 
 			// Set some widget defaults
-			$this->defaults = array (
-				'title'			=> '',
-				'price'			=> '',
-				'period'		=> '',
-				'badge'			=> '',
-				'btn_anchor'	=> '',
-				'btn_url'		=> '',
-				'btn_target'	=> '_self',
-				'list'			=> array(),
-				'icos'			=> true,
-				'item_bg'		=> apply_filters( 'businessx_extensions_pricing_item___bg_color', '#4eb5d5' ),
-				'item_btn'		=> apply_filters( 'businessx_extensions_pricing_item___btn_bg', '#76bc1c' ),
-				'item_btn_hover'	=> apply_filters( 'businessx_extensions_pricing_item___btn_hover_bg', '#82cf1f' ),
-				'item_btn_active'	=> apply_filters( 'businessx_extensions_pricing_item___btn_active_bg', '#69a619' ),
-				'item_icon_av'		=> apply_filters( 'businessx_extensions_pricing_item___icon_av', '#c3ef93' ),
-				'item_icon_unav'	=> apply_filters( 'businessx_extensions_pricing_item___icon_unav', '#ef9393' ),
-				'item_badge'		=> apply_filters( 'businessx_extensions_pricing_item___badge', '#c17ee0' ),
-				'item_badge_text'	=> apply_filters( 'businessx_extensions_pricing_item___badge_text', '#ffffff' ),
-				'list_bg'			=> apply_filters( 'businessx_extensions_pricing_list___bg', '#ffffff' ),
-				'list_color'		=> apply_filters( 'businessx_extensions_pricing_list___color', '#636363' ),
-				'details'		=> apply_filters( 'businessx_extensions_pricing_box___details', '#ffffff' ),
-			);
+			$this->defaults = apply_filters( 'businessx_extensions_pricing_item___defaults', array(
+				'title'           => '',
+				'price'           => '',
+				'period'          => '',
+				'badge'           => '',
+				'btn_anchor'      => '',
+				'btn_url'         => '',
+				'btn_target'      => '_self',
+				'list'            => array(),
+				'icos'            => true,
+				'item_bg'         => '#4eb5d5',
+				'item_btn'        => '#76bc1c',
+				'item_btn_hover'  => '#82cf1f',
+				'item_btn_active' => '#69a619',
+				'item_icon_av'    => '#c3ef93',
+				'item_icon_unav'  => '#ef9393',
+				'item_badge'      => '#c17ee0',
+				'item_badge_text' => '#ffffff',
+				'list_bg'         => '#ffffff',
+				'list_color'      => '#636363',
+				'details'         => '#ffffff',
+			) );
 
+			// Underscore template for repeating fields
 			add_action( 'customize_controls_print_footer_scripts', array( $this, 'repeating_tmpl' ), 0 );
 
 		}
 
 
-		/*  Front-end display
-		/* ------------------------------------ */
+		/**
+		 * Widget output
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		public function widget( $args, $instance ) {
 			// Turn $args array into variables.
 			extract( $args );
@@ -78,34 +93,48 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 			$instance = wp_parse_args( $instance, $instance_defaults );
 
 			// Options
-			$title 			= apply_filters( 'widget_title', empty( $instance[ 'title' ] ) ? '' : $instance[ 'title' ], $instance, $this->id_base ); set_query_var( 'title', $title );
-			$price			= ! empty( $instance[ 'price' ] ) ? $instance[ 'price' ] : ''; set_query_var( 'price', $price );
-			$period			= ! empty( $instance[ 'period' ] ) ? $instance[ 'period' ] : ''; set_query_var( 'period', $period );
-			$badge			= ! empty( $instance[ 'badge' ] ) ? $instance[ 'badge' ] : ''; set_query_var( 'badge', $badge );
-			$btn_anchor		= ! empty( $instance[ 'btn_anchor' ] ) ? $instance[ 'btn_anchor' ] : ''; set_query_var( 'btn_anchor', $btn_anchor );
-			$btn_url		= ! empty( $instance[ 'btn_url' ] ) ? $instance[ 'btn_url' ] : ''; set_query_var( 'btn_url', $btn_url );
-			$btn_target		= ! empty( $instance[ 'btn_target' ] ) ? $instance[ 'btn_target' ] : '_self'; set_query_var( 'btn_target', $btn_target );
-			$list			= ! empty( $instance[ 'list' ] ) ? $instance[ 'list' ] : array(); set_query_var( 'list', $list );
-			$icos			= ! empty( $instance[ 'icos' ] ) ? 1 : 0; set_query_var( 'icos', $icos );
+			$title      = apply_filters( 'widget_title', empty( $instance[ 'title' ] ) ? '' : $instance[ 'title' ], $instance, $this->id_base );
+			$price      = ! empty( $instance[ 'price' ] ) ? $instance[ 'price' ] : '';
+			$period     = ! empty( $instance[ 'period' ] ) ? $instance[ 'period' ] : '';
+			$badge      = ! empty( $instance[ 'badge' ] ) ? $instance[ 'badge' ] : '';
+			$btn_anchor = ! empty( $instance[ 'btn_anchor' ] ) ? $instance[ 'btn_anchor' ] : '';
+			$btn_url    = ! empty( $instance[ 'btn_url' ] ) ? $instance[ 'btn_url' ] : '';
+			$btn_target = ! empty( $instance[ 'btn_target' ] ) ? $instance[ 'btn_target' ] : '_self';
+			$list       = ! empty( $instance[ 'list' ] ) ? $instance[ 'list' ] : array();
+			$icos       = ! empty( $instance[ 'icos' ] ) ? 1 : 0;
 
 			// Some variables
-			$wid = $this->number; set_query_var( 'wid', $wid );
+			$wid = $this->number;
 			if ( ! empty( $title ) ) {
-				$title_output = $args['before_title'] . $title . $args['after_title']; set_query_var( 'title_output', $title_output );
-			}
-			$column_type = get_theme_mod( 'pricing_section_columns', apply_filters( 'businessx_extensions_pricing_columns_type', 'grid-2x3-col' ) );
-			if( ! empty( $badge ) ) {
-				$badge_class = 'with-badge';
-			} else {
-				$badge_class = '';
+				$title_output = $args['before_title'] . $title . $args['after_title'];
+				set_query_var( 'title_output', $title_output );
 			}
 
+			$column_type = get_theme_mod(
+				'pricing_section_columns',
+				apply_filters( 'businessx_extensions_pricing_columns_type', 'grid-2x3-col'
+			) );
+
+			$badge_class = ( ! empty( $badge ) ) ? 'with-badge' : '';
+
+			// Query variables
+			set_query_var( 'title', $title );
+			set_query_var( 'price', $price );
+			set_query_var( 'period', $period );
+			set_query_var( 'badge', $badge );
+			set_query_var( 'btn_anchor', $btn_anchor );
+			set_query_var( 'btn_url', $btn_url );
+			set_query_var( 'btn_target', $btn_target );
+			set_query_var( 'list', $list );
+			set_query_var( 'icos', $icos );
+			set_query_var( 'wid', $wid );
+
 			// Add more widget classes
-			$css_class = array();
+			$css_class   = array();
 			$css_class[] = 'grid-col';
 			$css_class[] = $column_type;
 			$css_class[] = $badge_class;
-			$css_class = apply_filters( 'businessx_extensions_pricing_item___css_classes', $css_class );
+			$css_class   = apply_filters( 'businessx_extensions_pricing_item___css_classes', $css_class );
 			$css_classes = join(' ', $css_class);
 
 			if ( ! empty( $css_classes ) ) {
@@ -121,7 +150,6 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 				ob_start();
 
-				echo '<tt><pre>'. var_export( $list, TRUE ).'</pre></tt>';
 				businessx_extensions_get_template_part( 'sections-items/item', 'pricing' );
 
 				echo ob_get_clean();
@@ -133,47 +161,56 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 		}
 
 
-		/*  Update Widget
-		/* ------------------------------------ */
+		/**
+		 * Widget update instance
+		 *
+		 * @since  1.0.0
+		 * @access public
+		 */
 		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
 			// Fields
-			$instance[ 'title' ] 		= sanitize_text_field( $new_instance[ 'title' ] );
-			$instance[ 'price' ]		= sanitize_text_field( $new_instance[ 'price' ] );
-			$instance[ 'period' ]		= sanitize_text_field( $new_instance[ 'period' ] );
-			$instance[ 'badge' ]		= sanitize_text_field( $new_instance[ 'badge' ] );
-			$instance[ 'btn_anchor' ] 	= sanitize_text_field( $new_instance[ 'btn_anchor' ] );
-			$instance[ 'btn_url' ] 		= esc_url_raw( $new_instance[ 'btn_url' ] );
-			$instance[ 'item_bg' ] 		= sanitize_text_field( $new_instance[ 'item_bg' ] );
-			$instance[ 'item_btn' ] 	= sanitize_text_field( $new_instance[ 'item_btn' ] );
-			$instance[ 'item_btn_hover' ]	= sanitize_text_field( $new_instance[ 'item_btn_hover' ] );
-			$instance[ 'item_btn_active' ]	= sanitize_text_field( $new_instance[ 'item_btn_active' ] );
-			$instance[ 'item_icon_av' ]		= sanitize_text_field( $new_instance[ 'item_icon_av' ] );
-			$instance[ 'item_icon_unav' ]	= sanitize_text_field( $new_instance[ 'item_icon_unav' ] );
-			$instance[ 'item_badge' ]		= sanitize_text_field( $new_instance[ 'item_badge' ] );
-			$instance[ 'item_badge_text' ]	= sanitize_text_field( $new_instance[ 'item_badge_text' ] );
-			$instance[ 'list_bg' ]		= sanitize_text_field( $new_instance[ 'list_bg' ] );
-			$instance[ 'list_color' ]	= sanitize_text_field( $new_instance[ 'list_color' ] );
-			$instance[ 'details' ]		= sanitize_text_field( $new_instance[ 'details' ] );
+			$instance[ 'title' ]           = sanitize_text_field( $new_instance[ 'title' ] );
+			$instance[ 'price' ]           = sanitize_text_field( $new_instance[ 'price' ] );
+			$instance[ 'period' ]          = sanitize_text_field( $new_instance[ 'period' ] );
+			$instance[ 'badge' ]           = sanitize_text_field( $new_instance[ 'badge' ] );
+			$instance[ 'btn_anchor' ]      = sanitize_text_field( $new_instance[ 'btn_anchor' ] );
+			$instance[ 'btn_url' ]         = esc_url_raw( $new_instance[ 'btn_url' ] );
+			$instance[ 'item_bg' ]         = sanitize_text_field( $new_instance[ 'item_bg' ] );
+			$instance[ 'item_btn' ]        = sanitize_text_field( $new_instance[ 'item_btn' ] );
+			$instance[ 'item_btn_hover' ]  = sanitize_text_field( $new_instance[ 'item_btn_hover' ] );
+			$instance[ 'item_btn_active' ] = sanitize_text_field( $new_instance[ 'item_btn_active' ] );
+			$instance[ 'item_icon_av' ]    = sanitize_text_field( $new_instance[ 'item_icon_av' ] );
+			$instance[ 'item_icon_unav' ]  = sanitize_text_field( $new_instance[ 'item_icon_unav' ] );
+			$instance[ 'item_badge' ]      = sanitize_text_field( $new_instance[ 'item_badge' ] );
+			$instance[ 'item_badge_text' ] = sanitize_text_field( $new_instance[ 'item_badge_text' ] );
+			$instance[ 'list_bg' ]         = sanitize_text_field( $new_instance[ 'list_bg' ] );
+			$instance[ 'list_color' ]      = sanitize_text_field( $new_instance[ 'list_color' ] );
+			$instance[ 'details' ]         = sanitize_text_field( $new_instance[ 'details' ] );
 
 			// Repeatable
-			//$instance[ 'list' ] 		= self::sanitize_list( $new_instance[ 'list' ] )
-			$instance[ 'list' ] 		= $new_instance[ 'list' ];
+			$instance[ 'list' ]      = $new_instance[ 'list' ];
 
 			// Checkboxes
-			$instance[ 'icos' ]			= ! empty( $new_instance[ 'icos' ] ) ? 1 : 0;
+			$instance[ 'icos' ]      = ! empty( $new_instance[ 'icos' ] ) ? 1 : 0;
 
 			// Select
-			$instance[ 'btn_target'] 	= businessx_sanitize_select( $new_instance[ 'btn_target' ], array( '_self', '_blank' ), $this->defaults[ 'btn_target' ], false  );
+			$instance[ 'btn_target'] = businessx_sanitize_select( $new_instance[ 'btn_target' ], array( '_self', '_blank' ), $this->defaults[ 'btn_target' ], false  );
 
 			// Return
 			return $instance;
 		}
 
+		/**
+		 * Repeating field Underscore template
+		 *
+		 * @since  1.0.4.3
+		 * @access public
+		 */
 		public function repeating_tmpl() {
 			?>
-			<script type="text/template" id="tmpl-acbuilder-repeater">
+			<script type="text/template" id="tmpl-<?php echo $this->id_base ?>-repeater">
 				<div class="bx-pricing-repeatable-top bx-bs bx-clearfix">
 
 					<select name="{{ data.name }}[{{ data.key }}][status]" class="widefat" id="{{ data.wid }}[{{ data.key }}][status]">
@@ -181,7 +218,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 						<option value="unavailable" {{ (data.value == 'unavailable') ? 'selected' : '' }}><?php _e( 'Unavailable', 'businessx-extensions' ) ?></option>
 					</select>
 
-					<span class="bx-pricing-repeatable-helper"><a class="bx-pricing-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
+					<span class="bx-pricing-repeatable-helper"><a class="bx-widget-repeater-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
 					<span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
 
 				</div>
@@ -194,8 +231,12 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 		}
 
 
-		/*  Widget's Form
-		/* ------------------------------------ */
+		/**
+		 * Widget form
+		 *
+		 * @since  1.0.0.
+		 * @access public
+		 */
 		public function form( $instance ) {
 			// Parse $instance
 			$instance_defaults = $this->defaults;
@@ -203,28 +244,28 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 			extract( $instance, EXTR_SKIP );
 
 			// Variables
-			$title 			= $instance[ 'title' ];
-			$price 			= $instance[ 'price' ];
-			$period			= $instance[ 'period' ];
-			$badge			= $instance[ 'badge' ];
-			$btn_anchor 	= $instance[ 'btn_anchor' ];
-			$btn_url 		= $instance[ 'btn_url' ];
-			$btn_target		= $instance[ 'btn_target' ];
-			$list 			= $instance[ 'list' ];
-			$traget			= parent::link_target();
-			$icos 			= isset( $instance[ 'icos' ] ) ? (bool) $instance[ 'icos' ] : false;
-			$item_bg		= $instance[ 'item_bg' ];
-			$item_bg_def	= $this->defaults[ 'item_bg' ];
-			$item_btn		= $instance[ 'item_btn' ];
-			$item_btn_hover		= $instance[ 'item_btn_hover' ];
-			$item_btn_active	= $instance[ 'item_btn_active' ];
-			$item_icon_av	= $instance[ 'item_icon_av' ];
-			$item_icon_unav	= $instance[ 'item_icon_unav' ];
-			$item_badge			= $instance[ 'item_badge' ];
-			$item_badge_text	= $instance[ 'item_badge_text' ];
-			$list_bg		= $instance[ 'list_bg' ];
-			$list_color		= $instance[ 'list_color' ];
-			$details		= $instance[ 'details' ];
+			$title           = $instance[ 'title' ];
+			$price           = $instance[ 'price' ];
+			$period          = $instance[ 'period' ];
+			$badge           = $instance[ 'badge' ];
+			$btn_anchor      = $instance[ 'btn_anchor' ];
+			$btn_url         = $instance[ 'btn_url' ];
+			$btn_target      = $instance[ 'btn_target' ];
+			$list            = $instance[ 'list' ];
+			$traget          = parent::link_target();
+			$icos            = isset( $instance[ 'icos' ] ) ? (bool) $instance[ 'icos' ] : false;
+			$item_bg         = $instance[ 'item_bg' ];
+			$item_bg_def     = $this->defaults[ 'item_bg' ];
+			$item_btn        = $instance[ 'item_btn' ];
+			$item_btn_hover  = $instance[ 'item_btn_hover' ];
+			$item_btn_active = $instance[ 'item_btn_active' ];
+			$item_icon_av    = $instance[ 'item_icon_av' ];
+			$item_icon_unav  = $instance[ 'item_icon_unav' ];
+			$item_badge      = $instance[ 'item_badge' ];
+			$item_badge_text = $instance[ 'item_badge_text' ];
+			$list_bg         = $instance[ 'list_bg' ];
+			$list_color      = $instance[ 'list_color' ];
+			$details         = $instance[ 'details' ];
 
 
 			// Form output
@@ -240,96 +281,106 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 			/* Tabs */
 			?>
-            <div class="bx-widget-tabs bx-bs">
+				<div class="bx-widget-tabs bx-bs">
 
-            	<div class="bx-wt-tab-wrap bx-bs">
-                    <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package Badge', 'businessx-extensions' ); ?></a>
-                    <div class="bx-wt-tab-contents bx-bs">
-					<?php
-                        /* Badge */
-                        parent::text_input( $badge, 'badge', __( 'Title:', 'businessx-extensions' ), '', '', __( 'Eg: Recommended', 'businessx-extensions' ) );
-						parent::color_picker( $item_badge, 'item_badge', $this->defaults['item_badge'], __( 'Background color:', 'businessx-extensions' ) );
-						parent::color_picker( $item_badge_text, 'item_badge_text', $this->defaults['item_badge_text'], __( 'Text color:', 'businessx-extensions' ) );
-                    ?>
-                    </div>
+					<div class="bx-wt-tab-wrap bx-bs">
+						<a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package Badge', 'businessx-extensions' ); ?></a>
+						<div class="bx-wt-tab-contents bx-bs">
+						<?php
+							/* Badge */
+							parent::text_input( $badge, 'badge', __( 'Title:', 'businessx-extensions' ), '', '', __( 'Eg: Recommended', 'businessx-extensions' ) );
+							parent::color_picker( $item_badge, 'item_badge', $this->defaults['item_badge'], __( 'Background color:', 'businessx-extensions' ) );
+							parent::color_picker( $item_badge_text, 'item_badge_text', $this->defaults['item_badge_text'], __( 'Text color:', 'businessx-extensions' ) );
+						?>
+					</div>
 				</div>
 
-            	<div class="bx-wt-tab-wrap bx-bs">
-                    <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package List', 'businessx-extensions' ); ?></a>
-                    <div class="bx-wt-tab-contents bx-bs">
+				<div class="bx-wt-tab-wrap bx-bs">
+					<a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package List', 'businessx-extensions' ); ?></a>
+					<div class="bx-wt-tab-contents bx-bs">
 
-                        <?php
-						/* Items */
-						parent::check_box( $icos, 'icos', __( 'Show icons', 'businessx-extensions' ) );
+						<?php
+							/* Items */
+							parent::check_box( $icos, 'icos', __( 'Show icons', 'businessx-extensions' ) );
 						?>
 
-                    	<ul class="bx-pricing-repeatable-items bx-clearfix">
-							<?php if ( ! empty( $list ) ) :
-                                    foreach ( $list as $key => $value ) : ?>
-                                    <li class="bx-pricing-repeatable-item bx-bs bx-clearfix">
-                                    	<div class="bx-pricing-repeatable-top bx-bs bx-clearfix">
-                                            <select name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo $key; ?>][status]" class="widefat" id="<?php echo $this->get_field_id( 'list'); ?>[<?php echo $key; ?>][status]">
-                                                <option value="available"<?php selected($value[ 'status' ], 'available'); ?>><?php _e( 'Available', 'businessx-extensions' ) ?></option>
-                                                <option value="unavailable"<?php selected($value[ 'status' ], 'unavailable'); ?>><?php _e( 'Unavailable', 'businessx-extensions' ) ?></option>
-                                            </select>
-                                            <span class="bx-pricing-repeatable-helper"><a class="bx-pricing-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
-                                            <span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
-                                        </div>
-                                        <input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo $key; ?>][item]"  value="<?php echo esc_attr( $value['item'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[<?php echo $key; ?>][item]" />
-										<input type="hidden" class="acbuilder-element-key" data-acb-el-key="<?php echo $key; ?>" />
-                                    </li>
-								<?php
-									endforeach;
-								endif; ?>
-                        </ul>
+						<ul class="bx-widget-repeatable-items bx-clearfix">
+							<?php
+							if ( ! empty( $list ) ) :
+								foreach ( $list as $key => $value ) :
+							?>
+								<li class="bx-item-pricing-repeatable-item bx-bs bx-clearfix">
+									<div class="bx-pricing-repeatable-top bx-bs bx-clearfix">
+										<select name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo esc_attr( $key ); ?>][status]" class="widefat" id="<?php echo $this->get_field_id( 'list'); ?>[<?php echo esc_attr( $key ); ?>][status]">
+										<option value="available"<?php selected($value[ 'status' ], 'available'); ?>><?php _e( 'Available', 'businessx-extensions' ) ?></option>
+										<option value="unavailable"<?php selected($value[ 'status' ], 'unavailable'); ?>><?php _e( 'Unavailable', 'businessx-extensions' ) ?></option>
+										</select>
+										<span class="bx-pricing-repeatable-helper"><a class="bx-widget-repeater-remove-item" href="#"><span class="dashicons dashicons-trash"></span></a></span>
+										<span class="bx-pricing-repeatable-helper"><span class="dashicons dashicons-sort"></span></span>
+									</div>
+									<input placeholder="<?php _e( 'Item title', 'businessx-extensions' ); ?>" type="text" name="<?php echo $this->get_field_name( 'list' ); ?>[<?php echo esc_attr( $key ); ?>][item]"  value="<?php echo esc_attr( $value['item'] ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'list' ); ?>[<?php echo esc_attr( $key ); ?>][item]" />
+									<input type="hidden" class="acbuilder-element-key" data-acb-el-key="<?php echo esc_attr( $key ); ?>" />
+								</li>
+							<?php
+								endforeach;
+							endif;
+							?>
+						</ul>
 
 						<a class="button acbuilder-repeater-add" href="#"><?php _e( 'Add another item', 'businessx-extensions' ); ?></a>
 
-						<input type="hidden" class="acbuilder-change" name="acbuilder-change" />
+						<input type="hidden" class="bx-widget-repeatable-change" name="bx-widget-repeatable-change" />
 
-                    </div>
+					</div>
 				</div>
 
-                <div class="bx-wt-tab-wrap bx-bs">
-                    <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package Button', 'businessx-extensions' ); ?></a>
-                    <div class="bx-wt-tab-contents bx-bs">
-                    <?php
-						/* Button Options */
-						parent::text_input( $btn_anchor, 'btn_anchor', __( 'Anchor text:', 'businessx-extensions' ), '', '', __( 'E.g: Buy Now', 'businessx-extensions' ) );
-						parent::text_input( $btn_url, 'btn_url', __( 'URL:', 'businessx-extensions' ), 'url' );
-						parent::select_type( $btn_target, 'btn_target', $traget, __( 'Open in the:', 'businessx-extensions' ) );
+				<div class="bx-wt-tab-wrap bx-bs">
+					<a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package Button', 'businessx-extensions' ); ?></a>
+					<div class="bx-wt-tab-contents bx-bs">
+						<?php
+							/* Button Options */
+							parent::text_input( $btn_anchor, 'btn_anchor', __( 'Anchor text:', 'businessx-extensions' ), '', '', __( 'E.g: Buy Now', 'businessx-extensions' ) );
+							parent::text_input( $btn_url, 'btn_url', __( 'URL:', 'businessx-extensions' ), 'url' );
+							parent::select_type( $btn_target, 'btn_target', $traget, __( 'Open in the:', 'businessx-extensions' ) );
 
-						/* Button colors */
-						parent::color_picker( $item_btn, 'item_btn', $this->defaults['item_btn'], __( 'Button color:', 'businessx-extensions' ) );
-						parent::color_picker( $item_btn_hover, 'item_btn_hover', $this->defaults['item_btn_hover'], __( 'Button hover color:', 'businessx-extensions' ) );
-						parent::color_picker( $item_btn_active, 'item_btn_active', $this->defaults['item_btn_active'], __( 'Button active color:', 'businessx-extensions' ) );
-					?>
-                    </div>
+							/* Button colors */
+							parent::color_picker( $item_btn, 'item_btn', $this->defaults['item_btn'], __( 'Button color:', 'businessx-extensions' ) );
+							parent::color_picker( $item_btn_hover, 'item_btn_hover', $this->defaults['item_btn_hover'], __( 'Button hover color:', 'businessx-extensions' ) );
+							parent::color_picker( $item_btn_active, 'item_btn_active', $this->defaults['item_btn_active'], __( 'Button active color:', 'businessx-extensions' ) );
+						?>
+					</div>
 				</div>
 
-                <div class="bx-wt-tab-wrap bx-bs">
-                    <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package Colors', 'businessx-extensions' ); ?></a>
-                    <div class="bx-wt-tab-contents bx-bs">
-					<?php
-                        /* Color schemes */
-                        parent::color_picker( $item_bg, 'item_bg', $item_bg_def, __( 'Item background color:', 'businessx-extensions' ) );
-						parent::color_picker( $item_icon_av, 'item_icon_av', $this->defaults['item_icon_av'], __( 'Available icon color:', 'businessx-extensions' ) );
-						parent::color_picker( $item_icon_unav, 'item_icon_unav', $this->defaults['item_icon_unav'], __( 'Unvailable icon color:', 'businessx-extensions' ) );
-						parent::color_picker( $list_bg, 'list_bg', $this->defaults['list_bg'], __( 'List background-color:', 'businessx-extensions' ) );
-						parent::color_picker( $list_color, 'list_color', $this->defaults['list_color'], __( 'List text color:', 'businessx-extensions' ) );
-						parent::color_picker( $details, 'details', $this->defaults['details'], __( 'Details color:', 'businessx-extensions' ) );
-                    ?>
-                    </div>
-				</div>
+				<div class="bx-wt-tab-wrap bx-bs">
+					<a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Package Colors', 'businessx-extensions' ); ?></a>
+						<div class="bx-wt-tab-contents bx-bs">
+						<?php
+							/* Color schemes */
+							parent::color_picker( $item_bg, 'item_bg', $item_bg_def, __( 'Item background color:', 'businessx-extensions' ) );
+							parent::color_picker( $item_icon_av, 'item_icon_av', $this->defaults['item_icon_av'], __( 'Available icon color:', 'businessx-extensions' ) );
+							parent::color_picker( $item_icon_unav, 'item_icon_unav', $this->defaults['item_icon_unav'], __( 'Unvailable icon color:', 'businessx-extensions' ) );
+							parent::color_picker( $list_bg, 'list_bg', $this->defaults['list_bg'], __( 'List background-color:', 'businessx-extensions' ) );
+							parent::color_picker( $list_color, 'list_color', $this->defaults['list_color'], __( 'List text color:', 'businessx-extensions' ) );
+							parent::color_picker( $details, 'details', $this->defaults['details'], __( 'Details color:', 'businessx-extensions' ) );
+						?>
+						</div>
+					</div>
 
-			</div><!-- Tabs -->
+				</div><!-- Tabs -->
 
-            <?php
+			<?php
 		}
 
 
-		/*  Customizer CSS
-		/* ------------------------------------ */
+		/**
+		 * Customizer CSS
+		 *
+		 * Outputs CSS just for the previewer to keep changes on
+		 * selective refresh
+		 *
+		 * @since  1.0.0
+		 * @access private
+		 */
 		private function customizer_css( $instance ) {
 			// Parse $instance
 			$instance_defaults = $this->defaults;
@@ -337,20 +388,20 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 			extract( $instance, EXTR_SKIP );
 
 			// Variables
-			$wid 				= esc_html( '#' . $this->id );
-			$custom_css 		= '';
-			$item_bg 			= $instance[ 'item_bg' ];
-			$item_bg_def 		= $this->defaults[ 'item_bg' ];
-			$item_btn			= $instance[ 'item_btn' ];
-			$item_btn_hover		= $instance[ 'item_btn_hover' ];
-			$item_btn_active	= $instance[ 'item_btn_active' ];
-			$item_icon_av		= $instance[ 'item_icon_av' ];
-			$item_icon_unav		= $instance[ 'item_icon_unav' ];
-			$item_badge			= $instance[ 'item_badge' ];
-			$item_badge_text	= $instance[ 'item_badge_text' ];
-			$list_bg			= $instance[ 'list_bg' ];
-			$list_color			= $instance[ 'list_color' ];
-			$details			= $instance[ 'details' ];
+			$wid             = esc_html( '#' . $this->id );
+			$custom_css      = '';
+			$item_bg         = $instance[ 'item_bg' ];
+			$item_bg_def     = $this->defaults[ 'item_bg' ];
+			$item_btn        = $instance[ 'item_btn' ];
+			$item_btn_hover  = $instance[ 'item_btn_hover' ];
+			$item_btn_active = $instance[ 'item_btn_active' ];
+			$item_icon_av    = $instance[ 'item_icon_av' ];
+			$item_icon_unav  = $instance[ 'item_icon_unav' ];
+			$item_badge      = $instance[ 'item_badge' ];
+			$item_badge_text = $instance[ 'item_badge_text' ];
+			$list_bg         = $instance[ 'list_bg' ];
+			$list_color      = $instance[ 'list_color' ];
+			$details         = $instance[ 'details' ];
 
 			// Style Output
 			if ( is_customize_preview() ) {
@@ -398,8 +449,12 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 		}
 
 
-		/* Sanitize items list
-		/* ------------------------------------ */
+		/**
+		 * Sanitize repeating fields
+		 *
+		 * @since  1.0.4.3
+		 * @access private
+		 */
 		private function sanitize_list( $the_array ) {
 			$newArr = array();
 

@@ -19,6 +19,142 @@ window.BxExtWidgets = {
 	},
 
 	/**
+	 * Repeater model
+	 *
+	 * @augments Backbone.Model
+	 * @return   {Backbone} Backbone model
+	 */
+	repeaterModel : function() {
+		var self = this;
+
+		return Backbone.Model.extend({
+			/**
+			 * Initialize model
+			 *
+			 * @todo Make the widget name and list part dynamic
+			 * @return {Function}
+			 */
+			initialize : function() {
+				var widget   = this.get( 'widget' ),
+				    fullId   = widget.id,
+				    idNumber = widget.number,
+				    base     = widget.base,
+				    element  = widget.elem,
+				    random   = self.randomID();
+
+				this.set( 'key', random );
+				this.set( 'name', 'widget-' + base + '[' + idNumber + '][' + element + ']');
+				this.set( 'wid', 'widget-' + fullId + '-' + element );
+				this.set( 'id', random );
+			}
+		});
+	},
+
+	/**
+	 * Repeater view
+	 *
+	 * @augments Backbone.View
+	 * @return   {Backbone} Backbone view
+	 */
+	repeaterView : function() {
+		var self = this;
+
+		return Backbone.View.extend({
+			/**
+			 * Setting up this view with our own class name and wrapper tag
+			 *
+			 * @todo change class name
+			 * @type {String}
+			 */
+			tagName   : 'li',
+
+			/**
+			 * Initialize Backbone view
+			 *
+			 * @return {Function}
+			 */
+			initialize : function() {
+				var widget = this.model.get( 'widget' ).object;
+
+				this.displayElement( widget );
+				this.actualize( widget );
+			},
+
+			/**
+			 * Render template for this view
+			 *
+			 * @return {Function}
+			 */
+			render : function() {
+				var tmpl = this.template( this.model.toJSON() );
+				this.$el.html( tmpl );
+
+				return this;
+			},
+
+			/**
+			 * Display the created element
+			 *
+			 * @todo   change class name
+			 * @param  {Object} widget Widget selector
+			 * @return {HTML}          Rendere element HTML
+			 */
+			displayElement : function( widget ) {
+				widget.find( '.bx-widget-repeatable-items' ).append( this.render().el );
+			},
+
+			/**
+			 * Actualize the widget based on events
+			 * @param  {Object} widget Widget selector
+			 * @return {Mixed}
+			 */
+			actualize : function( widget ) {
+				var changeEvents = [
+					'bx-widget-repeatable-el-added',
+				];
+
+				_.each( changeEvents, function( changeEvent ) {
+					this.listenTo( this, changeEvent, function( e ) {
+						widget.find( '.bx-widget-repeatable-change' ).trigger( 'change' );
+					});
+				}, this );
+			}
+		});
+	},
+
+	/**
+	 * Random id for repeater element
+	 *
+	 * @return {String} A random 6 letters/digits id, starting with a letter.
+	 */
+	randomID : function() {
+		var retId,
+		    alphabet     = "abcdefghijklmnopqrstuvwxyz";
+		    randomLetter = alphabet[ Math.floor( Math.random() * alphabet.length ) ];
+		    uniqidSeed   = Math.floor( Math.random() * 0x75bcd15 );
+
+		var formatSeed = function( seed, reqWidth ) {
+			seed = parseInt( seed, 10 ).toString( 16 );
+			if ( reqWidth < seed.length ) {
+				return seed.slice( seed.length - reqWidth );
+			}
+			if ( reqWidth > seed.length ) {
+				return Array( 1 + ( reqWidth - seed.length ) )
+					.join( '0' ) + seed;
+			}
+			return seed;
+		};
+
+		uniqidSeed++;
+
+		retId = formatSeed( parseInt( new Date().getTime() / 1000, 10 ), 3 );
+		retId += formatSeed( uniqidSeed, 2 );
+		retId = randomLetter + retId;
+
+		return retId;
+	},
+
+	/**
 	 * Hide our section widgets and sidebars if we are on
 	 * the Widgets page in the Administrator panel
 	 *
@@ -226,6 +362,58 @@ window.BxExtWidgets = {
 		_doc.on( 'change', '.bx-select-type', function( e ) {
 			e.preventDefault();
 			self.showOnSelect( this );
+		});
+
+		// Add repeating field
+		_doc.on( 'click', '.acbuilder-repeater-add', function( e ) {
+			var widgetObj = $( this ).parents( '.widget' ),
+			    model     = self.repeaterModel(),
+			    view      = self.repeaterView(),
+			    idBase    = widgetObj.find( '.id_base' ).val(),
+			    thisModel, thisView, values;
+
+			values = {
+				widget : {
+					id     : widgetObj.find( '.widget-id' ).val(),
+					base   : idBase,
+					number : widgetObj.find( '.widget_number' ).val(),
+					object : widgetObj,
+					elem   : 'list',
+				},
+				value  : '',
+			};
+
+			// Add the new element
+			view = view.extend({
+				className : idBase + '-repeatable-item bx-bs bx-clearfix',
+				template  : window.wp.template( idBase + '-repeater' ),
+			})
+
+			thisModel = new model( values );
+			thisView  = new view({ model : thisModel });
+
+			/**
+			 * Trigger event when an element is being added
+			 *
+			 * @see repeaterView()->actualize()
+			 */
+			thisView.trigger( 'bx-widget-repeatable-el-added', this );
+
+			e.preventDefault();
+		});
+
+		// Remove repeating field
+		_doc.on( 'click', '.bx-widget-repeater-remove-item', function ( e ) {
+			var widgetObj = $( this ).parents( '.widget' ),
+			    idBase    = widgetObj.find( '.id_base' ).val()
+
+			// Remove the element
+			$( this ).parents( 'li.' + idBase + '-repeatable-item' ).remove();
+
+			// Trigger change
+			widgetObj.find( '.bx-widget-repeatable-change' ).trigger( 'change' );
+
+			e.preventDefault();
 		});
 
 		// Initialise widget

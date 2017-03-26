@@ -331,19 +331,20 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	display: block;
 }
 /* Repeatable Fields */
-.bx-team-repeatable-profiles,
-.bx-pricing-repeatable-item,
-.bx-pricing-repeatable-top
-.bx-pricing-repeatable-item input {
-	width: 100%;
-}
-.bx-pricing-repeatable-items {
+.bx-widget-repeatable-items {
 	margin-top: 15px;
+}
+
+.bx-team-repeatable-profiles,
+.bx-item-pricing-repeatable-item,
+.bx-pricing-repeatable-top
+.bx-item-pricing-repeatable-item input {
+	width: 100%;
 }
 .bx-pricing-add-wrap {
 	margin-top: 0;
 }
-.bx-pricing-repeatable-item {
+.bx-item-pricing-repeatable-item {
 	padding: 5px;
     background-color: #EEEEEE;
     border: 1px solid #E5E5E5;
