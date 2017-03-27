@@ -171,12 +171,13 @@
 		 * @param  {Boolean} clicked Do this only if clicked checkbox, not on expanded section.
 		 * @return {Void}
 		 */
-		changeHiddenOnExpand: function( clicked = false ) {
+		changeHiddenOnExpand: function( clicked ) {
 			var section    = this,
 			    type       = section.id.replace( 'businessx_section__', '' ),
 			    hideBtn    = api.control( type + '_section_hide' ),
 			    hideState  = hideBtn.setting(),
-			    elements   = [ section, type ];
+			    elements   = [ section, type ],
+			    clicked    = ( typeof clicked === 'undefined' ) ? false : clicked;
 
 			if( clicked === false ) {
 				if( hideState ) {
