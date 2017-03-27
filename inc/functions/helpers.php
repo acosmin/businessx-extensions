@@ -74,6 +74,25 @@ if( ! function_exists( 'bx_ext_tm' ) ) {
 
 
 
+/*  Debug mode
+/* ------------------------------------ */
+if( ! function_exists( 'bx_ext_get_min_suffix' ) ) {
+	/**
+	 * Add/remove ".min" suffix to scripts/styles based
+	 * on SCRIPT_DEBUG or BUSINESSX_DEBUG
+	 *
+	 * @since  1.0.4.3
+	 * @return null|string
+	 */
+	function bx_ext_get_min_suffix() {
+		$script_debug = defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ? true : false;
+		$bxext_debug  = defined( 'BUSINESSX_DEBUG' ) && true === BUSINESSX_DEBUG ? true : false;
+		return ( $script_debug || $bxext_debug ) ? '' : '.min';
+	}
+}
+
+
+
 /*  Show section
 /* ------------------------------------ */
 if( ! function_exists( 'bx_ext_show_section' ) ) {

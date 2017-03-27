@@ -5,21 +5,22 @@
 if ( ! function_exists( 'businessx_extensions_admin_scripts' ) ) {
 	function businessx_extensions_admin_scripts() {
 		global $businessx_icons_simple, $businessx_sections, $wp_customize;
-		$current_screen = get_current_screen();
+		$current_screen    = get_current_screen();
 		$sections_position = get_theme_mod( 'businessx_sections_position' );
+		$suffix            = bx_ext_get_min_suffix();
 
 		if( $current_screen->id === "widgets" || isset( $wp_customize ) ) : // Show only on the Widgets page and Customizer
 
 			// CSS Styles
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_style( 'businessx-extensions-widgets-customizer', BUSINESSX_EXTS_URL . 'css/widgets-customizer.css', array(), '20160412', 'all' );
+			wp_enqueue_style( 'businessx-extensions-widgets-customizer', BUSINESSX_EXTS_URL . 'css/widgets-customizer' . $suffix . '.css', array(), '20160412', 'all' );
 			wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/icons/css/font-awesome.min.css', array(), NULL, 'all' );
 
 			// JS Scripts
 			wp_enqueue_media();
 			wp_enqueue_script(
 				'businessx-extensions-widgets-customizer',
-				BUSINESSX_EXTS_URL . 'js/admin/widgets-customizer.js',
+				BUSINESSX_EXTS_URL . 'js/admin/widgets-customizer' . $suffix . '.js',
 				array( 'jquery', 'underscore', 'backbone', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'wp-color-picker' ),
 				'20160412', FALSE
 			);
@@ -74,11 +75,13 @@ add_action( 'admin_enqueue_scripts', 'businessx_extensions_admin_scripts' );
  */
 if( ! function_exists( 'businessx_extensions_theme_styles') ) {
 	function businessx_extensions_theme_styles() {
+		$suffix = bx_ext_get_min_suffix();
+
 		/* New sections styles */
-		wp_enqueue_style( 'bx-ext-sections-styles', BUSINESSX_EXTS_URL . 'css/sections.css', array(), '20170122', 'all' );
+		wp_enqueue_style( 'bx-ext-sections-styles', BUSINESSX_EXTS_URL . 'css/sections' . $suffix . '.css', array(), '20170122', 'all' );
 
 		/* New sections JS */
-		wp_enqueue_script( 'bx-ext-sections-scripts', BUSINESSX_EXTS_URL . 'js/front/sections.js', array( 'jquery' ), '20170125', true );
+		wp_enqueue_script( 'bx-ext-sections-scripts', BUSINESSX_EXTS_URL . 'js/front/sections' . $suffix . '.js', array( 'jquery' ), '20170125', true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'businessx_extensions_theme_styles', 9 );
