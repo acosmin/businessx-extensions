@@ -3,11 +3,6 @@
  * Drag & drop info section
  */
 if( ! class_exists( 'BXEXT_Section_DragAndDrop' ) ) {
-	class BXEXT_Tester extends WP_Customize_Section {
-		// @todo
-		public $type = 'tester';
-	}
-
 	class BXEXT_Section_DragAndDrop extends WP_Customize_Section {
 
 		/**

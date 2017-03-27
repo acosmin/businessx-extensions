@@ -142,8 +142,7 @@ window.BxExtensions = {
 			dataType : 'json',
 			data     : {
 				action: 'businessx_extensions_sections_position',
-				// @todo
-				businessx_extensions_sections_nonce: businessx_customizer_js_data.businessx_extensions_sections_nonce,
+				n_sections: bxext_customizer_nonces.n_sections,
 				items: sections
 			}
 		})
@@ -179,8 +178,7 @@ window.BxExtensions = {
 					dataType : 'json',
 					data     : {
 						action: 'businessx_extensions_sections_bk',
-						// @todo
-						businessx_extensions_sections_bk_nonce: businessx_customizer_js_data.businessx_extensions_sections_bk_nonce,
+						n_sections_bk: bxext_customizer_nonces.n_sections_bk,
 					}
 				})
 				.done( function( data ) {
@@ -209,8 +207,7 @@ window.BxExtensions = {
 					dataType : 'json',
 					data     : {
 						action: 'businessx_extensions_sections_rt',
-						// @todo
-						businessx_extensions_sections_rt_nonce: businessx_customizer_js_data.businessx_extensions_sections_rt_nonce,
+						n_sections_rt: bxext_customizer_nonces.n_sections_rt,
 					}
 				})
 				.done( function( data ) {
@@ -244,8 +241,7 @@ window.BxExtensions = {
 				dataType : 'json',
 				data     : {
 					action: 'bxext_create_frontpage',
-					// @todo
-					bxext_create_frontpage: businessx_customizer_js_data.bxext_create_frontpage,
+					bxext_create_frontpage: bxext_customizer_nonces.bxext_create_frontpage,
 				}
 			})
 			.done( function( data ) {
@@ -262,8 +258,7 @@ window.BxExtensions = {
 				dataType : 'json',
 				data     : {
 					action: 'bxext_dismiss_create_frontpage',
-					// @todo
-					bxext_create_frontpage: businessx_customizer_js_data.bxext_dismiss_create_frontpage,
+					bxext_create_frontpage: bxext_customizer_nonces.bxext_dismiss_create_frontpage,
 				}
 			})
 			.done( function( data ) {

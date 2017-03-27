@@ -125,7 +125,7 @@ if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
 		global $businessx_sections;
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_nonce' ], 'businessx_extensions_sections_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections' ], 'n_sections' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		// Variables
@@ -138,7 +138,7 @@ if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
 		if( ! empty( $decoded ) && ! empty( $businessx_sections ) ) {
 			// Unset some keys
 			unset( $decoded['action'] );
-			unset( $decoded['businessx_extensions_sections_nonce'] );
+			unset( $decoded['n_sections'] );
 
 			// Setup an array
 			foreach( (array) $decoded as $key => $value ) {
@@ -171,7 +171,7 @@ if( ! function_exists( 'businessx_extensions_sections_bk_action' ) ) {
 	function businessx_extensions_sections_bk_action() {
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_bk_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_bk_nonce' ], 'businessx_extensions_sections_bk_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections_bk' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections_bk' ], 'n_sections_bk' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		$current_widgets = get_option( 'sidebars_widgets' );
@@ -195,7 +195,7 @@ if( ! function_exists( 'businessx_extensions_sections_rt_action' ) ) {
 	function businessx_extensions_sections_rt_action() {
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_rt_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_rt_nonce' ], 'businessx_extensions_sections_rt_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections_rt' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections_rt' ], 'n_sections_rt' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		$backup = get_option( 'businessx_ext_widgets_bk' );

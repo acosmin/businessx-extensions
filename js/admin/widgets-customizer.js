@@ -31,7 +31,6 @@ window.BxExtWidgets = {
 			/**
 			 * Initialize model
 			 *
-			 * @todo Make the widget name and list part dynamic
 			 * @return {Function}
 			 */
 			initialize : function() {
@@ -94,7 +93,6 @@ window.BxExtWidgets = {
 			/**
 			 * Display the created element
 			 *
-			 * @todo   change class name
 			 * @param  {Object} widget Widget selector
 			 * @return {HTML}          Rendere element HTML
 			 */
