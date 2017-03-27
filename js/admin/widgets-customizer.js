@@ -308,13 +308,14 @@ window.BxExtWidgets = {
 	 * @param  {Boolean} [remove=false] If this is used to remove media, set to true if so
 	 * @return {Void}
 	 */
-	mediaUpload : function( selector, remove = false ) {
+	mediaUpload : function( selector, remove ) {
 		var sel       = $( selector ).closest( 'div' ),
 		    upload    = wp.media({ multiple: false }),
 		    img       = sel.find('.bx-iu-image'),
 		    imgURL    = sel.find('.bx-iu-image-url'),
 		    imgRemove = sel.find('.bx-iu-image-remove'),
-		    imgUpload = sel.find('.bx-iu-image-upload');
+		    imgUpload = sel.find('.bx-iu-image-upload'),
+		    remove    = ( typeof remove === 'undefined' ) ? false : remove;
 
 		if( remove === false ) {
 			upload.on( 'select', function( ev ) {
