@@ -17,11 +17,11 @@
 	/**
 	 * Add section
 	 */
-	$wp_customize->add_section( 'businessx_section__contact', array(
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__contact', array(
 		'title'     => esc_html__( 'Contact Section', 'businessx-extensions' ),
 		'panel'     => 'businessx_panel__sections',
 		'priority'  => absint( businessx_extensions_sec_prio( 'businessx_section__contact' ) ),
-	) );
+	) ) );
 
 		/**
 		 * A list of options to register based on a callback function and arguments
@@ -137,6 +137,16 @@
 					'selector'    => '.sec-contact .sec-contact-social',
 					'sanitize'    => 'businessx_ext_sanitize_content_filtered',
 					'escape'      => 'businessx_ext_escape_content_filtered',
+				)
+			),
+
+			/* Section tabs */
+			'section_tabs' => array(
+				'callback'       => 'simple',
+				'args'           => array(
+					'type'             => 'tabs',
+					'setting_id'       => 'contact-addedititems',
+					'section_id'       => 'businessx_section__contact',
 				)
 			),
 

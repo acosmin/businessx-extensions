@@ -17,11 +17,11 @@
 	/**
 	 * Add section
 	 */
-	$wp_customize->add_section( 'businessx_section__maps', array(
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__maps', array(
 		'title'     => esc_html__( 'Maps Section', 'businessx-extensions' ),
 		'panel'     => 'businessx_panel__sections',
 		'priority'  => absint( businessx_extensions_sec_prio( 'businessx_section__maps' ) ),
-	) );
+	) ) );
 
 		/**
 		 * A list of options to register based on a callback function and arguments

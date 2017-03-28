@@ -17,6 +17,19 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 	function businessx_extensions_customize_register( $wp_customize ) {
 		$sections = businessx_extensions_sections();
 
+		// Register custom sections/controls
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/section-dragdrop/drag-and-drop-info.php' );
+		$wp_customize->register_section_type( 'BXEXT_Section_DragAndDrop' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/section-frontpage/front-page-section.php' );
+		$wp_customize->register_section_type( 'BXEXT_Section_FrontPage' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/control-addedititems/add-edit-items.php' );
+		$wp_customize->register_control_type( 'BXEXT_Control_AddEditItems' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/control-tabs/tabs.php' );
+		$wp_customize->register_control_type( 'BXEXT_Control_Tabs' );
+
 		/*  Add panels
 		/* ------------------------------------ */
 		// Front page
@@ -31,9 +44,26 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		  'active_callback' 	=> 'businessx_front_pt',
 		) );
 
+			// Move section sidebars to another panel
+			foreach ( $wp_customize->sections() as $id => $section ) {
+				$sections_items = businessx_extensions_sections_items();
+				foreach( $sections_items as $section_name ) {
+					$needle = 'sidebar-widgets-section-' . $section_name;
+					if( $needle === $id ) {
+						$section->panel = 'businessx_panel__sections_items';
+					}
+				}
+			}
 
 			/*  Add sections
 			/* ------------------------------------ */
+			/// Drag & Drop msg
+			$wp_customize->add_section( new BXEXT_Section_DragAndDrop( $wp_customize, 'dragdrop', array(
+				'title'     => esc_html__( 'Drag and drop for position', 'businessx-extensions' ),
+				'panel'     => 'businessx_panel__sections',
+				'priority'  => 0
+			) ) );
+
 			/// Theme Settings
 			$wp_customize->add_section( 'backup_options', array(
 				'title'				=> __( 'Backups', 'businessx-extensions' ),
@@ -95,7 +125,7 @@ if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
 		global $businessx_sections;
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_nonce' ], 'businessx_extensions_sections_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections' ], 'n_sections' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		// Variables
@@ -108,7 +138,7 @@ if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
 		if( ! empty( $decoded ) && ! empty( $businessx_sections ) ) {
 			// Unset some keys
 			unset( $decoded['action'] );
-			unset( $decoded['businessx_extensions_sections_nonce'] );
+			unset( $decoded['n_sections'] );
 
 			// Setup an array
 			foreach( (array) $decoded as $key => $value ) {
@@ -141,7 +171,7 @@ if( ! function_exists( 'businessx_extensions_sections_bk_action' ) ) {
 	function businessx_extensions_sections_bk_action() {
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_bk_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_bk_nonce' ], 'businessx_extensions_sections_bk_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections_bk' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections_bk' ], 'n_sections_bk' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		$current_widgets = get_option( 'sidebars_widgets' );
@@ -165,7 +195,7 @@ if( ! function_exists( 'businessx_extensions_sections_rt_action' ) ) {
 	function businessx_extensions_sections_rt_action() {
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_rt_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_rt_nonce' ], 'businessx_extensions_sections_rt_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections_rt' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections_rt' ], 'n_sections_rt' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		$backup = get_option( 'businessx_ext_widgets_bk' );

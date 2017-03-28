@@ -20,11 +20,11 @@
 
 	/*  Add section
 	/* ------------------------------------ */
-	$wp_customize->add_section( 'businessx_section__blog', array(
+	$wp_customize->add_section( new BXEXT_Section_FrontPage( $wp_customize, 'businessx_section__blog', array(
 		'title'				=> esc_html__( 'Blog Section', 'businessx-extensions' ),
 		'panel'				=> 'businessx_panel__sections',
 		'priority'			=> absint( businessx_extensions_sec_prio( 'businessx_section__blog' ) ),
-	) );
+	) ) );
 
 
 
@@ -97,6 +97,16 @@
 			'sanitize' => 'esc_url_raw',
 			'postmsg' => true,
 		) );
+
+		// Section tabs
+		$wp_customize->add_setting( 'blog-sectiontabs', array() );
+
+		$wp_customize->add_control( new BXEXT_Control_Tabs( $wp_customize, 'blog-sectiontabs', array(
+			'section'          => 'businessx_section__blog',
+			'type'             => 'section-tabs',
+			'title_colors'     => __( 'Colors', 'businessx-extensions' ),
+			'title_background' => __( 'Background', 'businessx-extensions' )
+		) ) );
 
 		// Section colors
 		businessx_controller_color_picker(

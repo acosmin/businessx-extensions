@@ -126,16 +126,28 @@ if ( ! function_exists( 'bx_ext_controller_simple' ) ) {
 			'rgba'       => 1,
 			'image'      => 1,
 			'info'       => 1,
+			'tabs'       => 1,
 		);
 
 		if( array_key_exists( $type, $types ) ) {
 			switch( $type ) {
 
 				/**
+				 * Tabs
+				 */
+				case 'tabs':
+				$control_args['type']              = 'section-tabs';
+				$control_args['title_colors']     = __( 'Colors', 'businessx-extensions' );
+				$control_args['title_background'] = __( 'Background', 'businessx-extensions' );
+				$wp_customize->add_setting( $setting_id, array() );
+				$wp_customize->add_control( new BXEXT_Control_Tabs( $wp_customize, $setting_id, $control_args ) );
+					break;
+
+				/**
 				 * Information
 				 */
 				case 'info':
-					$control_args['type']         = 'info-control';
+					$control_args['type'] = 'info-control';
 					$wp_customize->add_setting( $setting_id, $settings_args );
 					$wp_customize->add_control( new Businessx_Control_Info( $wp_customize, $setting_id, $control_args ) );
 					break;
