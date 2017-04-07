@@ -115,7 +115,7 @@
 					if( ! function_exists( 'bx_ext_part__testimonials_header_title' ) ) {
 						function bx_ext_part__testimonials_header_title() {
 							$section = 'testimonials';
-							$title   = bx_ext_tm( 'testimonials_section_title', esc_html__( 'Testimonials', 'businessx-extensions' ) );
+							$title   = bxext_sections_strings( $section, 'title' );
 							$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>';
 							$anim    = businessx_anim_classes( true );
 

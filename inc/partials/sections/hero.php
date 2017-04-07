@@ -104,7 +104,7 @@
 			// Title
 			if( ! function_exists( 'bx_ext_part__hero_elements_title' ) ) {
 				function bx_ext_part__hero_elements_title() {
-					$title  = bx_ext_tm( 'hero_section_title', esc_html__( 'Hero section title goes here.', 'businessx-extensions' ) );
+					$title  = bxext_sections_strings( 'hero', 'title' );
 					$anim   = businessx_anim_classes( true );
 					$format = '<h2 class="hs-primary-large %1$s">%2$s</h2>';
 					$output = sprintf( $format, $anim, esc_html( $title ) );
@@ -119,7 +119,7 @@
 			// Description
 			if( ! function_exists( 'bx_ext_part__hero_elements_description' ) ) {
 				function bx_ext_part__hero_elements_description() {
-					$description = bx_ext_tm( 'hero_section_description', esc_html__( 'You can edit this section by going to Customizer > Front Page Sections > Hero Section', 'businessx-extensions' ) );
+					$description = bxext_sections_strings( 'hero', 'description' );
 					$anim        = businessx_anim_classes( true );
 					$format      = '<p class="sec-hs-description fs-largest fw-regular %1$s">%2$s</p>';
 					$output      = sprintf( $format, $anim, esc_html( $description ) );

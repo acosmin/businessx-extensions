@@ -131,7 +131,7 @@
 					if( ! function_exists( 'bx_ext_part__blog_items_header_title' ) ) {
 						function bx_ext_part__blog_items_header_title() {
 							$section = 'blog';
-							$title   = bx_ext_tm( 'blog_section_title', esc_html__( 'Blog Heading', 'businessx-extensions' ) );
+							$title   = bxext_sections_strings( $section, 'title' );
 							$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>%3$s';
 							$divider = '<div class="divider"></div>';
 							$anim    = businessx_anim_classes( true );
@@ -152,7 +152,7 @@
 					if( ! function_exists( 'bx_ext_part__blog_items_header_description' ) ) {
 						function bx_ext_part__blog_items_header_description() {
 							$section = 'blog';
-							$desc    = bx_ext_tm( 'blog_section_description', esc_html__( 'This is a description for the Blog section. You can set it up in the Customizer > Sections > Blog Section.', 'businessx-extensions' ) );
+							$desc    = bxext_sections_strings( $section, 'description' );
 							$format  = '<p class="section-description fs-large %1$s">%2$s</p>';
 							$anim    = businessx_anim_classes( true );
 
@@ -218,7 +218,7 @@
 					if( ! function_exists( 'bx_ext_part__blog_items_posts_action' ) ) {
 						function bx_ext_part__blog_items_posts_action() {
 							$show   = bx_ext_tm( 'blog_action_btn_show', false );
-							$label  = bx_ext_tm( 'blog_action_btn', esc_html__( 'View More Articles', 'businessx-extensions' ) );
+							$label  = bxext_sections_strings( 'blog', 'button' );
 							$url    = bx_ext_tm( 'blog_action_btn_url', '#' );
 							$format = '<div class="grid-col grid-4x-col blog-action ta-center"><a href="%1$s" class="ac-btn btn-biggest blog-action-btn">%2$s</a></div>';
 
