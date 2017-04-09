@@ -84,10 +84,16 @@
 			}
 		} );
 	} );
-	
+
 	wp.customize( 'blog_action_btn_url', function( value ) {
 		value.bind( function( to ) {
 			$( '.blog-action-btn' ).attr( 'href', to );
+		} );
+	} );
+
+	wp.customize( 'portfolio_action_btn_url', function( value ) {
+		value.bind( function( to ) {
+			$( '.portfolio-action-btn' ).attr( 'href', to );
 		} );
 	} );
 

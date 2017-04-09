@@ -196,6 +196,13 @@ if( ! function_exists( 'bxext_sections_strings' ) ) {
 							return bx_ext_tm( 'portfolio_section_description', __( 'This is a description for the Portfolio section. You can set it up in the Customizer where you can also change some options.', 'businessx-extensions' ) );
 						}
 						break;
+					case 'button' :
+						if( $polylang ) {
+							return pll__( 'View More Projects' );
+						} else {
+							return bx_ext_tm( 'blog_action_btn', __( 'View More Projects', 'businessx-extensions' ) );
+						}
+						break;
 				}
 				break;
 

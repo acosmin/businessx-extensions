@@ -93,7 +93,8 @@
 					 * Hooked:
 					 * bx_ext_part__portfolio_items_header    - 10
 					 * bx_ext_part__portfolio_items_projects  - 20
-					 * bx_ext_part__portfolio_items_js        - 30
+					 * bx_ext_part__portfolio_items_action    - 30
+					 * bx_ext_part__portfolio_items_js        - 40
 					 */
 					do_action( 'bx_ext_part__portfolio_items' );
 				}
@@ -270,6 +271,23 @@
 							endif;
 						}
 					}
+
+				// Action button
+				if( ! function_exists( 'bx_ext_part__portfolio_items_action' ) ) {
+					function bx_ext_part__portfolio_items_action() {
+						$show   = bx_ext_tm( 'portfolio_action_btn_show', false );
+						$label  = bxext_sections_strings( 'portfolio', 'button' );
+						$url    = bx_ext_tm( 'portfolio_action_btn_url', '#' );
+						$format = '<div class="grid-col grid-4x-col portfolio-action ta-center"><a href="%1$s" class="ac-btn btn-biggest portfolio-action-btn">%2$s</a></div>';
+
+						$output = sprintf( $format, esc_url( $url ), esc_html( $label ) );
+						$output = apply_filters( 'bx_ext_part___portfolio_items_action', $output, $format, $label, $url, $show );
+
+						if( ! $show ) return;
+
+						echo $output;
+					}
+				}
 
 				// Portfolio JS
 				if( ! function_exists( 'bx_ext_part__portfolio_items_js' ) ) {
