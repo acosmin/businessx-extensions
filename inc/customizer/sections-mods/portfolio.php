@@ -68,6 +68,38 @@
 			'', false, false, 'absint' );
 		/*=====*/
 
+		// Show action button
+		bx_ext_controller_simple( array(
+			'type' => 'checkbox',
+			'setting_id' => 'portfolio_action_btn_show',
+			'section_id' => 'businessx_section__portfolio',
+			'label' => esc_html__( 'Show "More Projects" button?', 'businessx-extensions' ),
+			'default' => false,
+			'transport' => false,
+		) );
+
+		// Action button
+		bx_ext_controller_simple( array(
+			'setting_id' => 'portfolio_action_btn',
+			'section_id' => 'businessx_section__portfolio',
+			'label' => esc_html__( 'More Projects label:', 'businessx-extensions' ),
+			'default' => esc_html__( 'View More Projects', 'businessx-extensions' ),
+			'sanitize' => 'sanitize_text_field',
+			'selector' => '.portfolio-action-btn',
+			'escape'   => 'esc_html',
+		) );
+
+		// Action button url
+		bx_ext_controller_simple( array(
+			'setting_id' => 'portfolio_action_btn_url',
+			'section_id' => 'businessx_section__portfolio',
+			'label' => esc_html__( 'More projects URL:', 'businessx-extensions' ),
+			'default' => '#',
+			'sanitize' => 'esc_url_raw',
+			'postmsg' => true,
+		) );
+		/*=====*/
+
 		// Section tabs
 		$wp_customize->add_setting( 'portfolio-sectiontabs', array() );
 

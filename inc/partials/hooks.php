@@ -151,7 +151,8 @@ add_action( 'bx_ext_part__portfolio_container', 'bx_ext_part__portfolio_containe
 
 add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_header',   10 );
 add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_projects', 20 );
-add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_js',       30 );
+add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_action',   30 );
+add_action( 'bx_ext_part__portfolio_items', 'bx_ext_part__portfolio_items_js',       40 );
 
 add_action( 'bx_ext_part__portfolio_items_header', 'bx_ext_part__portfolio_items_header_start',          10 );
 add_action( 'bx_ext_part__portfolio_items_header', 'bx_ext_part__portfolio_items_header_title',          20 );

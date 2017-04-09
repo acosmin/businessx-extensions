@@ -217,6 +217,20 @@
 }
 
 /**
+ * Portfolio section
+ */
+.portfolio-action {
+	margin-top: 4.666em;
+}
+.portfolio-action-btn {
+	color: #fff !important;
+	font-size: 18px !important;
+}
+.portfolio-action-btn:hover {
+	text-decoration: none !important;
+}
+
+/**
  * Team section
  */
 .sec-team .no-pos {
