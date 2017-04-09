@@ -54,6 +54,25 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 
 
+/*  Section parallax
+/* ------------------------------------ */
+if ( ! function_exists( 'bxext_section_parallax' ) ) {
+	function bxext_section_parallax( $enabled, $bgimg, $return = false ) {
+		$background = get_theme_mod( $bgimg, '' );
+		$parallax   = get_theme_mod( $enabled, false );
+		$output     = '';
+
+		if( $bgimg != '' && $parallax ) {
+			//$output = ' data-parallax="scroll" data-speed="0.5" data-image-src="' . esc_url( $background ) . '" style="background: none !important;"';
+			$output = ' style="background-image: url(' . esc_url( $background ) . '); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;"';
+		}
+
+		if( $return ) { return $output; } else { echo $output; }
+	}
+}
+
+
+
 /*  Section strings
 /* ------------------------------------ */
 if( ! function_exists( 'bxext_sections_strings' ) ) {
