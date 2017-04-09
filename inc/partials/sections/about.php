@@ -123,7 +123,7 @@
 				if( ! function_exists( 'bx_ext_part__about_header_title' ) ) {
 					function bx_ext_part__about_header_title() {
 						$section = 'about';
-						$title   = bx_ext_tm( 'about_section_title', esc_html__( 'About Us Heading', 'businessx-extensions' ) );
+						$title   = bxext_sections_strings( $section, 'title' );
 						$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>%3$s';
 						$divider = '<div class="divider"></div>';
 						$anim    = businessx_anim_classes( true );
@@ -144,7 +144,7 @@
 				if( ! function_exists( 'bx_ext_part__about_header_description' ) ) {
 					function bx_ext_part__about_header_description() {
 						$section = 'about';
-						$desc    = bx_ext_tm( 'about_section_description', esc_html__( 'This is a description for the About section. You can set it up in the Customizer > Front Page Sections > About Section.', 'businessx-extensions' ) );
+						$desc    = bxext_sections_strings( $section, 'description' );
 						$format  = '<p class="section-description fs-large %1$s">%2$s</p>';
 						$anim    = businessx_anim_classes( true );
 
@@ -218,7 +218,7 @@
 			if( ! function_exists( 'bx_ext_part__about_button' ) ) {
 				function bx_ext_part__about_button() {
 					$show   = bx_ext_tm( 'about_section_hide_btn' ) == 0 ? true : false;
-					$anchor = bx_ext_tm( 'about_section_btn_anchor', __( 'More Info About Us', 'businessx-extensions' ) );
+					$anchor = bxext_sections_strings( 'about', 'button' );
 					$url    = bx_ext_tm( 'about_section_btn_anchor_url', '#' );
 					$target = bx_ext_tm( 'about_section_btn_target', false ) ? '_blank' : '_self';
 					$format = '<div class="about-button clearfix"><a href="%1$s" target="%2$s" class="ac-btn btn-biggest btn-opaque">%3$s</a></div>';

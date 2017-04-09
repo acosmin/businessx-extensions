@@ -108,6 +108,22 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 					'extensions_options',
 					esc_html__( 'Disable helping messages', 'businessx-extensions' ), '', false );
 
+				if( bxext_compt_polylang_check() ) {
+					/**
+					 * @since 1.0.4.3
+					 */
+					businessx_controller_info(
+						'use_polylang_info',
+						'extensions_options',
+						__( 'Enable Polylang translations', 'businessx-extensions' ),
+						__( '<p>If you enable this, you will need to add all your text/copy from <code>Languages > Strings translations</code></p><p>This will work for sections titles, descriptions and some buttons. Any changes made to these lines from the <strong>Front Page Sections</strong> panel will not work if this option is enabled</p>', 'businessx-extensions' ), '' );
+
+					businessx_controller_checkbox(
+						'use_polylang',
+						'extensions_options',
+						esc_html__( 'Use Polylang translations', 'businessx-extensions' ), '', false );
+				} // END bxext_compt_polylang_check()
+
 
 		$wp_customize->remove_section( 'themes' );
 

@@ -54,6 +54,298 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 
 
 
+/*  Section strings
+/* ------------------------------------ */
+if( ! function_exists( 'bxext_sections_strings' ) ) {
+	/**
+	 * Display sections strings and use multilang if selected
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $section Selected section
+	 * @param  string  $string  Selected string
+	 * @return string
+	 */
+	function bxext_sections_strings( $section, $string ) {
+		// Check if we should use the Polylang strings
+		$polylang = ( get_theme_mod( 'use_polylang', false ) && bxext_compt_polylang_check() ) ? true : false;
+
+		// For section
+		switch( $section ) {
+
+			// Features
+			case 'features' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Features Heading' );
+						} else {
+							return bx_ext_tm( 'features_section_title', __( 'Features Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Features section. You can set it up in the Customizer where you can also add items for it.' );
+						} else {
+							return bx_ext_tm( 'features_section_description', __( 'This is a description for the Features section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// About
+			case 'about' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'About Us Heading' );
+						} else {
+							return bx_ext_tm( 'about_section_title', __( 'About Us Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the About section. You can set it up in the Customizer > Front Page Sections > About Section.' );
+						} else {
+							return bx_ext_tm( 'about_section_description', __( 'This is a description for the About section. You can set it up in the Customizer > Front Page Sections > About Section.', 'businessx-extensions' ) );
+						}
+						break;
+					case 'button' :
+						if( $polylang ) {
+							return pll__( 'Button Anchor Text' );
+						} else {
+							return bx_ext_tm( 'about_section_btn_anchor', __( 'More Info About Us', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Team
+			case 'team' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Team Heading' );
+						} else {
+							return bx_ext_tm( 'team_section_title', __( 'Team Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Team section. You can set it up in the Customizer where you can also add items for it.' );
+						} else {
+							return bx_ext_tm( 'team_section_description', __( 'This is a description for the Team section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Clients
+			case 'clients' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Clients Heading' );
+						} else {
+							return bx_ext_tm( 'clients_section_title', __( 'Clients Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Clients section. You can set it up in the Customizer where you can also add items for it.' );
+						} else {
+							return bx_ext_tm( 'clients_section_description', __( 'This is a description for the Clients section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Pricing
+			case 'pricing' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Pricing Heading' );
+						} else {
+							return bx_ext_tm( 'pricing_section_title', __( 'Pricing Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Pricing section. You can set it up in the Customizer where you can also add items for it.' );
+						} else {
+							return bx_ext_tm( 'pricing_section_description', __( 'This is a description for the Pricing section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Portfolio
+			case 'portfolio' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Portfolio Heading' );
+						} else {
+							return bx_ext_tm( 'portfolio_section_title', __( 'Portfolio Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Portfolio section. You can set it up in the Customizer where you can also change some options.' );
+						} else {
+							return bx_ext_tm( 'portfolio_section_description', __( 'This is a description for the Portfolio section. You can set it up in the Customizer where you can also change some options.', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Testimonials
+			case 'testimonials' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Testimonials' );
+						} else {
+							return bx_ext_tm( 'testimonials_section_title', __( 'Testimonials', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// FAQ
+			case 'faq' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Frequently Asked Questions' );
+						} else {
+							return bx_ext_tm( 'faq_section_title', __( 'Frequently Asked Questions', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the FAQ section. You can set it up in the Customizer where you can also add items for it.' );
+						} else {
+							return bx_ext_tm( 'faq_section_description', __( 'This is a description for the FAQ section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Hero
+			case 'hero' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Hero section title goes here.' );
+						} else {
+							return bx_ext_tm( 'hero_section_title', __( 'Hero section title goes here.', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'You can edit this section by going to Customizer > Sections > Hero Section' );
+						} else {
+							return bx_ext_tm( 'hero_section_description', __( 'You can edit this section by going to Customizer > Sections > Hero Section', 'businessx-extensions' ) );
+						}
+						break;
+					case 'button-1' :
+						if( $polylang ) {
+							return pll__( 'Call to Action #1' );
+						} else {
+							return bx_ext_tm( 'hero_section_1st_btn', __( 'Call to Action #1', 'businessx-extensions' ) );
+						}
+						break;
+					case 'button-2' :
+						if( $polylang ) {
+							return pll__( 'Call to Action #2' );
+						} else {
+							return bx_ext_tm( 'hero_section_2nd_btn', __( 'Call to Action #2', 'businessx-extensions' ) );
+						}
+						break;
+					case 'or' :
+						if( $polylang ) {
+							return pll__( 'Or' );
+						} else {
+							return bx_ext_tm( 'hero_section_btns_or', __( 'Or', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Maps
+			case 'maps' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Maps Section Title' );
+						} else {
+							return bx_ext_tm( 'maps_section_title', __( 'Maps Section Title', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Blog
+			case 'blog' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Blog Heading' );
+						} else {
+							return bx_ext_tm( 'blog_section_title', __( 'Blog Heading', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Blog section. You can set it up in the Customizer where you can also add items for it.' );
+						} else {
+							return bx_ext_tm( 'blog_section_description', __( 'This is a description for the Blog section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+						}
+						break;
+					case 'button' :
+						if( $polylang ) {
+							return pll__( 'View More Articles' );
+						} else {
+							return bx_ext_tm( 'blog_action_btn', __( 'View More Articles', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+
+			// Contact
+			case 'contact' :
+				switch ( $string ) {
+					case 'title' :
+						if( $polylang ) {
+							return pll__( 'Contact Us' );
+						} else {
+							return bx_ext_tm( 'contact_section_title', __( 'Contact Us', 'businessx-extensions' ) );
+						}
+						break;
+					case 'description' :
+						if( $polylang ) {
+							return pll__( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'Contact Section' );
+						} else {
+							return bx_ext_tm( 'contact_section_description', __( 'This is a description for the Contact section. You can set it up in the Customizer where you can also add items for it.', 'Contact Section', 'businessx-extensions' ) );
+						}
+						break;
+					case 'shortcode' :
+						if( $polylang ) {
+							return pll__( 'Your contact form shortcode appears here...' );
+						} else {
+							return bx_ext_tm( 'contact_section_shortcode', __( 'Your contact form shortcode appears here...', 'businessx-extensions' ) );
+						}
+						break;
+				}
+				break;
+		}
+
+	}
+}
+
+
+
 /*  Get theme mod
 /* ------------------------------------ */
 if( ! function_exists( 'bx_ext_tm' ) ) {
@@ -206,13 +498,13 @@ if( businessx_extensions_ck_theme_v( '1.0.3' ) || ! ( 'Businessx' == businessx_e
 if( ! function_exists( 'businessx_hero_btns_output' ) ) {
     function businessx_hero_btns_output() {
     	$type = get_theme_mod( 'hero_section_btns', apply_filters( 'businessx_hero___btns_type_default', 'btns-2-def-op' ) );
-    	$btn_1_text = get_theme_mod( 'hero_section_1st_btn', __( 'Call to Action', 'businessx-extensions' ) );
+    	$btn_1_text = bxext_sections_strings( 'hero', 'button-1' );
     	$btn_1_link = get_theme_mod( 'hero_section_1st_btn_link', '#' );
     	$btn_1_target = get_theme_mod( 'hero_section_1st_btn_target', false ) ? '_blank' : '_self';
-    	$btn_2_text = get_theme_mod( 'hero_section_2nd_btn', __( 'Call to Action', 'businessx-extensions' ) );
+    	$btn_2_text = bxext_sections_strings( 'hero', 'button-2' );
     	$btn_2_link = get_theme_mod( 'hero_section_2nd_btn_link', '#' );
     	$btn_2_target = get_theme_mod( 'hero_section_2nd_btn_target', false ) ? '_blank' : '_self';
-    	$btns_between = get_theme_mod( 'hero_section_btns_or', __( 'Or', 'businessx-extensions' ) );
+    	$btns_between = bxext_sections_strings( 'hero', 'or' );
     	$output = '';
 
     	switch( $type ) {

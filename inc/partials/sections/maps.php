@@ -100,8 +100,7 @@
 						// Section title
 						if( ! function_exists( 'bx_ext_part__map_overlay_content_title' ) ) {
 		 					function bx_ext_part__map_overlay_content_title() {
-								$placeholder = __( 'Maps Section Title', 'businessx-extensions' );
-								$title       = bx_ext_tm( 'maps_section_title', $placeholder );
+								$title       = bxext_sections_strings( 'maps', 'title' );
 								$format      = '<h2 class="smo-title"><a href="#" class="smo-open-map">%s</a></h2>';
 
 								$output = sprintf( $format, $title );

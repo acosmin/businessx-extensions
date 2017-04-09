@@ -131,7 +131,7 @@
 					if( ! function_exists( 'bx_ext_part__portfolio_items_header_title' ) ) {
 						function bx_ext_part__portfolio_items_header_title() {
 							$section = 'portfolio';
-							$title   = bx_ext_tm( 'portfolio_section_title', __( 'Portfolio Heading', 'businessx-extensions' ) );
+							$title   = bxext_sections_strings( $section, 'title' );
 							$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>%3$s';
 							$divider = '<div class="divider"></div>';
 							$anim    = businessx_anim_classes( true );
@@ -152,7 +152,7 @@
 					if( ! function_exists( 'bx_ext_part__portfolio_items_header_description' ) ) {
 						function bx_ext_part__portfolio_items_header_description() {
 							$section = 'portfolio';
-							$desc    = bx_ext_tm( 'portfolio_section_description', __( 'This is a description for the Portfolio section. You can set it up in the Customizer where you can also change some options.', 'businessx-extensions' ) );
+							$desc    = bxext_sections_strings( $section, 'description' );
 							$format  = '<p class="section-description fs-large %1$s">%2$s</p>';
 							$anim    = businessx_anim_classes( true );
 

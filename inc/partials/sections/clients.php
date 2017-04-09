@@ -131,7 +131,7 @@
 					if( ! function_exists( 'bx_ext_part__clients_items_header_title' ) ) {
 						function bx_ext_part__clients_items_header_title() {
 							$section = 'clients';
-							$title   = bx_ext_tm( 'clients_section_title', esc_html__( 'Clients Heading', 'businessx-extensions' ) );
+							$title   = bxext_sections_strings( $section, 'title' );
 							$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>%3$s';
 							$divider = '<div class="divider"></div>';
 							$anim    = businessx_anim_classes( true );
@@ -152,7 +152,7 @@
 					if( ! function_exists( 'bx_ext_part__clients_items_header_description' ) ) {
 						function bx_ext_part__clients_items_header_description() {
 							$section = 'clients';
-							$desc    = bx_ext_tm( 'clients_section_description', esc_html__( 'This is a description for the Clients section. You can set it up in the Customizer where you can also add items for it.', 'businessx-extensions' ) );
+							$desc    = bxext_sections_strings( $section, 'description' );
 							$format  = '<p class="section-description fs-large %1$s">%2$s</p>';
 							$anim    = businessx_anim_classes( true );
 
