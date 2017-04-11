@@ -17,6 +17,14 @@
 	-webkit-backface-visibility: hidden;
 }
 
+/**
+ * Parallax
+ */
+.bx-ext-parallax {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
 
 /**
  * Contact form

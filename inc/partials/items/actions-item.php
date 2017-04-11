@@ -18,11 +18,12 @@
 		function bx_ext_item__actions_overlay( $widget_options ) {
 			$overlay  = $widget_options['overlay'];
 			$opacity  = $widget_options['opacity'];
+			$overopa  = $opacity != '0' ? ' style="opacity: ' . $opacity . '"' : '';
 			$format   = '<div class="grid-overlay"%s></div>';
-			$output   = sprintf( $format, $opacity );
+			$output   = sprintf( $format, $overopa );
 			$output   = apply_filters( 'bx_ext_item___actions_overlay', $output, $format, $widget_options );
 
-			if( $overlay && $overlay_opacity != 0 ) {
+			if( $overlay && $opacity != '0' ) {
 				echo $output;
 			}
 		}

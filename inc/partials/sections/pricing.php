@@ -28,7 +28,10 @@
 	// Section wrapper - start
 	if( ! function_exists( 'bx_ext_part__pricing_wrap_start' ) ) {
 		function bx_ext_part__pricing_wrap_start() {
-			$parallax = businessx_section_parallax( 'pricing_bg_parallax', 'pricing_bg_parallax_img', true );
+			$mod      = 'pricing_bg_parallax';
+ 			$enabled  = bx_ext_tm( $mod, false );
+			$class    = $enabled ? ' bx-ext-parallax' : '';
+			$parallax = bxext_section_parallax( $mod, 'pricing_bg_parallax_img', true );
 			$columns  = bx_ext_tm( 'pricing_section_columns', 'grid-2x3-col' );
 			$cols     = '';
 
@@ -46,9 +49,9 @@
 					break;
 			}
 
-			$format = '<section id="section-pricing" class="grid-wrap sec-pricing %1$s"%2$s>';
-			$output = sprintf( $format, $cols, $parallax );
-			$output = apply_filters( 'bx_ext_part___pricing_wrap_start', $output, $format, $columns, $cols, $parallax );
+			$format = '<section id="section-pricing" class="grid-wrap sec-pricing %1$s %2$s"%3$s>';
+			$output = sprintf( $format, $cols, $class, $parallax );
+			$output = apply_filters( 'bx_ext_part___pricing_wrap_start', $output, $format, $columns, $cols, $class, $parallax );
 
 			echo $output;
 		}

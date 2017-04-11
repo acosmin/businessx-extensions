@@ -57,14 +57,22 @@ add_action( 'admin_notices', 'businessx_extensions_jp_ck_mobile_theme', 0 );
 /*  Section parallax
 /* ------------------------------------ */
 if ( ! function_exists( 'bxext_section_parallax' ) ) {
+	/**
+	 * Adds a background image with parallax effect
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $enabled Enable parallax theme mod
+	 * @param  string  $bgimg   Parallax background image theme mod
+	 * @param  boolean $return  Return or echo
+	 * @return string
+	 */
 	function bxext_section_parallax( $enabled, $bgimg, $return = false ) {
 		$background = get_theme_mod( $bgimg, '' );
 		$parallax   = get_theme_mod( $enabled, false );
 		$output     = '';
 
 		if( $bgimg != '' && $parallax ) {
-			//$output = ' data-parallax="scroll" data-speed="0.5" data-image-src="' . esc_url( $background ) . '" style="background: none !important;"';
-			$output = ' style="background-image: url(' . esc_url( $background ) . '); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;"';
+			$output = ' style="background-image: url(' . esc_url( $background ) . ');"';
 		}
 
 		if( $return ) { return $output; } else { echo $output; }
