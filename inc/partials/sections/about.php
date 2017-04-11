@@ -28,8 +28,16 @@
 	// Section wrapper - start
 	if( ! function_exists( 'bx_ext_part__about_wrap_start' ) ) {
 		function bx_ext_part__about_wrap_start() {
-			$parallax = businessx_section_parallax( 'about_bg_parallax', 'about_bg_parallax_img', true );
-			?><section id="section-about" class="grid-wrap sec-about"<?php echo $parallax; ?>><?php
+			$mod      = 'about_bg_parallax';
+			$enabled  = bx_ext_tm( $mod, false );
+			$class    = $enabled ? ' bx-ext-parallax' : '';
+			$parallax = bxext_section_parallax( $mod, 'about_bg_parallax_img', true );
+			$format   = '<section id="section-about" class="grid-wrap sec-about%1$s"%2$s>';
+
+			$output = sprintf( $format, $class, $parallax );
+			$output = apply_filters( 'bx_ext_part___about_wrap_start', $output, $format, $class, $parallax );
+
+			echo $output;
 		}
 	}
 
