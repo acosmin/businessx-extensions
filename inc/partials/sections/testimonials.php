@@ -28,8 +28,16 @@
 	// Section wrapper - start
 	if( ! function_exists( 'bx_ext_part__testimonials_wrap_start' ) ) {
 		function bx_ext_part__testimonials_wrap_start() {
-			$parallax = businessx_section_parallax( 'testimonials_bg_parallax', 'testimonials_bg_parallax_img', true );
-			?><section id="section-testimonials" class="grid-wrap sec-testimonials"<?php echo $parallax; ?>><?php
+			$mod      = 'testimonials_bg_parallax';
+			$enabled  = bx_ext_tm( $mod, false );
+			$class    = $enabled ? ' bx-ext-parallax' : '';
+			$parallax = bxext_section_parallax( $mod, 'testimonials_bg_parallax_img', true );
+			$format   = '<section id="section-testimonials" class="grid-wrap sec-testimonials%1$s"%2$s>';
+
+			$output = sprintf( $format, $class, $parallax );
+			$output = apply_filters( 'bx_ext_part___testimonials_wrap_start', $output, $format, $class, $parallax );
+
+			echo $output;
 		}
 	}
 
