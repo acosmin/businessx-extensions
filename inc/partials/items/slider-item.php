@@ -96,7 +96,7 @@
 					$paragraph  = $widget_options['paragraph'];
 					$format     = '<p class="sec-hs-description fs-largest fw-regular">%s</p>';
 
-					$output = sprintf( $format, esc_html( $paragraph ) );
+					$output = sprintf( $format, bxext_escape_content_filtered_nonp( $paragraph ) );
 					$output = apply_filters( 'bx_ext_item___slider_elements_paragraph', $output, $format, $widget_options );
 
 					if( $paragraph == '' ) return;

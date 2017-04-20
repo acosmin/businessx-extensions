@@ -452,6 +452,13 @@ if( ! function_exists( 'bx_ext_show_section' ) ) {
 /* ------------------------------------ */
 // Textarea with autop
 if( ! function_exists( 'businessx_ext_sanitize_content_filtered' ) ) {
+	/**
+	 * Sanitzation function allowing wp_kses_post() tags through
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $content Content to sanitize
+	 * @return string           Sanitized content with wp_kses_post()
+	 */
 	function businessx_ext_sanitize_content_filtered( $content ) {
 		return wp_kses_post( wptexturize( $content ) );
 	}
@@ -459,6 +466,13 @@ if( ! function_exists( 'businessx_ext_sanitize_content_filtered' ) ) {
 
 // Google Maps iframe
 if( ! function_exists( 'businessx_ext_sanitize_gmaps_iframe' ) ) {
+	/**
+	 * Sanitize Google Maps iframe
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $content Iframe code
+	 * @return string           Sanitized iframe using wp_kses()
+	 */
 	function businessx_ext_sanitize_gmaps_iframe( $content ) {
 		$allowed = apply_filters( 'businessx_ext_sanitize_gmaps_iframe___allowed', array(
 			'iframe' => array(
@@ -481,6 +495,13 @@ if( ! function_exists( 'businessx_ext_sanitize_gmaps_iframe' ) ) {
 /* ------------------------------------ */
 // Textarea with autop
 if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
+	/**
+	 * Escape textarea content and allow shortcodes. Also, wpautop the all thing.
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $content The content that needs escaping
+	 * @return string           Escaped content
+	 */
 	function businessx_ext_escape_content_filtered( $content ) {
 		$new_content = shortcode_unautop( do_shortcode( wpautop( wptexturize( wp_kses_post( $content ) ) ) ) );
 		$partials    = apply_filters( 'businessx_ext_escape_content_filtered___partials', array(
@@ -497,8 +518,29 @@ if( ! function_exists( 'businessx_ext_escape_content_filtered' ) ) {
 	}
 }
 
+// Textarea without wpautop
+if( ! function_exists( 'bxext_escape_content_filtered_nonp' ) ) {
+	/**
+	 * Escape textarea content and allow shortcodes.
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $content The content that needs escaping
+	 * @return string           Escaped content
+	 */
+	function bxext_escape_content_filtered_nonp( $content ) {
+		return shortcode_unautop( do_shortcode( wptexturize( wp_kses_post( $content ) ) ) );
+	}
+}
+
 // Unfiltered
 if( ! function_exists( 'businessx_ext_escape_unfiltered' ) ) {
+	/**
+	 * Unfiltered content
+	 *
+	 * @since  1.0.4.3
+	 * @param  string  $content Content to be escaped
+	 * @return string           Returns raw content, no escaping applied
+	 */
 	function businessx_ext_escape_unfiltered( $content ) {
 		return $content;
 	}

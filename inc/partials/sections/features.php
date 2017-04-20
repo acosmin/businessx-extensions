@@ -131,7 +131,7 @@
 				if( ! function_exists( 'bx_ext_part__features_header_title' ) ) {
 					function bx_ext_part__features_header_title() {
 						$section = 'features';
-						$title   = bxext_sections_strings( $section, 'title' ); //bx_ext_tm( 'features_section_title', esc_html__( 'Features Heading', 'businessx-extensions' ) );
+						$title   = bxext_sections_strings( $section, 'title' );
 						$format  = '<h2 class="section-title hs-primary-medium hb-bottom-large %1$s">%2$s</h2>%3$s';
 						$divider = '<div class="divider"></div>';
 						$anim    = businessx_anim_classes( true );
@@ -156,7 +156,7 @@
 						$format  = '<p class="section-description fs-large %1$s">%2$s</p>';
 						$anim    = businessx_anim_classes( true );
 
-						$output  = sprintf( $format, $anim, esc_html( $desc ) );
+						$output  = sprintf( $format, $anim, bxext_escape_content_filtered_nonp( $desc ) );
 						$output  = apply_filters(
 							'bx_ext_part___features_header_description',
 							$output, $format, $anim, $desc, $section
