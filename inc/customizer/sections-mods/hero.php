@@ -53,7 +53,7 @@
 			'businessx_section__hero',
 			esc_html__( 'Paragraph:', 'businessx-extensions' ), '',
 			esc_html__( 'You can edit this section by going to Customizer > Sections > Hero Section', 'businessx-extensions' ),
-			'.sec-hero .sec-hs-description' );
+			'.sec-hero .sec-hs-description', true, 'businessx_ext_sanitize_content_filtered' );
 		/*=====*/
 
 		// Columns

@@ -130,7 +130,7 @@
 					$description = bxext_sections_strings( 'hero', 'description' );
 					$anim        = businessx_anim_classes( true );
 					$format      = '<p class="sec-hs-description fs-largest fw-regular %1$s">%2$s</p>';
-					$output      = sprintf( $format, $anim, esc_html( $description ) );
+					$output      = sprintf( $format, $anim, bxext_escape_content_filtered_nonp( $description ) );
 					$output      = apply_filters( 'bx_ext_part___hero_elements_description', $output, $format, $anim, $description );
 
 					if( $description == '' ) return; // Do nothing

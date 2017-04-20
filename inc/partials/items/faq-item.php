@@ -35,11 +35,11 @@
 			$excerpt      = $widget_options['excerpt'];
 			$allowed_html = $widget_options['allowed_html'];
 
-			$output = wpautop( businessx_content_filter( $excerpt, $allowed_html, FALSE ) );
+			$output = businessx_ext_escape_content_filtered( $excerpt );
 			$output = apply_filters( 'bx_ext_item___faq_excerpt', $output, $widget_options );
 
 			if( $excerpt == '' ) return;
-			
+
 			echo $output;
 		}
 	}

@@ -195,7 +195,7 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 
 			// Text Area
 			if ( current_user_can('unfiltered_html') ) {
-				$instance[ 'excerpt' ] = businessx_content_filter( $new_instance[ 'excerpt' ], $allowed_html );
+				$instance[ 'excerpt' ] = businessx_ext_sanitize_content_filtered( $new_instance[ 'excerpt' ] );
 			} else {
 				$instance[ 'excerpt' ] = wp_kses_post( stripslashes( $new_instance[ 'excerpt' ] ) );
 			}
@@ -277,7 +277,7 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			parent::text_input( $title, 'title', __( 'Title:', 'businessx-extensions' ) );
 
 			/* Excerpt */
-			parent::text_area( $excerpt, 'excerpt', __( 'Text:', 'businessx-extensions' ), '', '', esc_html__( 'Allowed html tags: <a>, <strong>, <em>.', 'businessx-extensions' ) );
+			parent::text_area( $excerpt, 'excerpt', __( 'Text:', 'businessx-extensions' ), '', '' );
 
 			/* Or */
 			parent::text_input( $or, 'or', __( 'In between buttons:', 'businessx-extensions' ), '', '', '', __( 'If both buttons are shown, you can set a word to be placed in between them.', 'businessx-extensions' ) );

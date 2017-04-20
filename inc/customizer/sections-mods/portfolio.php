@@ -55,7 +55,7 @@
 			esc_html__( 'Section description', 'businessx-extensions' ),
 			esc_html__( 'Set a description for this section.', 'businessx-extensions' ),
 			esc_html__( 'This is a description for the Portfolio section. You can set it up in the Customizer where you can also change some options.', 'businessx-extensions' ),
-			'.sec-portfolio .section-description' );
+			'.sec-portfolio .section-description', true, 'businessx_ext_sanitize_content_filtered' );
 		/*=====*/
 
 		// Number of posts

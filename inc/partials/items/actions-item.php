@@ -132,7 +132,7 @@
 					$allowed  = $widget_options['allowed_html'];
 					$format   = '<div class="elements-excerpt fs-large">%s</div>';
 
-					$output = sprintf( $format, wpautop( businessx_content_filter( $excerpt, $allowed, FALSE ) ) );
+					$output = sprintf( $format, businessx_ext_escape_content_filtered( $excerpt ) );
 					$output = apply_filters( 'bx_ext_item___actions_container_meta_excerpt', $output, $format, $widget_options );
 
 					if( $excerpt == '' ) return;

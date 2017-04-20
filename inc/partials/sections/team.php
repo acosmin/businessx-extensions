@@ -163,7 +163,7 @@
 							$format  = '<p class="section-description fs-large %1$s">%2$s</p>';
 							$anim    = businessx_anim_classes( true );
 
-							$output  = sprintf( $format, $anim, esc_html( $desc ) );
+							$output  = sprintf( $format, $anim, bxext_escape_content_filtered_nonp( $desc ) );
 							$output  = apply_filters(
 								'bx_ext_part___team_info_output_description',
 								$output, $format, $anim, $desc, $section
