@@ -218,7 +218,7 @@
  */
 .blog-action-btn {
 	color: #fff !important;
-	font-size: 18px !important;
+	font-size: 1em !important;
 }
 .blog-action-btn:hover {
 	text-decoration: none !important;
@@ -232,7 +232,7 @@
 }
 .portfolio-action-btn {
 	color: #fff !important;
-	font-size: 18px !important;
+	font-size: 1em !important;
 }
 .portfolio-action-btn:hover {
 	text-decoration: none !important;
