@@ -432,8 +432,7 @@ if( ! function_exists( 'bx_ext_show_section' ) ) {
 	function bx_ext_show_section( $section, $echo = false ) {
 		$var         = $section . '_sec__shortcode';
 		$newsections = apply_filters( 'bx_ext_show_section___new', array( 'maps', 'contact' ) );
-		$sections    = bx_ext_tm( 'businessx_sections_position' );
-		$def         = ( in_array( $section, $newsections ) && $sections === false ) ? 1 : 0;
+		$def         = in_array( $section, $newsections ) ? 1 : 0;
 		$default     = apply_filters( $section . '_section_hide___def', $def );
 		$hide        = bx_ext_tm( $section . '_section_hide', $default ) == 0 ? true : false;
 		$shortcode   = get_query_var( $var ) ? true : false;
