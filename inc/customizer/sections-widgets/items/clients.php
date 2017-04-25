@@ -144,7 +144,7 @@ if( ! class_exists( 'Businessx_Extensions_Clients_Item' ) ) {
 			parent::select_image( $logo, 'logo', '', '', __( 'Suggested size: 448x258px; Format: PNG transparent would be the best choice;', 'businessx-extensions' ) );
 
 			/* Client URL */
-			parent::text_input( $url, 'url', __( 'Link on client logo', 'businessx-extensions' ), 'url', '', esc_attr__( 'http://google.com', 'businessx-extensions' ) );
+			parent::text_input( $url, 'url', __( 'Link on client logo', 'businessx-extensions' ), 'url', '', esc_attr__( 'https://google.com', 'businessx-extensions' ) );
 
 			/* Client URL target */
 			parent::check_box( $target, 'target', __( 'Open link in a new window', 'businessx-extensions' ) );

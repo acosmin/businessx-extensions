@@ -103,7 +103,7 @@
 				<code>[bx_contact_social]</code>
 			</p>
 			<p>
-				<code>icon</code> attribute, represents the icon name without <code>fa fa-</code> prefix. You can find a list of <a href="http://fontawesome.io/icons/"  target="_blank">supported icons here</a>.
+				<code>icon</code> attribute, represents the icon name without <code>fa fa-</code> prefix. You can find a list of <a href="//fontawesome.io/icons/"  target="_blank">supported icons here</a>.
 			</p>
 			<p>
 				<code>link</code> attribute, represents the URL to the social network profile, ex: <code>https://twitter.com/acosmin</code>.

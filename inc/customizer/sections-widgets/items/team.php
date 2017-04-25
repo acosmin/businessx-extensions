@@ -255,7 +255,7 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 			parent::select_image( $avatar, 'avatar', '', __( 'Avatar - suggested size: 250x250px', 'businessx-extensions' ) );
 
 			/* Avatar URL */
-			parent::text_input( $avatar_url, 'avatar_url', __( 'Link on avatar', 'businessx-extensions' ), 'url', '', esc_attr__( 'http://google.com', 'businessx-extensions' ) );
+			parent::text_input( $avatar_url, 'avatar_url', __( 'Link on avatar', 'businessx-extensions' ), 'url', '', esc_attr__( 'https://google.com', 'businessx-extensions' ) );
 
 			/* Avatar URL target */
 			parent::check_box( $avatar_trg, 'avatar_trg', __( 'Open link in a new window', 'businessx-extensions' ) );
@@ -270,7 +270,7 @@ if( ! class_exists( 'Businessx_Extensions_Team_Item' ) ) {
 
 					<div class="bx-wt-tab-contents bx-bs">
 
-						<p><?php _e( 'Enter your social profile URL, for example: http://twitter.com/acosmin/', 'businessx-extensions' ); ?></p>
+						<p><?php _e( 'Enter your social profile URL, for example: https://twitter.com/acosmin/', 'businessx-extensions' ); ?></p>
 						<p><?php _e( 'If the theme has an icon for your social profile, it will display it.', 'businessx-extensions' ); ?></p>
 
 						<ul class="bx-widget-repeatable-items bx-clearfix">
