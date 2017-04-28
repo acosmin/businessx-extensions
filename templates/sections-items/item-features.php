@@ -1,37 +1,49 @@
 <?php
 /* ------------------------------------------------------------------------- *
- *
  *  Features Item
- *  ________________
- *
- *	Variables (using set_query_var()):
- *	$wid - returns widget's id number, you can use it to target specific widgets.
- *	$title - outputs the title without the before/after args.
- *	$title_output - ^^ with the before/after args.
- *	$excerpt - returns the excerpt/paragraphs.
- *	$allowed_html - sets what html tags you can use in $excerpt; you can use this filter businessx_extensions_features_item___allowed_html( $allowed_html = array() ).
- *	$figure_type - what type of figure do you want to display, icon (ft-icon) or image (ft-image).
- *	$figure_icon - returns icon name.
- *	$figure_image - returns image url.
- *	$btn_anchor - returns button text.
- *	$btn_target - returns button target type.
- *	$btn_url - returns button url.
- *	________________
- *
 /* ------------------------------------------------------------------------- */
-?>
 
-<?php 
-if( $show_figure ) {
-	if( $figure_type == 'ft-icon' && $figure_icon != '' ) {
-		echo '<figure class="sec-feature-figure">' . businessx_icon( $figure_icon, FALSE, FALSE ) . '</figure>';
-	} elseif( $figure_type == 'ft-image' && $figure_image != '' ) {
-		echo '<figure class="sec-feature-figure-img"><img src="' . esc_url( $figure_image ) . '" alt="' . esc_attr( $title ) . '" /></figure>';	
-	}
-} 
-?>
-<div class="contents-wrap clearfix">
-<?php if( $title != '' ) { ?><h3 class="hs-secondary-small"><?php echo $title_output; ?></h3><?php } ?>
-<?php if( $excerpt != '' ) { ?><p><?php businessx_content_filter( $excerpt, $allowed_html, TRUE ); ?></p><?php } ?>
-<?php if( $btn_anchor != '' ) { echo '<a href="' . esc_url( $btn_url ) . '" target="' . $btn_target . '" class="ac-btn-alt fw-bolder">' . esc_html( $btn_anchor ) . '</a>'; } ?>
-</div>
+/**
+ * All the options in an array, needed to create the widget output
+ *
+ * @since 1.0.4.3
+ *
+ * @var array $widget_options All the options needed to display this widget
+ *     @param int     $widget_options['wid']          Widget ID
+ *     @param string  $widget_options['title']        Action title
+ *     @param string  $widget_options['title_output'] Action title output
+ *     @param string  $widget_options['excerpt']      Item text
+ *     @param array   $widget_options['allowed_html'] Allowed HTML tags in item text
+ *     @param boolean $widget_options['show_figure']  Show item image or icon
+ *     @param string  $widget_options['figure_type']  Image or icon
+ *     @param string  $widget_options['figure_icon']  Selected icon
+ *     @param string  $widget_options['figure_image'] Selected image - URL
+ *     @param string  $widget_options['btn_anchor']   Anchor text
+ *     @param string  $widget_options['btn_target']   Button target
+ *     @param string  $widget_options['btn_url']      Button URL
+ */
+$widget_options = apply_filters( 'bx_ext_item___features_options', array(
+	'wid'          => $wid,
+	'title'        => $title,
+	'title_output' => $title_output,
+	'excerpt'      => $excerpt,
+	'allowed_html' => $allowed_html,
+	'show_figure'  => $show_figure,
+	'figure_type'  => $figure_type,
+	'figure_icon'  => $figure_icon,
+	'figure_image' => $figure_image,
+	'btn_anchor'   => $btn_anchor,
+	'btn_target'   => $btn_target,
+	'btn_url'      => $btn_url,
+) );
+
+/**
+ * @since 1.0.4.3
+ *
+ * Hooked:
+ * bx_ext_item__features_figure   - 10
+ * bx_ext_item__features_contents - 20
+ *
+ * @see ../inc/partials/items/features-item.php
+ */
+do_action( 'bx_ext_item__features', $widget_options );

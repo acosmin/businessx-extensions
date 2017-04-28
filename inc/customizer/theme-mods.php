@@ -17,6 +17,19 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 	function businessx_extensions_customize_register( $wp_customize ) {
 		$sections = businessx_extensions_sections();
 
+		// Register custom sections/controls
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/section-dragdrop/drag-and-drop-info.php' );
+		$wp_customize->register_section_type( 'BXEXT_Section_DragAndDrop' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/section-frontpage/front-page-section.php' );
+		$wp_customize->register_section_type( 'BXEXT_Section_FrontPage' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/control-addedititems/add-edit-items.php' );
+		$wp_customize->register_control_type( 'BXEXT_Control_AddEditItems' );
+
+		require_once( BUSINESSX_EXTS_PATH . '/inc/customizer/custom/control-tabs/tabs.php' );
+		$wp_customize->register_control_type( 'BXEXT_Control_Tabs' );
+
 		/*  Add panels
 		/* ------------------------------------ */
 		// Front page
@@ -31,9 +44,26 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		  'active_callback' 	=> 'businessx_front_pt',
 		) );
 
+			// Move section sidebars to another panel
+			foreach ( $wp_customize->sections() as $id => $section ) {
+				$sections_items = businessx_extensions_sections_items();
+				foreach( $sections_items as $section_name ) {
+					$needle = 'sidebar-widgets-section-' . $section_name;
+					if( $needle === $id ) {
+						$section->panel = 'businessx_panel__sections_items';
+					}
+				}
+			}
 
 			/*  Add sections
 			/* ------------------------------------ */
+			/// Drag & Drop msg
+			$wp_customize->add_section( new BXEXT_Section_DragAndDrop( $wp_customize, 'dragdrop', array(
+				'title'     => esc_html__( 'Drag and drop for position', 'businessx-extensions' ),
+				'panel'     => 'businessx_panel__sections',
+				'priority'  => 0
+			) ) );
+
 			/// Theme Settings
 			$wp_customize->add_section( 'backup_options', array(
 				'title'				=> __( 'Backups', 'businessx-extensions' ),
@@ -78,6 +108,22 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 					'extensions_options',
 					esc_html__( 'Disable helping messages', 'businessx-extensions' ), '', false );
 
+				if( bxext_compt_polylang_check() ) {
+					/**
+					 * @since 1.0.4.3
+					 */
+					businessx_controller_info(
+						'use_polylang_info',
+						'extensions_options',
+						__( 'Enable Polylang translations', 'businessx-extensions' ),
+						__( '<p>If you enable this, you will need to add all your text/copy from <code>Languages > Strings translations</code></p><p>This will work for sections titles, descriptions and some buttons. Any changes made to these lines from the <strong>Front Page Sections</strong> panel will not work if this option is enabled</p>', 'businessx-extensions' ), '' );
+
+					businessx_controller_checkbox(
+						'use_polylang',
+						'extensions_options',
+						esc_html__( 'Use Polylang translations', 'businessx-extensions' ), '', false );
+				} // END bxext_compt_polylang_check()
+
 
 		$wp_customize->remove_section( 'themes' );
 
@@ -95,7 +141,7 @@ if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
 		global $businessx_sections;
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_nonce' ], 'businessx_extensions_sections_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections' ], 'n_sections' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		// Variables
@@ -108,7 +154,7 @@ if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
 		if( ! empty( $decoded ) && ! empty( $businessx_sections ) ) {
 			// Unset some keys
 			unset( $decoded['action'] );
-			unset( $decoded['businessx_extensions_sections_nonce'] );
+			unset( $decoded['n_sections'] );
 
 			// Setup an array
 			foreach( (array) $decoded as $key => $value ) {
@@ -141,7 +187,7 @@ if( ! function_exists( 'businessx_extensions_sections_bk_action' ) ) {
 	function businessx_extensions_sections_bk_action() {
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_bk_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_bk_nonce' ], 'businessx_extensions_sections_bk_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections_bk' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections_bk' ], 'n_sections_bk' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		$current_widgets = get_option( 'sidebars_widgets' );
@@ -165,7 +211,7 @@ if( ! function_exists( 'businessx_extensions_sections_rt_action' ) ) {
 	function businessx_extensions_sections_rt_action() {
 
 		// Check nonce
-		if( ! isset( $_POST[ 'businessx_extensions_sections_rt_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'businessx_extensions_sections_rt_nonce' ], 'businessx_extensions_sections_rt_nonce' ) )
+		if( ! isset( $_POST[ 'n_sections_rt' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections_rt' ], 'n_sections_rt' ) )
 			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
 
 		$backup = get_option( 'businessx_ext_widgets_bk' );
@@ -368,6 +414,35 @@ $businessx_extensions_cs_mods = apply_filters( 'businessx_extensions_cs_mods___f
 	'slider_dots_bg' => 'rgba(255,255,255,0.2)',
 	'slider_dots_bg_hover' => 'rgba(255,255,255,0.4)',
 	'slider_dots_active' => '#ffffff',
+
+	/* Contact Section */
+	'contact_color_background' => '#2e910e',
+	'contact_color_font' => '#ffffff',
+	'contact_color_link' => '#feffc9',
+	'contact_color_link_hover' => '#ffffff',
+	'contact_color_headings' => '#ffffff',
+	'contact_color_title_border' => '#76bc1c',
+	'contact_color_social' => '#ffffff',
+	'contact_color_social_bg' => 'rgba(255,255,255,0.2)',
+	'contact_color_social_bg_hover' => 'rgba(255,255,255,0.4)',
+	'contact_color_submit' => '#ffffff',
+	'contact_color_submit_bg' => '#76bc1c',
+	'contact_color_submit_bg_hover' => '#82cf1f',
+	'contact_color_submit_bg_active' => '#69a619',
+	'contact_bg_image' => '',
+	'contact_bg_image_size' => 'cover',
+	'contact_bg_image_repeat' => 'no-repeat',
+	'contact_bg_image_position' => 'center center',
+	'contact_bg_overlay_color' => '#000000',
+	'contact_bg_overlay_opacity' => '0.5',
+
+	/* Maps Section */
+	'maps_overlay_bg' => 'rgba(0,0,0,0.8)',
+	'maps_overlay_bg_hover' => 'rgba(0,0,0,0.75)',
+	'maps_overlay_inner' => 'rgba(0,0,0,0.4)',
+	'maps_overlay_inner_hover' => 'rgba(0,0,0,0.3)',
+	'maps_title_color' => '#ffffff',
+	'maps_icon_color' => '#d72f2f',
 
 ) );
 
@@ -711,6 +786,69 @@ if( ! function_exists( 'businessx_extensions_czr_output_css' ) ) {
 		}
 		.sec-slider .owl-dot.active {
 			border-color: {$settings['slider_dots_active']};
+		}
+
+		/* Contact Section */
+		.sec-contact {
+			background-image: url( {$settings['contact_bg_image']} );
+			background-color: {$settings['contact_color_background']};
+			background-size: {$settings['contact_bg_image_size']};
+			background-repeat: {$settings['contact_bg_image_repeat']};
+			background-position: {$settings['contact_bg_image_position']};
+		}
+		.sec-contact .grid-overlay {
+			background-color: {$settings['contact_bg_overlay_color']};
+			opacity: {$settings['contact_bg_overlay_opacity']};
+		}
+		.sec-contact .section-title,
+		.sec-contact h1, .sec-contact h2, .sec-contact h3, .sec-contact h4, .sec-contact h5, .sec-contact h6 {
+			color: {$settings['contact_color_headings']};
+		}
+		.sec-contact .section-title {
+			border-color: {$settings['contact_color_title_border']};
+		}
+		.sec-contact { color: {$settings['contact_color_font']}; }
+		.sec-contact a, .sec-contact a:focus, .sec-contact a:active {
+			color: {$settings['contact_color_link']};
+		}
+		.sec-contact a:hover{
+			color: {$settings['contact_color_link_hover']};
+		}
+		.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active {
+			background-color: {$settings['contact_color_social_bg']};
+			color: {$settings['contact_color_social']};
+		}
+		.sec-contact .sec-contact-social a:hover {
+			color: {$settings['contact_color_social']};
+			background-color: {$settings['contact_color_social_bg_hover']};
+		}
+		.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button {
+			color: {$settings['contact_color_submit']};
+			background-color: {$settings['contact_color_submit_bg']};
+		}
+		.sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover {
+			background-color: {$settings['contact_color_submit_bg_hover']};
+			color: {$settings['contact_color_submit']};
+		}
+		.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active {
+			background-color: {$settings['contact_color_submit_bg_active']};
+			color: {$settings['contact_color_submit']};
+		}
+
+		/* Maps Section */
+		.sec-maps .sec-maps-overlay {
+			background-color: {$settings['maps_overlay_bg']};
+			box-shadow: inset 0 0 7.222em 0.833em {$settings['maps_overlay_inner']};
+		}
+		.sec-maps .sec-maps-overlay:hover {
+			background-color: {$settings['maps_overlay_bg_hover']};
+			box-shadow: inset 0 0 7.222em 0.833em {$settings['maps_overlay_inner_hover']};
+		}
+		.sec-maps .smo-title, .sec-maps a:not(.smo-icon), .sec-maps a:not(.smo-icon):hover, .sec-maps a:not(.smo-icon):focus, .sec-maps a:not(.smo-icon):active {
+			color: {$settings['maps_title_color']};
+		}
+		.sec-maps a.smo-icon {
+			background-color: {$settings['maps_icon_color']};
 		}
 
 CSS;
@@ -1207,6 +1345,84 @@ if( ! function_exists( 'businessx_extensions_final_inline_css' ) ) {
 
 			if( businessx_cd( 'slider_dots_active', $slider_dots_active ) ) {
 			$css .= businessx_gcs( '.sec-slider .owl-dot.active', 'border-color', 'slider_dots_active' ); }
+
+			/* Contact Section */
+			if( businessx_cd( 'contact_color_background', $contact_color_background ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-color', 'contact_color_background' ); }
+
+			if( businessx_cd( 'contact_color_font', $contact_color_font ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'color', 'contact_color_font' ); }
+
+			if( businessx_cd( 'contact_color_link', $contact_color_link ) ) {
+			$css .= businessx_gcs( '.sec-contact a, .sec-contact a:focus, .sec-contact a:active', 'color', 'contact_color_link' ); }
+
+			if( businessx_cd( 'contact_color_link_hover', $contact_color_link_hover ) ) {
+			$css .= businessx_gcs( '.sec-contact a:hover', 'color', 'contact_color_link_hover' ); }
+
+			if( businessx_cd( 'contact_color_headings', $contact_color_headings ) ) {
+			$css .= businessx_gcs( '.sec-contact .section-title, .sec-contact h1, .sec-contact h2, .sec-contact h3, .sec-contact h4, .sec-contact h5, .sec-contact h6', 'color', 'contact_color_headings' ); }
+
+			if( businessx_cd( 'contact_color_title_border', $contact_color_title_border ) ) {
+			$css .= businessx_gcs( '.sec-contact .section-title', 'border-color', 'contact_color_title_border' ); }
+
+			if( businessx_cd( 'contact_color_social', $contact_color_social ) ) {
+			$css .= businessx_gcs( '.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active, .sec-contact .sec-contact-social a:hover', 'color', 'contact_color_social' ); }
+
+			if( businessx_cd( 'contact_color_social_bg', $contact_color_social_bg ) ) {
+			$css .= businessx_gcs( '.sec-contact .sec-contact-social a, .sec-contact .sec-contact-social a:focus, .sec-contact .sec-contact-social a:active', 'background-color', 'contact_color_social_bg' ); }
+
+			if( businessx_cd( 'contact_color_social_bg_hover', $contact_color_social_bg_hover ) ) {
+			$css .= businessx_gcs( '.sec-contact .sec-contact-social a:hover', 'background-color', 'contact_color_social_bg_hover' ); }
+
+			if( businessx_cd( 'contact_bg_image', $contact_bg_image ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-image', 'contact_bg_image', 'url(', ')' ); }
+
+			if( businessx_cd( 'contact_bg_image_size', $contact_bg_image_size ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-size', 'contact_bg_image_size' ); }
+
+			if( businessx_cd( 'contact_bg_image_repeat', $contact_bg_image_repeat ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-repeat', 'contact_bg_image_repeat' ); }
+
+			if( businessx_cd( 'contact_bg_image_position', $contact_bg_image_position ) ) {
+			$css .= businessx_gcs( '.sec-contact', 'background-position', 'contact_bg_image_position' ); }
+
+			if( businessx_cd( 'contact_bg_overlay_color', $contact_bg_overlay_color ) ) {
+			$css .= businessx_gcs( '.sec-contact .grid-overlay', 'background-color', 'contact_bg_overlay_color' ); }
+
+			if( businessx_cd( 'contact_bg_overlay_opacity', $contact_bg_overlay_opacity ) ) {
+			$css .= businessx_gcs( '.sec-contact .grid-overlay', 'opacity', 'contact_bg_overlay_opacity' ); }
+
+			if( businessx_cd( 'contact_color_submit', $contact_color_submit ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button, .sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover, .sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active', 'color', 'contact_color_submit' ); }
+
+			if( businessx_cd( 'contact_color_submit_bg', $contact_color_submit_bg ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn, .sec-contact input[type=submit], .sec-contact input[type=reset], .sec-contact input[type=button], .sec-contact button', 'background-color', 'contact_color_submit_bg' ); }
+
+			if( businessx_cd( 'contact_color_submit_bg_hover', $contact_color_submit_bg_hover ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn:hover, .sec-contact input[type=submit]:hover, .sec-contact input[type=reset]:hover, .sec-contact input[type=button]:hover, .sec-contact button:hover', 'background-color', 'contact_color_submit_bg_hover' ); }
+
+			if( businessx_cd( 'contact_color_submit_bg_active', $contact_color_submit_bg_active ) ) {
+			$css .= businessx_gcs( '.sec-contact .ac-btn:focus, .sec-contact input[type=submit]:focus, .sec-contact input[type=reset]:focus, .sec-contact input[type=button]:focus, .sec-contact button:focus, .sec-contact .ac-btn:active, .sec-contact input[type=submit]:active, .sec-contact input[type=reset]:active, .sec-contact input[type=button]:focus, .sec-contact button:active', 'background-color', 'contact_color_submit_bg_active' ); }
+
+
+			/* Maps Section */
+			if( businessx_cd( 'maps_overlay_bg', $maps_overlay_bg ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay', 'background-color', 'maps_overlay_bg' ); }
+
+			if( businessx_cd( 'maps_overlay_bg_hover', $maps_overlay_bg_hover ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay:hover', 'background-color', 'maps_overlay_bg_hover' ); }
+
+			if( businessx_cd( 'maps_overlay_inner', $maps_overlay_inner ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay', 'box-shadow', 'maps_overlay_inner', 'inset 0 0 7.222em 0.833em ' ); }
+
+			if( businessx_cd( 'maps_overlay_inner_hover', $maps_overlay_inner_hover ) ) {
+			$css .= businessx_gcs( '.sec-maps .sec-maps-overlay', 'box-shadow', 'maps_overlay_inner_hover', 'inset 0 0 7.222em 0.833em ' ); }
+
+			if( businessx_cd( 'maps_title_color', $maps_title_color ) ) {
+			$css .= businessx_gcs( '.sec-maps .smo-title, .sec-maps a:not(.smo-icon), .sec-maps a:not(.smo-icon):hover, .sec-maps a:not(.smo-icon):focus, .sec-maps a:not(.smo-icon):active', 'color', 'maps_title_color' ); }
+
+			if( businessx_cd( 'maps_icon_color', $maps_icon_color ) ) {
+			$css .= businessx_gcs( '.sec-maps a.smo-icon', 'background-color', 'maps_icon_color' ); }
 
 
 		// Adds inline css

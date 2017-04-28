@@ -91,8 +91,11 @@
 .wp-customizer li[id*=customize-control-widget_bx-item-] .move-widget {
 	display: none !important;
 }
-.wp-customizer #available-widgets-list div.bx-display-block {
+.wp-customizer #available-widgets-list.bx-display-widgets div.widget-tpl.bx-display-block {
 	display: block !important;
+}
+.wp-customizer #available-widgets-list.bx-display-widgets div.widget-tpl {
+	display: none !important;
 }
 .bx-search-change {
 	background-color: #ffffff !important;
@@ -186,7 +189,7 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 .bx-add-items .bx-edit:before {
 	content: "\f341";
 }
-.bx-cz-tabs {
+.customize-control-section-tabs {
 	overflow: hidden;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -223,17 +226,26 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	visibility: visible !important;
 }
 
+.bx-hide {
+	display: none !important;
+}
+.bx-show {
+	display: list-item !important;
+}
 /* Drag And Drop / Customizer */
 .bx_drag_and {
 	box-sizing: border-box;
     padding: 0 15px 10px;
     position: relative;
+	margin-bottom: 8px;
+	border-top: 0 !important;
 }
-.bx_drag_and img {
+.bx_drag_and_spinner {
 	position: absolute;
 	margin-top: -15px;
 	top: 50%;
 	right: 15px;
+	display: none;
 }
 .wp-customizer li[id*=accordion-section-businessx_section__] > h3:before {
 	content: "\f156";
@@ -319,19 +331,25 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 	display: block;
 }
 /* Repeatable Fields */
-.bx-team-repeatable-profiles,
-.bx-pricing-repeatable-item,
-.bx-pricing-repeatable-top
-.bx-pricing-repeatable-item input {
-	width: 100%;
-}
-.bx-pricing-repeatable-items {
+.bx-widget-repeatable-items {
 	margin-top: 15px;
+}
+
+.bx-widget-repeatable-items a {
+	text-decoration: none !important;
+}
+
+.bx-item-team-repeatable-item,
+.bx-item-pricing-repeatable-item,
+.bx-pricing-repeatable-top
+.bx-item-pricing-repeatable-item input {
+	width: 100%;
 }
 .bx-pricing-add-wrap {
 	margin-top: 0;
 }
-.bx-pricing-repeatable-item {
+.bx-item-pricing-repeatable-item,
+.bx-item-team-repeatable-item {
 	padding: 5px;
     background-color: #EEEEEE;
     border: 1px solid #E5E5E5;
@@ -339,24 +357,24 @@ li[id*=customize-control-sidebars_widgets-section-] .add-new-widget:before {
 .bx-pricing-repeatable-top {
 	margin-bottom: 5px;
 }
-.bx-team-repeatable-profile input,
+.bx-item-team-repeatable-item input,
 .bx-pricing-repeatable-top select,
-.bx-team-repeatable-profile .bx-team-repeatable-helper,
+.bx-item-team-repeatable-item .bx-team-repeatable-helper,
 .bx-pricing-repeatable-top .bx-pricing-repeatable-helper {
 	float: left;
 	margin-right: 2% !important;
 }
-.bx-team-repeatable-profile input,
+.bx-item-team-repeatable-item input,
 .bx-pricing-repeatable-top select {
 	width: 74% !important;
 }
-.bx-team-repeatable-profile .bx-team-repeatable-helper,
+.bx-item-team-repeatable-item .bx-team-repeatable-helper,
 .bx-pricing-repeatable-top .bx-pricing-repeatable-helper {
 	width: 10% !important;
 	text-align: center;
-	margin-top: 2%;
+	margin-top: 1%;
 }
-.bx-team-repeatable-profile .dashicons-sort:hover,
+.bx-item-team-repeatable-item .dashicons-sort:hover,
 .bx-pricing-repeatable-top .dashicons-sort:hover {
 	cursor: move !important;
 }
