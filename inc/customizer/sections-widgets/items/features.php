@@ -89,10 +89,10 @@ if( ! class_exists( 'Businessx_Extensions_Features_Item' ) ) {
 
 			// Some variables
 			$wid = $this->number; set_query_var( 'wid', $wid );
-			if ( ! empty( $title ) ) {
-				$title_output = $args['before_title'] . $title . $args['after_title']; set_query_var( 'title_output', $title_output );
-			}
-			$allowed_html = apply_filters( 'businessx_extensions_features_item___allowed_html', $allowed_html = $this->allowed_html ); set_query_var( 'allowed_html', $allowed_html );
+			$title_output = ! empty( $title ) ? $args['before_title'] . $title . $args['after_title'] : '';
+			$allowed_html = apply_filters( 'businessx_extensions_features_item___allowed_html', $allowed_html = $this->allowed_html );
+			set_query_var( 'title_output', $title_output );
+			set_query_var( 'allowed_html', $allowed_html );
 
 			// Add more widget classes
 			$css_class = array();

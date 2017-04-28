@@ -105,10 +105,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 			// Some variables
 			$wid = $this->number;
-			if ( ! empty( $title ) ) {
-				$title_output = $args['before_title'] . $title . $args['after_title'];
-				set_query_var( 'title_output', $title_output );
-			}
+			$title_output = ! empty( $title ) ? $args['before_title'] . $title . $args['after_title'] : '';
 
 			$column_type = get_theme_mod(
 				'pricing_section_columns',
@@ -119,6 +116,7 @@ if( ! class_exists( 'Businessx_Extensions_Pricing_Item' ) ) {
 
 			// Query variables
 			set_query_var( 'title', $title );
+			set_query_var( 'title_output', $title_output );
 			set_query_var( 'price', $price );
 			set_query_var( 'period', $period );
 			set_query_var( 'badge', $badge );
