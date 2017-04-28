@@ -31,6 +31,9 @@ if( bxext_compt_polylang_check() ) {
 		 * @return void
 		 */
 		function bxext_compt_polylang_register() {
+			// Do nothing if we don't have what we need
+			if( ! function_exists( 'pll_register_string' ) ) return;
+
 			// Features Section
 			pll_register_string( 'Businessx Extensions', 'Features Heading', 'Features Section' );
 			pll_register_string( 'Businessx Extensions', 'This is a description for the Features section. You can set it up in the Customizer where you can also add items for it.', 'Features Section', true );
