@@ -12,9 +12,22 @@ Adds sections and new features to Businessx WordPress theme. 12 sections Slider,
 
 == Description ==
 
-Adds sections and new features to Businessx WordPress theme. 12 sections Slider, Features, About Us, Team, Clients, Portfolio, Actions, Testimonials, Pricing, FAQ, Hero, Blog) are included to make your homepage look awesome. You can download <a href="http://www.acosmin.com/theme/businessx/?utm_source=wporg&utm_medium=readme&utm_campaign=bx_plugin_page" title="Download Businessx WordPress Theme" rel="friend">Businessx WordPress theme</a> from here.
+Adds sections and new features to Businessx WordPress theme. 14 sections (Slider, Features, About Us, Team, Clients, Portfolio, Actions, Testimonials, Pricing, FAQ, Hero, Blog, Contact, Google Map) are included to make your homepage look awesome. You can download <a href="http://www.acosmin.com/theme/businessx/?utm_source=wporg&utm_medium=readme&utm_campaign=bx_plugin_page" title="Download Businessx WordPress Theme" rel="friend">Businessx WordPress theme</a> from here.
 
 == Changelog ==
+
+= 1.0.4.3 =
+* Added two new sections, Contact and Google Map.
+* Added Polylang support, you can now go to `Customizer > Settings > Extensions` to enable it.
+* Added link options for some widgets that use images (Clients for example, you can add a link on the logo).
+* Added a button to the Portfolio and Blog section, you can link to some pages if you want.
+* New escaping/sanitization for some sections, making it posible to add more html tags (section descriptions for example).
+* Removed parallax.js usage for sections, it now uses simple CSS parallax.
+* Remade the JS part for most of the plugin.
+* Remade the sections and widgets to use actions and filters.
+* Fixed repeating fields for the Team and Pricing widgets.
+* Fixed Team section widget to keep the underline if the position is empty.
+* Fixed placeholder text for each section
 
 = 1.0.4.2 =
 * Changed how the plugin behaves when the theme isn't activated. Now it will not disable automatically.
