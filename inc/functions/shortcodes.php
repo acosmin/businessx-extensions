@@ -11,6 +11,13 @@
 
 // Social button
 if( ! function_exists( 'businessx_ext_sc_contact_social_btn' ) ) {
+	/**
+	 * Social button shortcode
+	 *
+	 * @since  1.0.4.3
+	 * @param  array   $atts Shortcode attributes
+	 * @return string        Button HTML
+	 */
 	function businessx_ext_sc_contact_social_btn( $atts ) {
 		$args = shortcode_atts( array(
 			'icon'  => 'link',
@@ -29,6 +36,13 @@ add_shortcode( 'bx_contact_social', 'businessx_ext_sc_contact_social_btn' );
 
 // Phone number
 if( ! function_exists( 'businessx_ext_sc_contact_phone_btn' ) ) {
+	/**
+	 * Phone number shortcode
+	 *
+	 * @since  1.0.4.3
+	 * @param  array   $atts Shortcode attributes
+	 * @return string        Button HTML
+	 */
 	function businessx_ext_sc_contact_phone_btn( $atts ) {
 		$args = shortcode_atts( array(
 			'icon'   => 'phone',
@@ -56,6 +70,13 @@ add_shortcode( 'bx_contact_phone', 'businessx_ext_sc_contact_phone_btn' );
 
 // Get section
 if( ! function_exists( 'businessx_ext_sc_get_section' ) ) {
+	/**
+	 * Returns a section
+	 *
+	 * @since  1.0.4.3
+	 * @param  array $atts Shortcode attributes
+	 * @return mixed       Returns a section template with all its items
+	 */
 	function businessx_ext_sc_get_section( $atts ) {
 		/* Args */
 		$args = shortcode_atts( array(

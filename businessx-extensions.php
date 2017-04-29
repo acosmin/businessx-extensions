@@ -217,8 +217,8 @@ require_once ( dirname( __FILE__ ) . '/inc/customizer/sections-widgets/init.php'
 
 /* Required Businessx or a child theme of it to be the current theme */
 if ( ( 'Businessx' == businessx_extensions_theme() ) || ( 'Businessx' == businessx_extensions_theme( true ) ) ) {
-	require_once ( dirname( __FILE__ ) . '/inc/functions/shortcodes.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/compatibility/polylang.php' );
+	require_once ( dirname( __FILE__ ) . '/inc/functions/shortcodes.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/templating.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/scripts/scripts.php' );
 	require_once ( dirname( __FILE__ ) . '/inc/icons/icons.php' );
