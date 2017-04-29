@@ -377,23 +377,23 @@ if ( ! function_exists( 'bx_ext_controller_overlay_opacity' ) ) {
 	 * An array of options for a select option that changes
 	 * the overlay opacty
 	 *
-	 * @since 1.0.4.3
+	 * @since  1.0.4.3
 	 * @param  string $setting_id The theme mod setting ID
 	 * @return array              From 10% to 100% options
 	 */
 	function bx_ext_controller_overlay_opacity( $setting_id ) {
 		return apply_filters( 'businessx_' . $setting_id . '_opacity_select_filter', array(
-			'0' 			=> esc_html__( 'Transparent', 'businessx' ),
-			'0.1'			=> esc_html__( '10%', 'businessx' ),
-			'0.2'			=> esc_html__( '20%', 'businessx' ),
-			'0.3' 			=> esc_html__( '30%', 'businessx' ),
-			'0.4' 			=> esc_html__( '40%', 'businessx' ),
-			'0.5' 			=> esc_html__( '50%', 'businessx' ),
-			'0.6' 			=> esc_html__( '60%', 'businessx' ),
-			'0.7' 			=> esc_html__( '70%', 'businessx' ),
-			'0.8' 			=> esc_html__( '80%', 'businessx' ),
-			'0.9' 			=> esc_html__( '90%', 'businessx' ),
-			'1' 			=> esc_html__( '100%', 'businessx' ),
+			'0'   => esc_html__( 'Transparent', 'businessx-extensions' ),
+			'0.1' => esc_html__( '10%', 'businessx-extensions' ),
+			'0.2' => esc_html__( '20%', 'businessx-extensions' ),
+			'0.3' => esc_html__( '30%', 'businessx-extensions' ),
+			'0.4' => esc_html__( '40%', 'businessx-extensions' ),
+			'0.5' => esc_html__( '50%', 'businessx-extensions' ),
+			'0.6' => esc_html__( '60%', 'businessx-extensions' ),
+			'0.7' => esc_html__( '70%', 'businessx-extensions' ),
+			'0.8' => esc_html__( '80%', 'businessx-extensions' ),
+			'0.9' => esc_html__( '90%', 'businessx-extensions' ),
+			'1'   => esc_html__( '100%', 'businessx-extensions' ),
 		) );
 	}
 }

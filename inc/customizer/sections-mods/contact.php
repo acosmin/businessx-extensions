@@ -97,7 +97,7 @@
 					'type'               => 'info',
 					'setting_id'         => 'contact_section_social_about',
 					'section_id'         => 'businessx_section__contact',
-					'label'              => esc_html__( 'Social buttons', 'businessx' ),
+					'label'              => esc_html__( 'Social buttons', 'businessx-extensions' ),
 					'description'        => __( '<p>You can use the following shortcodes, one on each new line</p>
 			<p>
 				<code>[bx_contact_social]</code>

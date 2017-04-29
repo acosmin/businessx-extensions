@@ -79,7 +79,7 @@
 					'type'               => 'info',
 					'setting_id'         => 'maps_section_iframe_about',
 					'section_id'         => 'businessx_section__maps',
-					'label'              => esc_html__( 'Google Maps Iframe', 'businessx' ),
+					'label'              => esc_html__( 'Google Maps Iframe', 'businessx-extensions' ),
 					'description'        => __( '<p>To add a map you will need to go to the <a href="https://www.google.com/maps">Google Maps</a> website, select a location and click on the "Share" button.</p><p>A popup message will show up, now you just click "Embed Map" and copy paste the iframe code in this textarea field.</p>', 'businessx-extensions' ),
 				)
 			),
