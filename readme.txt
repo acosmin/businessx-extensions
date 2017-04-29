@@ -4,7 +4,7 @@ Contributors: acosmin
 Tags:
 Requires at least: 4.5
 Tested up to: 4.7
-Stable tag: 1.0.4.3
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Adds sections and new features to Businessx WordPress theme. 14 sections (Slider
 
 == Changelog ==
 
-= 1.0.4.3 =
+= 1.0.5 =
 * Added two new sections, Contact and Google Map.
 * Added Polylang support, you can now go to `Customizer > Settings > Extensions` to enable it.
 * Added link options for some widgets that use images (Clients for example, you can add a link on the logo).
