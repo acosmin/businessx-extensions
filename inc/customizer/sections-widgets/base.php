@@ -23,16 +23,16 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 								$stitle		= $sel_option[ 'title' ];
 								$sdisabled 	= $sel_option[ 'disabled' ];
 								if( $sdisabled ) { $sdis = ' disabled'; } else { $sdis = ''; }
-								
+
 								echo '<option' . $sdis . ' value="' . esc_attr( $svalue ) . '"' . selected( $sel_instance, $svalue, false ) . '>' . esc_html( $stitle ) . '</option>';
 							}
-						?>                    
+						?>
                     </select>
                 </p>
             <?php
 		}
-		
-		
+
+
 		/*  Select between multiple choices and
 		/*	show/hide elements
 		/* ------------------------------------ */
@@ -50,29 +50,29 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 								$stitle = $sel_option[ 'title' ];
 								$sdisabled 	= $sel_option[ 'disabled' ];
 								if( $sdisabled ) { $sdis = ' disabled'; } else { $sdis = ''; }
-								
+
 								echo '<option' . $sdis . ' value="' . esc_attr( $svalue ) . '"' . selected( $sel_instance, $svalue, false ) . '>' . esc_html( $stitle ) . '</option>';
 							}
-						?>                    
+						?>
                     </select>
                 </p>
             <?php
 		}
-		
-		
+
+
 		/*  Diplay/hide selected option
 		/*	- check above
 		/* ------------------------------------ */
 		public function option_display( $op_instance, $op_value ) {
 			if( $op_instance == $op_value ) {
-				return;	
+				return;
 			} else {
-				echo ' style="display: none;"';	
+				echo ' style="display: none;"';
 			}
 		}
-		
-		
-		/*  Select field with all the icons 
+
+
+		/*  Select field with all the icons
 		/*	available
 		/* ------------------------------------ */
 		public function select_icon( $icon, $ico_attr, $label = '', $placeholder = '', $pclass = '', $default_icon = '' ) {
@@ -89,15 +89,15 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 				<input type="text" value="<?php echo esc_attr( $icon ); ?>" id="<?php echo $this->get_field_id( $ico_attr ); ?>" name="<?php echo $this->get_field_name( $ico_attr ); ?>"  placeholder="<?php echo esc_attr( $ph ); ?>" class="bx-is-autocomplete">
                 <strong class="bx-is-autocomplete-icon"><i class="fa <?php echo esc_html( $display_icon ); ?>"></i></strong>
                 <span class="bx-fields-description bx-bs">
-					<?php printf( 
-						esc_html__( 'If the autocomplete feature does not help you, you can find the full %s. Just remember to prefix with "fa-", fa-feed for example.', 'businessx-extensions' ), 
-						'<a href="http://fontawesome.io/icons/" target="_blank">' . esc_html__( 'list of icons here', 'businessx-extensions') . '</a>' ); ?>
+					<?php printf(
+						esc_html__( 'If the autocomplete feature does not help you, you can find the full %s. Just remember to prefix with "fa-", fa-feed for example.', 'businessx-extensions' ),
+						'<a href="//fontawesome.io/icons/" target="_blank">' . esc_html__( 'list of icons here', 'businessx-extensions') . '</a>' ); ?>
 				</span>
 			</p>
             <?php
 		}
-		
-		
+
+
 		/*  Select an image - template
 		/* ------------------------------------ */
 		public function select_image( $image_url, $img_attr, $pclass = '', $label = '', $description = '' ) {
@@ -110,11 +110,11 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
             <div class="bx-iu-wrap<?php echo esc_html( $css_class ); ?>">
 				<p>
 					<img class="bx-iu-image" src="<?php if ( ! empty( $image_attr[0] ) ) {
-					echo esc_url( $image_attr[0] ); } ?>" 
+					echo esc_url( $image_attr[0] ); } ?>"
                     style="margin: 0 auto; padding:0; max-width:100%;<?php if( ! empty( $image_attr[0] ) ) { echo 'display:block;'; } else { echo 'display:none;'; }; ?>" />
 				</p>
 				<p style="text-align: center;">
-					<input type="url" class="hidden widefat bx-iu-image-url" name="<?php echo esc_attr( $this->get_field_name( $img_attr ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( $img_attr ) ); ?>" value="<?php echo esc_attr( $image_url ); ?>"  style="margin-bottom:5px;" /><?php 
+					<input type="url" class="hidden widefat bx-iu-image-url" name="<?php echo esc_attr( $this->get_field_name( $img_attr ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( $img_attr ) ); ?>" value="<?php echo esc_attr( $image_url ); ?>"  style="margin-bottom:5px;" /><?php
 					if ( ! $is_image ) { ?>
 						<a href="#" class="button-secondary bx-iu-image-upload"><?php esc_html_e( 'Add image', 'businessx-extensions' ); ?></a>
 						<a href="#" class="button-secondary bx-iu-image-remove hidden"><?php esc_html_e( 'Remove image', 'businessx-extensions' ); ?></a><?php
@@ -127,8 +127,8 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
             <?php if( $description != '' ) { ?><p><span class="bx-fields-description bx-bs"><?php echo esc_html( $description ); ?></span></p><?php } ?>
             <?php
 		}
-		
-		
+
+
 		/*  Get image ID from attachment src
 		/* ------------------------------------ */
 		public function image_id( $image_url ) {
@@ -136,8 +136,8 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 			$id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid='%s'", esc_url_raw( $image_url ) ) );
 			return absint( $id );
 		}
-		
-		
+
+
 		/*  Color Picker input template
 		/* ------------------------------------ */
 		public function color_picker( $color_instance, $color_attr, $color_default, $color_label = '', $pclass = '', $color_description = '' ) {
@@ -152,8 +152,8 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 				</p>
             <?php
 		}
-		
-		
+
+
 		/*  Text input template
 		/* ------------------------------------ */
 		public function text_input( $text_instance, $text_attr, $text_label = '', $text_type = '', $pclass = '', $text_placeholder = '', $text_description = '', $disabled = FALSE ) {
@@ -165,24 +165,24 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 			?>
             	<p<?php if( $pclass != '' ) { echo ' class="' . esc_html( $css_class ) . '"'; } ?>>
                     <?php if( $text_label != '') { ?><label for="<?php echo $this->get_field_id( $text_attr ); ?>"><?php echo esc_html( $text_label ); ?></label><?php }; ?>
-                    <input<?php echo $dis; ?> class="widefat" id="<?php echo $this->get_field_id( $text_attr ); ?>" name="<?php echo $this->get_field_name( $text_attr ); ?>" 
-                    	type="<?php echo esc_attr( $type_attr ) ?>" 
-                        <?php 
-							if( $type_attr == 'text' ) { 
-								echo 'value="' . esc_attr( $text_instance ) . '" '; 
+                    <input<?php echo $dis; ?> class="widefat" id="<?php echo $this->get_field_id( $text_attr ); ?>" name="<?php echo $this->get_field_name( $text_attr ); ?>"
+                    	type="<?php echo esc_attr( $type_attr ) ?>"
+                        <?php
+							if( $type_attr == 'text' ) {
+								echo 'value="' . esc_attr( $text_instance ) . '" ';
 							} elseif ( $type_attr == 'email' ) {
-								echo 'value="' . sanitize_email( $text_instance ) . '" '; 
+								echo 'value="' . sanitize_email( $text_instance ) . '" ';
 							} elseif ( $type_attr == 'url' ) {
-								echo 'value="' . esc_url( $text_instance ) . '" '; 
+								echo 'value="' . esc_url( $text_instance ) . '" ';
 							}
-						?> 
+						?>
 						<?php if( $text_ph != '' ) { echo 'placeholder="' . esc_attr( $text_ph ) . '"'; } ?>/>
                     <?php if( $text_desc != '') { ?><span class="bx-fields-description bx-bs"><?php echo esc_html( $text_desc ); ?></span><?php }; ?>
                 </p>
             <?php
 		}
-		
-		
+
+
 		/*  Text input template
 		/* ------------------------------------ */
 		public function text_area( $textarea_instance, $textarea_attr, $textarea_label = '', $pclass = '', $textarea_placeholder = '', $textarea_description = '', $disabled = FALSE ) {
@@ -198,8 +198,8 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
                 </p>
 			<?php
 		}
-		
-		
+
+
 		/*  Checkbox template
 		/* ------------------------------------ */
 		public function check_box( $checkbox_instance, $checkbox_attr, $checkbox_label = '', $pclass = '', $checkbox_description = '', $checkbox_wrapper = TRUE, $disabled = FALSE ) {
@@ -214,8 +214,8 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
             <?php
 			if( $checkbox_wrapper ) { echo '</p>'; }
 		}
-		
-		
+
+
 		/*  Check default
 		/* ------------------------------------ */
 		public function cd( $current, $default ) {
@@ -223,27 +223,27 @@ if( ! class_exists( 'Businessx_Extensions_Base' ) ) {
 				return true;
 			}
 		}
-		
-		
+
+
 		/*  Link target options
 		/* ------------------------------------ */
 		public function link_target() {
 			$btn_target_options = apply_filters( 'businessx_extensions_widget_target___options', array(
-				array( 
+				array(
 					'value' 	=> '_self',
 					'title' 	=> __( 'Same window', 'businessx-extensions'),
 					'disabled'	=> false
 				),
-				array( 
+				array(
 					'value' 	=> '_blank',
 					'title' 	=> __( 'New window', 'businessx-extensions'),
 					'disabled'	=> false
 				),
 			) );
-			
+
 			return $btn_target_options;
 		}
-		
 
-	} // Businessx_Extensions_Base .END	
+
+	} // Businessx_Extensions_Base .END
 }

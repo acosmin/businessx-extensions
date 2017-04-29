@@ -22,29 +22,29 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			'strong' => array(),
 			'p' => array(),
 		);
-			
-		
+
+
 		/*  Constructor
 		/* ------------------------------------ */
 		function __construct() {
-			
+
 			// Variables
 			$this->widget_title = __( 'BX: Action' , 'businessx-extensions' );
 			$this->widget_id = 'actions';
-			
+
 			// Settings
-			$widget_ops = array( 
-				'classname' => 'sec-action', 
+			$widget_ops = array(
+				'classname' => 'sec-action',
 				'description' => esc_html__( 'Adds an "Action" - title, excerpt, image and an action button', 'businessx-extensions' ),
-				'customize_selective_refresh' => true 
+				'customize_selective_refresh' => true
 			);
 
 			// Control settings
 			$control_ops = array( 'width' => NULL, 'height' => NULL, 'id_base' => 'bx-item-' . $this->widget_id );
-			
+
 			// Create the widget
 			parent::__construct( 'bx-item-' . $this->widget_id, $this->widget_title, $widget_ops, $control_ops );
-			
+
 			// Set some widget defaults
 			$this->defaults = array (
 				'title'				=> '',
@@ -78,8 +78,8 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			);
 
 		}
-		
-		
+
+
 		/*  Front-end display
 		/* ------------------------------------ */
 		public function widget( $args, $instance ) {
@@ -88,18 +88,18 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 
 			// $instance Defaults
 			$instance_defaults = $this->defaults;
-	
+
 			// Parse $instance
 			$instance = wp_parse_args( $instance, $instance_defaults );
-			
+
 			// Options
 			$image				= ! empty( $instance[ 'image' ] ) ? $instance[ 'image' ] : ''; set_query_var( 'image', $image );
 			$alignment			= ! empty( $instance[ 'alignment' ] ) ? $instance[ 'alignment' ] : 'left'; set_query_var( 'alignment', $alignment );
 			$background_image	= ! empty( $instance[ 'background_image' ] ) ? $instance[ 'background_image' ] : '';
 			$overlay			= ! empty( $instance[ 'overlay' ] ) ? 1 : 0; set_query_var( 'overlay', $overlay );
 			$overlay_opacity	= ! empty( $instance[ 'overlay_opacity' ] ) ? $instance[ 'overlay_opacity' ] : '0'; set_query_var( 'overlay_opacity', $overlay_opacity );
-			$parallax			= ! empty( $instance[ 'parallax' ] ) ? 1 : 0;
-			
+			$parallax			= ! empty( $instance[ 'parallax' ] ) ? 1 : 0; set_query_var( 'parallax', $parallax );
+
 			// Meta options
 			$title 			= apply_filters( 'widget_title', empty( $instance[ 'title' ] ) ? '' : $instance[ 'title' ], $instance, $this->id_base ); set_query_var( 'title', $title );
 			$excerpt	 	= ! empty( $instance[ 'excerpt' ] ) ? $instance[ 'excerpt' ] : ''; set_query_var( 'excerpt', $excerpt );
@@ -112,76 +112,66 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$btn_2_title	= ! empty( $instance[ 'btn_2_title' ] ) ? $instance[ 'btn_2_title' ] : ''; set_query_var( 'btn_2_title', $btn_2_title );
 			$btn_2_url		= ! empty( $instance[ 'btn_2_url' ] ) ? $instance[ 'btn_2_url' ] : ''; set_query_var( 'btn_2_url', $btn_2_url );
 			$btn_2_target	= ! empty( $instance[ 'btn_2_target' ] ) ? 1 : 0; set_query_var( 'btn_2_target', $btn_2_target );
-			
+
 			// Some variables
-			$wid = $this->number; set_query_var( 'wid', $wid ); 
-			$allowed_html = apply_filters( 'businessx_extensions_actions_item___allowed_html', $allowed_html = $this->allowed_html ); set_query_var( 'allowed_html', $allowed_html ); 
-			
+			$wid = $this->number; set_query_var( 'wid', $wid );
+			$allowed_html = apply_filters( 'businessx_extensions_actions_item___allowed_html', $allowed_html = $this->allowed_html ); set_query_var( 'allowed_html', $allowed_html );
+
 			if( $image != '' ) {
-				$display_image = '<img class="sec-ribbon-item-tmb" src="' . esc_url( $image ) . '" alt="Thumbnail" />';	
+				$display_image = '<img class="sec-ribbon-item-tmb" src="' . esc_url( $image ) . '" alt="Thumbnail" />';
 			} else {
 				$display_image = '<img class="sec-ribbon-item-tmb" src="' . esc_url( get_template_directory_uri() ) . '/tmb/ribbon-tmb.jpg" alt="Thumbnail" />';
 			}
 			set_query_var( 'display_image', $display_image );
-			
+
 			if( $overlay_opacity != '0.5' ) { $opacity = ' style="opacity: ' . esc_attr( $overlay_opacity ) . '"'; } else { $opacity = ''; } set_query_var( 'opacity', $opacity );
-			
-			if( $background_image != '' ) { $bg_class = 'has-background'; } else { $bg_class = ''; } 
+
+			if( $background_image != '' ) { $bg_class = 'has-background'; } else { $bg_class = ''; }
 
 			// Add more widget classes
 			$css_class = apply_filters( 'businessx_extensions_actions_item___css_classes', $css_class = array() );
 			$css_class[] = 'grid-wrap';
 			$css_class[] = 'elements-' . $alignment;
 			$css_class[] = $bg_class;
+			$css_class[] = $parallax ? 'bx-ext-parallax' : '';
 			$css_classes = join(' ', $css_class);
-			
+			$parallaxBg1 = $parallax ? ' style="background-image: url(' . esc_url( $background_image ) . ');" ' : '';
+			$parallaxBg2 = $parallax ? ' style="background-image: url(' . esc_url( $background_image ) . ');" ' : '';
+			$format1 = $parallaxBg1 . 'class="'. esc_attr( $css_classes ) . '"';
+			$format2 = $parallaxBg2 . 'class="'. esc_attr( $css_classes ) . ' ';
+
 			if ( ! empty( $css_classes ) ) {
 				if( strpos($args['before_widget'], 'class') === false ) {
-					$args[ 'before_widget' ] = str_replace( '>', 'class="'. esc_attr( $css_classes ) . '"', $args[ 'before_widget' ] );
+					$args[ 'before_widget' ] = str_replace( '>', $format1, $args[ 'before_widget' ] );
 				} else {
-					$args[ 'before_widget' ] = str_replace( 'class="', 'class="'. esc_attr( $css_classes ) . ' ', $args[ 'before_widget' ] );
+					$args[ 'before_widget' ] = str_replace( 'class="', $format2, $args[ 'before_widget' ] );
 				}
 			}
-		
+
 			// Widget template output
 			echo $args['before_widget'];
-			
+
 				ob_start();
-				
+
 				businessx_extensions_get_template_part( 'sections-items/item', 'actions' );
-				
+
 				echo ob_get_clean();
 
 				self::customizer_css( $instance ); // Output styles just for the customizer/selective refresh
-							
+
 			echo $args['after_widget'];
-			
-			// Parallax option
-			if( $parallax && $background_image != '' && !is_customize_preview() ) {
-				?>
-                 <script type='text/javascript'>
-						jQuery( document ).ready( function( $ ) {
-							$('#<?php echo esc_js( esc_html( $this->id ) ); ?>')
-								.parallax({ 
-									imageSrc: '<?php echo esc_js( esc_url( $background_image ) ); ?>', 
-									speed: 0.5,
-							});
-						});
-				</script>
-                <?php	
-			}
 
 		}
-		
-		
+
+
 		/*  Update Widget
 		/* ------------------------------------ */
 		public function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
-			
+
 			// Variables
 			$allowed_html = apply_filters( 'businessx_extensions_actions_item___allowed_html', $allowed_html = $this->allowed_html );
-			
+
 			// Fields
 			$instance[ 'title' ] 			= sanitize_text_field( $new_instance[ 'title' ] );
 			$instance[ 'or' ] 				= sanitize_text_field( $new_instance[ 'or' ] );
@@ -202,18 +192,18 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$instance[ 'background_color' ] = sanitize_hex_color( $new_instance[ 'background_color' ] );
 			$instance[ 'background_image' ] = esc_url_raw( $new_instance[ 'background_image' ] );
 			$instance[ 'overlay_color' ]	= sanitize_hex_color( $new_instance[ 'overlay_color' ] );
-			
+
 			// Text Area
 			if ( current_user_can('unfiltered_html') ) {
-				$instance[ 'excerpt' ] = businessx_content_filter( $new_instance[ 'excerpt' ], $allowed_html );
+				$instance[ 'excerpt' ] = businessx_ext_sanitize_content_filtered( $new_instance[ 'excerpt' ] );
 			} else {
 				$instance[ 'excerpt' ] = wp_kses_post( stripslashes( $new_instance[ 'excerpt' ] ) );
 			}
-			
+
 			// Select
 			$instance[ 'alignment'] 		= businessx_sanitize_select( $new_instance[ 'alignment' ], array( 'left', 'right' ), $this->defaults[ 'alignment' ], false  );
 			$instance[ 'overlay_opacity'] 	= businessx_sanitize_select( $new_instance[ 'overlay_opacity' ], businessx_opacity_options( false, true ), $this->defaults[ 'overlay_opacity' ], false  );
-			
+
 			// Checkboxes
 			$instance[ 'show_btn_1' ]	= ! empty( $new_instance[ 'show_btn_1' ] ) ? 1 : 0;
 			$instance[ 'btn_1_target' ]	= ! empty( $new_instance[ 'btn_1_target' ] ) ? 1 : 0;
@@ -221,12 +211,12 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$instance[ 'btn_2_target' ]	= ! empty( $new_instance[ 'btn_2_target' ] ) ? 1 : 0;
 			$instance[ 'overlay' ]		= ! empty( $new_instance[ 'overlay' ] ) ? 1 : 0;
 			$instance[ 'parallax' ]		= ! empty( $new_instance[ 'parallax' ] ) ? 1 : 0;
-			
+
 			// Return
 			return $instance;
 		}
-		
-		
+
+
 		/*  Widget's Form
 		/* ------------------------------------ */
 		public function form( $instance ) {
@@ -234,7 +224,7 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$instance_defaults = $this->defaults;
 			$instance = wp_parse_args( $instance, $instance_defaults );
 			extract( $instance, EXTR_SKIP );
-			
+
 			// Variables
 			$title 			= $instance[ 'title' ];
 			$excerpt 		= $instance[ 'excerpt' ];
@@ -263,118 +253,118 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$overlay 		= isset( $instance[ 'overlay' ] ) ? (bool) $instance[ 'overlay' ] : false;
 			$parallax 		= isset( $instance[ 'parallax' ] ) ? (bool) $instance[ 'parallax' ] : false;
 			$overlay_color	= $instance[ 'overlay_color' ];
-			
+
 			// Some options for select fields
 			$alignment_options = array(
-				array( 
+				array(
 					'value' 	=> 'left',
 					'title' 	=> __( 'Left', 'businessx-extensions' ),
 					'disabled'	=> false
 				),
-				array( 
+				array(
 					'value' 	=> 'right',
 					'title' 	=> __( 'Right', 'businessx-extensions' ),
 					'disabled'	=> false
 				),
 			);
-			
+
 			// Form output
-			
+
 			/* Align */
 			parent::select_type( $alignment, 'alignment', $alignment_options, __( 'Image alignment:', 'businessx-extensions' ) );
-			
+
 			/* Title */
 			parent::text_input( $title, 'title', __( 'Title:', 'businessx-extensions' ) );
-			
+
 			/* Excerpt */
-			parent::text_area( $excerpt, 'excerpt', __( 'Text:', 'businessx-extensions' ), '', '', esc_html__( 'Allowed html tags: <a>, <strong>, <em>.', 'businessx-extensions' ) );
-			
+			parent::text_area( $excerpt, 'excerpt', __( 'Text:', 'businessx-extensions' ), '', '' );
+
 			/* Or */
 			parent::text_input( $or, 'or', __( 'In between buttons:', 'businessx-extensions' ), '', '', '', __( 'If both buttons are shown, you can set a word to be placed in between them.', 'businessx-extensions' ) );
-			
+
 			/* Tabs */
 			?>
             <div class="bx-widget-tabs bx-bs">
-            	
+
                 <div class="bx-wt-tab-wrap bx-bs">
                     <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Image', 'businessx-extensions' ); ?></a>
                     <div class="bx-wt-tab-contents bx-bs">
                     	<?php parent::select_image( $image, 'image', '', '', __( 'Recommended image size: 1192x780px, JPG format;', 'businessx-extensions' ) ); ?>
                     </div>
                 </div>
-                
+
                 <div class="bx-wt-tab-wrap bx-bs">
                     <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Button #1', 'businessx-extensions' ); ?></a>
                     <div class="bx-wt-tab-contents bx-bs">
-                    	<?php 
+                    	<?php
 							parent::check_box( $show_btn_1, 'show_btn_1', __( 'Display button', 'businessx-extensions' ) );
-							
+
 							parent::text_input( $btn_1_title, 'btn_1_title', __( 'Anchor text:', 'businessx-extensions' ) );
 
 							parent::text_input( $btn_1_url, 'btn_1_url', __( 'Url:', 'businessx-extensions' ), 'url' );
-							
+
 							parent::check_box( $btn_1_target, 'btn_1_target', __( 'Open in a new window', 'businessx-extensions' ) );
-							
-                         	parent::color_picker( $btn_1_bg, 'btn_1_bg', $this->defaults[ 'btn_1_bg' ], 
+
+                         	parent::color_picker( $btn_1_bg, 'btn_1_bg', $this->defaults[ 'btn_1_bg' ],
 								__( 'Button background color:', 'businessx-extensions' ), '' );
-							parent::color_picker( $btn_1_hover, 'btn_1_hover', $this->defaults[ 'btn_1_hover' ], 
+							parent::color_picker( $btn_1_hover, 'btn_1_hover', $this->defaults[ 'btn_1_hover' ],
 								__( 'Button hover state:', 'businessx-extensions' ), '' );
-							parent::color_picker( $btn_1_active, 'btn_1_active', $this->defaults[ 'btn_1_active' ], 
+							parent::color_picker( $btn_1_active, 'btn_1_active', $this->defaults[ 'btn_1_active' ],
 								__( 'Button active state:', 'businessx-extensions' ), '' );
 						?>
                     </div>
                 </div>
-                
+
                 <div class="bx-wt-tab-wrap bx-bs">
                     <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Button #2', 'businessx-extensions' ); ?></a>
                     <div class="bx-wt-tab-contents bx-bs">
-                    	<?php 
+                    	<?php
 							parent::check_box( $show_btn_2, 'show_btn_2', __( 'Display button', 'businessx-extensions' ) );
-							
+
                        	 	parent::text_input( $btn_2_title, 'btn_2_title', __( 'Anchor text:', 'businessx-extensions' ) );
-							
+
 							parent::text_input( $btn_2_url, 'btn_2_url', __( 'Url:', 'businessx-extensions' ), 'url' );
-							
+
 							parent::check_box( $btn_2_target, 'btn_2_target', __( 'Open in a new window', 'businessx-extensions' ) );
-							
-							parent::color_picker( $btn_2_bg, 'btn_2_bg', $this->defaults[ 'btn_2_bg' ], 
+
+							parent::color_picker( $btn_2_bg, 'btn_2_bg', $this->defaults[ 'btn_2_bg' ],
 								__( 'Button background color:', 'businessx-extensions' ), '' );
-							parent::color_picker( $btn_2_hover, 'btn_2_hover', $this->defaults[ 'btn_2_hover' ], 
+							parent::color_picker( $btn_2_hover, 'btn_2_hover', $this->defaults[ 'btn_2_hover' ],
 								__( 'Button hover state:', 'businessx-extensions' ), '' );
-							parent::color_picker( $btn_2_active, 'btn_2_active', $this->defaults[ 'btn_2_active' ], 
+							parent::color_picker( $btn_2_active, 'btn_2_active', $this->defaults[ 'btn_2_active' ],
 								__( 'Button active state:', 'businessx-extensions' ), '' ) ;
 						?>
                     </div>
                 </div>
-                
+
                 <div class="bx-wt-tab-wrap bx-bs">
                     <a href="#" class="bx-wt-tab-toggle bx-bs"><?php _e( 'Design', 'businessx-extensions' ); ?></a>
                     <div class="bx-wt-tab-contents bx-bs">
                     	<?php
-							parent::color_picker( $title_color, 'title_color', $this->defaults[ 'title_color' ], 
+							parent::color_picker( $title_color, 'title_color', $this->defaults[ 'title_color' ],
 								__( 'Heading color:', 'businessx-extensions' ), '' );
-							parent::color_picker( $excerpt_color, 'excerpt_color', $this->defaults[ 'excerpt_color' ], 
+							parent::color_picker( $excerpt_color, 'excerpt_color', $this->defaults[ 'excerpt_color' ],
 								__( 'Text color:', 'businessx-extensions' ), '' );
-							parent::color_picker( $links_color, 'links_color', $this->defaults[ 'links_color' ], 
-								__( 'Text links color:', 'businessx-extensions' ), '' );	
-							parent::color_picker( $background_color, 'background_color', $this->defaults[ 'background_color' ], 
+							parent::color_picker( $links_color, 'links_color', $this->defaults[ 'links_color' ],
+								__( 'Text links color:', 'businessx-extensions' ), '' );
+							parent::color_picker( $background_color, 'background_color', $this->defaults[ 'background_color' ],
 								__( 'Background color:', 'businessx-extensions' ), '' );
 							parent::select_image( $background_image, 'background_image', '', __( 'Background image:', 'businessx-extensions' ) );
 							parent::check_box( $overlay, 'overlay', __( 'Show overlay', 'businessx-extensions' ) );
-							parent::color_picker( $overlay_color, 'overlay_color', $this->defaults[ 'overlay_color' ], 
+							parent::color_picker( $overlay_color, 'overlay_color', $this->defaults[ 'overlay_color' ],
 								__( 'Overlay color:', 'businessx-extensions' ), '' );
 							parent::select_type( $overlay_opacity, 'overlay_opacity', businessx_opacity_options( true, false ), __( 'Overlay opacity:', 'businessx-extensions' ) );
 							parent::check_box( $parallax, 'parallax', __( 'Enable parallax', 'businessx-extensions' ), '', __( 'For performance reasons, the Parallax effect is only visible on the live website (not in Customizer). Also, make sure you have a background image selected.', 'businessx-extensions' ) );
 						?>
                     </div>
                 </div>
-            
+
             </div><!-- Tabs -->
             <?php
-			
+
 		}
-		
-		
+
+
 		/*  Customizer CSS
 		/* ------------------------------------ */
 		private function customizer_css( $instance ) {
@@ -382,7 +372,7 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$instance_defaults = $this->defaults;
 			$instance = wp_parse_args( $instance, $instance_defaults );
 			extract( $instance, EXTR_SKIP );
-			
+
 			// Variables
 			$wid				= esc_html( '#' . $this->id );
 			$btn_1_bg 			= $instance[ 'btn_1_bg' ];
@@ -399,19 +389,19 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 			$overlay_color		= $instance[ 'overlay_color' ];
 			$parallax			= $instance[ 'parallax' ];
 			$custom_css 		= '';
-			
+
 			// Style Output
 			if ( is_customize_preview() ) {
 				$custom_css .= '<style type="text/css" id="customizer-css_' . esc_attr( $this->id ) . '">';
-				
+
 					// Background
 					if( parent::cd( $background_color, $this->defaults[ 'background_color' ] ) ) {
 						$custom_css .= $wid . ' { background-color: ' . sanitize_hex_color( $background_color ) . ' }'; }
 					if( parent::cd( $background_image, $this->defaults[ 'background_image' ] ) ) {
-						$custom_css .= $wid . ' { background-image: url("' . esc_url( $background_image ) . '") }'; }				
+						$custom_css .= $wid . ' { background-image: url("' . esc_url( $background_image ) . '") }'; }
 					if( $instance[ 'overlay' ] ) {
 						if( parent::cd( $overlay_color, $this->defaults[ 'overlay_color' ] ) ) {
-							$custom_css .= $wid . ' .grid-overlay { background-color: ' . sanitize_hex_color( $overlay_color ) . ' }'; } 
+							$custom_css .= $wid . ' .grid-overlay { background-color: ' . sanitize_hex_color( $overlay_color ) . ' }'; }
 					}
 					// Heading + text
 					if( parent::cd( $excerpt_color, $this->defaults[ 'excerpt_color' ] ) ) {
@@ -434,18 +424,18 @@ if( ! class_exists( 'Businessx_Extensions_Actions_Item' ) ) {
 						$custom_css .= $wid . ' .btn-2:hover { background-color: ' . sanitize_hex_color( $btn_2_hover ) . ' }'; }
 					if( parent::cd( $btn_2_active, $this->defaults[ 'btn_2_active' ] ) ) {
 						$custom_css .= $wid . ' .btn-2:active { background-color: ' . sanitize_hex_color( $btn_2_active ) . ' }'; }
-						
+
 				$custom_css .= '</style>';
-				
+
 				echo $custom_css;
 			}
-			
+
 		}
-		
-		
+
+
 	} // Businessx_Extensions_Actions_Item .END
-	
+
 	// Register this widget
 	register_widget( 'Businessx_Extensions_Actions_Item' );
-	
+
 }
