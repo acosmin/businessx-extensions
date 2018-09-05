@@ -44,6 +44,19 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		  'active_callback' 	=> 'businessx_front_pt',
 		) );
 
+			// Sections position control
+			// TODO
+			$wp_customize->add_setting( 'businessx_sections_position', array(
+				'default'           => '',
+				'sanitize_callback' => function( $ss ) { return $ss; }
+			) );
+
+			$wp_customize->add_control( 'businessx_sections_position', array(
+				'section'  => 'title_tagline',
+				'settings' => 'businessx_sections_position',
+				'type'     => 'text'
+			) );
+
 			// Move section sidebars to another panel
 			foreach ( $wp_customize->sections() as $id => $section ) {
 				$sections_items = businessx_extensions_sections_items();
