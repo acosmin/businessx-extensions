@@ -45,10 +45,9 @@ if( ! function_exists( 'businessx_extensions_customize_register' ) ) {
 		) );
 
 			// Sections position control
-			// TODO
 			$wp_customize->add_setting( 'businessx_sections_position', array(
 				'default'           => '',
-				'sanitize_callback' => function( $ss ) { return $ss; }
+				'sanitize_callback' => 'businessx_ext_sanitize_sections_position'
 			) );
 
 			$wp_customize->add_control( 'businessx_sections_position', array(
@@ -146,53 +145,6 @@ add_action( 'customize_register', 'businessx_extensions_customize_register', 12 
 
 
 
-/*  Save sections position
-/* ------------------------------------ */
-if( ! function_exists( 'businessx_extensions_sections_position_action' ) ) {
-	function businessx_extensions_sections_position_action() {
-		// Get a list of sections
-		global $businessx_sections;
-
-		// Check nonce
-		if( ! isset( $_POST[ 'n_sections' ] ) || ! wp_verify_nonce( $_POST[ 'n_sections' ], 'n_sections' ) )
-			die( esc_html__( 'Permission denied', 'businessx-extensions' ) );
-
-		// Variables
-		$sections = array();
-
-		// Generate the response
-		$response = json_encode( $_POST );
-		$decoded = json_decode( $response, true );
-
-		if( ! empty( $decoded ) && ! empty( $businessx_sections ) ) {
-			// Unset some keys
-			unset( $decoded['action'] );
-			unset( $decoded['n_sections'] );
-
-			// Setup an array
-			foreach( (array) $decoded as $key => $value ) {
-				foreach( $value as $new_key => $new_value ) {
-					// Sanitize values
-					if( in_array( str_replace( 'businessx_section__', '', $new_value ), $businessx_sections ) ) {
-						$sections[] = $new_value;
-					} else {
-						continue;
-					}
-				}
-			}
-
-			// Set a position for each section
-			if( current_user_can( 'edit_theme_options' ) ) {
-				set_theme_mod( 'businessx_sections_position', $sections ); }
-		}
-
-		die();
-	}
-}
-add_action( 'wp_ajax_businessx_extensions_sections_position', 'businessx_extensions_sections_position_action' );
-add_action( 'wp_ajax_nopriv_businessx_extensions_sections_position', 'businessx_extensions_sections_position_action' );
-
-
 
 /*  Backup widgets
 /* ------------------------------------ */
@@ -245,6 +197,13 @@ add_action( 'wp_ajax_nopriv_businessx_extensions_sections_rt', 'businessx_extens
 if( ! function_exists( 'businessx_extensions_sec_prio' ) ) {
 	function businessx_extensions_sec_prio( $section_name ) {
 		$sections = get_theme_mod( 'businessx_sections_position' );
+
+		if( $sections === false ) return;
+		
+		if( ! is_array( $sections ) ) {
+			$sections = json_decode( $sections );
+		}
+
 		if( ! empty( $sections ) ) {
 			foreach( $sections as $priority => $section ) {
 				if( $section == $section_name ) {

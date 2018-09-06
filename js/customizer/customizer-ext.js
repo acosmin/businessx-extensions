@@ -16,6 +16,7 @@ window.BxExtensions = {
 		sections_position : bxext_widgets_customizer.sections_position,
 		msgs     : bxext_widgets_customizer.msgs,
 		actions  : $( '#customize-header-actions' ),
+		mod      : 'businessx_sections_position'
 	},
 
 	/**
@@ -46,30 +47,48 @@ window.BxExtensions = {
 			cancel : 'li.ui-sortable-handle.open',
 			delay  : 150,
 			axis   : 'y',
-			create : function( event, ui ) {
-				/**
-				 * When the sortable list is created make sure we have the right positions.
-				 * Also, in case we add a new section via plugin.
-				 */
-				var sections = self.sectionsArray(),
-				    array1   = sections,
-				    array2   = self.v.sections_position,
-				    is_same  = array1.length == array2.length && array1.every( function( element, index ) {
-						return element === array2[ index ];
-					});
-
-				if( ! is_same ) {
-					self.setSectionsPosition( sections );
-				}
-			},
 			update : function( event, ui ) {
+				var updatedList,
+				    sortable_sel = 'li[id*="businessx_section__"]',
+				    defaultList  = self.getPanelSections(),
+					currentList  = self.sectionsArray();
+				
+				updatedList = _.union( currentList, defaultList );
+
+				_.each( updatedList, function( sid, i ) {
+					api.section( sid ).priority.set( i + 1 );
+				})
+
 				// If a sections is moved, save position in a theme mod
 				list.find( '.bx_drag_and_spinner' ).show();
-				self.setSectionsPosition( self.sectionsArray() );
+
+				self.setSectionsPosition( updatedList );
 
 				$( '.wp-full-overlay-sidebar-content' ).scrollTop( 0 );
 			},
 		});
+	},
+
+	/**
+	 * Gets the sections in our `Front Page` panel
+	 *
+	 * @since  1.0.6
+	 * @return {Array}
+	 */
+	getPanelSections : function() {
+		var self  = this,
+		    panel = api.panel( self.v.panel ), sections = [], qty;
+
+		api.section.each( function( section ) {
+			if( section.panel.get() === panel.id ) {
+				sections.push( section.id );
+			}
+		});
+
+		// Whitout the custom drag & drop section.
+		sections.shift();
+
+		return sections;
 	},
 
 	/**
@@ -108,25 +127,6 @@ window.BxExtensions = {
 	},
 
 	/**
-	 * When a section is sorted and ajax is done refresh
-	 * the previewer and remove the spinner preloader
-	 *
-	 * @return {Void}
-	 */
-	ifAjaxIsDone : function() {
-		var self = this,
-		    list = $( self.panelSections() );
-
-		$.each( self.sectionsArray(), function( key, value ) {
-			api.section( value ).priority( key );
-		});
-
-		list.find( '.bx_drag_and_spinner' ).hide();
-
-		api.previewer.refresh();
-	},
-
-	/**
 	 * Sets the sections position so we can remember them. Adds them
 	 * into a theme mode via ajax
 	 *
@@ -134,21 +134,19 @@ window.BxExtensions = {
 	 * @return {Void}
 	 */
 	setSectionsPosition : function( sections ) {
-		var self = this;
+		var self = this,
+		    list = $( self.panelSections() );
 
-		$.ajax({
-			url      : ajaxurl,
-			type     : 'post',
-			dataType : 'json',
-			data     : {
-				action: 'businessx_extensions_sections_position',
-				n_sections: bxext_customizer_nonces.n_sections,
-				items: sections
-			}
-		})
-		.done( function( data ) {
-			self.ifAjaxIsDone();
-		});
+		// We're going to leave the prefix on each section
+		// for backwards compatibility
+		sections = JSON.stringify( sections ); // @since 1.0.6
+		
+		// Update the theme_mod
+		api( self.v.mod ).set( sections );
+
+		setTimeout( function() { 
+			list.find( '.bx_drag_and_spinner' ).hide();
+		}, 500 );
 	},
 
 	/**

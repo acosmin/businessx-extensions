@@ -14,6 +14,12 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+/* Sections Position control */
+#customize-control-businessx_sections_position {
+	display: none !important;
+}
+
 /* Icons */
 .bx-wt-tab-toggle:after,
 .bx-search-change:before,

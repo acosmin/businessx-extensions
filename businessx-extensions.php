@@ -16,7 +16,7 @@ if ( ! function_exists( 'add_action' ) ) {
 	die( 'Nothing to do...' );
 }
 
-
+define( 'BUSINESSX_DEBUG', true ); // REMOVE + remake min files.
 
 /* Some constants */
 if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
@@ -139,17 +139,30 @@ if( ! function_exists( 'businessx_extensions_sections_items' ) ) {
 
 if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
 	/**
-	 * Connects with the theme and adds all supported sections
-	 * as a theme mod.
+	 * Adds the sections saved in you theme mod
+	 * 
+	 * The theme will not handle this part anymore, it's deprecated in
+	 * functions.php:L115-126
 	 *
-	 * @since  1.0.0
+	 * @todo   Do some checks on `$positions` in case it's not JSON.
+	 * @since  1.0.6
 	 * @return void
 	 */
 	function businessx_extensions_add_sections() {
-		add_filter( 'businessx_sections_filter', 'businessx_extensions_sections' );
+		$mod       = 'businessx_sections_position';
+		$positions = get_theme_mod( $mod );
+	
+		if( $positions === false ) return;
+	
+		if( is_array( $positions ) ) {
+			// Pre version 1.0.6
+			set_theme_mod( $mod, json_encode( $positions ) );
+		} else {
+			set_theme_mod( $mod, $positions );
+		}
 	}
 }
-add_action( 'plugins_loaded', 'businessx_extensions_add_sections' );
+add_action( 'after_setup_theme', 'businessx_extensions_add_sections' );
 
 
 
@@ -169,6 +182,11 @@ if( ! function_exists( 'businessx_extensions_add_new_sections' ) ) {
 
 		/* Return if no theme mods are saved */
 		if( $saved === false ) return;
+
+		/* Check if it's an array, pre v1.0.6 */
+		if( ! is_array( $saved ) ) {
+			$saved = json_decode( $saved );
+		}
 
 		/**
 		 * Create an array of all the sections and prefix
@@ -192,8 +210,11 @@ if( ! function_exists( 'businessx_extensions_add_new_sections' ) ) {
 			array_push( $saved, $new_section );
 		}
 
+		/* JSON encode the new array and set the theme mod with the new values */
+		$saved = wp_json_encode( array_map( 'sanitize_key', array_unique( $saved ) ) );
+
 		/* Update the theme mod with the new sections and positions */
-		set_theme_mod( 'businessx_sections_position', array_map( 'sanitize_key', array_unique( $saved ) ) );
+		set_theme_mod( 'businessx_sections_position', $saved );
 
 	}
 }
