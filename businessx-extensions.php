@@ -139,7 +139,7 @@ if( ! function_exists( 'businessx_extensions_sections_items' ) ) {
 
 if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
 	/**
-	 * Adds the sections saved in you theme mod
+	 * Adds the sections saved in your theme mod
 	 * 
 	 * The theme will not handle this part anymore, it's deprecated in
 	 * functions.php:L115-126
@@ -150,19 +150,26 @@ if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
 	 */
 	function businessx_extensions_add_sections() {
 		$mod       = 'businessx_sections_position';
+		$sections  = businessx_extensions_sections();
 		$positions = get_theme_mod( $mod );
-	
-		if( $positions === false ) return;
-	
+
+		if( empty( $positions ) && ! empty( $sections ) ) {
+			$new = array();
+
+			foreach( $sections as $key => $value ) {
+				$new[] = 'businessx_section__' . sanitize_key( $value );
+			}
+
+			set_theme_mod( $mod, json_encode( $new ) );
+		}
+
 		if( is_array( $positions ) ) {
-			// Pre version 1.0.6
+			// Pre version 1.0.6, convert them to JSON
 			set_theme_mod( $mod, json_encode( $positions ) );
-		} else {
-			set_theme_mod( $mod, $positions );
 		}
 	}
 }
-add_action( 'after_setup_theme', 'businessx_extensions_add_sections' );
+add_action( 'after_setup_theme', 'businessx_extensions_add_sections', 15 );
 
 
 
