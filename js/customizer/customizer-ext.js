@@ -220,50 +220,61 @@ window.BxExtensions = {
 
 	/**
 	 * Setup for Front Page with cusom template
-	 * @return {Void}
+	 * 
+	 * @since  1.0.6
+	 * @return {Void|Boolean}
 	 */
 	initFirstViewModal : function() {
-		// Check if the modal window is ready or exists
+		// Check if the modal window is ready
 		if( $( '#businessx-frontpage-modal' ).length > 0 ) {
-			window.tb_show( bxext_frontpage_vars.modal_title, '#TB_inline?width=570&height=330&inlineId=businessx-frontpage-modal' );
-			$( '#TB_window' ).css( 'z-index', '500002').addClass( 'bxext-stp-modal-window' );
-			$( '#TB_overlay' ).css( 'z-index', '500001' ).addClass( 'bxext-stp-modal-overlay' );
-			$( '#TB_overlay.bxext-stp-modal-overlay' ).off( 'click' );
+			$.magnificPopup.open( {
+				items: {
+					src  : '#businessx-frontpage-modal',
+					type : 'inline'
+				},
+				modal     : true,
+				preloader : false,
+				focus     : '#bxext-insert-frontpage'
+			}, 0 );
+
+			$( '#bxext-insert-frontpage' ).on( 'click', function( event ) {
+				event.preventDefault();
+
+				$.ajax({
+					url      : ajaxurl,
+					type     : 'post',
+					dataType : 'json',
+					data     : {
+						action: 'bxext_create_frontpage',
+						bxext_create_frontpage: bxext_customizer_nonces.bxext_create_frontpage,
+					}
+				})
+				.done( function( data ) {
+					$.magnificPopup.close();
+					location.reload( true );
+				});
+			});
+	
+			$( '#bxext-dismiss-frontpage' ).on( 'click', function( event ) {
+				event.preventDefault();
+
+				$.ajax({
+					url      : ajaxurl,
+					type     : 'post',
+					dataType : 'json',
+					data     : {
+						action: 'bxext_dismiss_create_frontpage',
+						bxext_create_frontpage: bxext_customizer_nonces.bxext_dismiss_create_frontpage,
+					}
+				})
+				.done( function( data ) {
+					$.magnificPopup.close();
+					location.reload( true );
+				});
+			});
+		} else {
+			return false;
 		}
-
-		// Insert front page on user action
-		$( '#bxext-insert-frontpage' ).on( 'click', function( event ) {
-			$.ajax({
-				url      : ajaxurl,
-				type     : 'post',
-				dataType : 'json',
-				data     : {
-					action: 'bxext_create_frontpage',
-					bxext_create_frontpage: bxext_customizer_nonces.bxext_create_frontpage,
-				}
-			})
-			.done( function( data ) {
-				window.tb_remove();
-				location.reload( true );
-			});
-		});
-
-		// Use `.bxext-stp-modal-window #TB_closeWindowButton` to dismiss on X click
-		$( '#bxext-dismiss-frontpage' ).on( 'click', function( event ) {
-			$.ajax({
-				url      : ajaxurl,
-				type     : 'post',
-				dataType : 'json',
-				data     : {
-					action: 'bxext_dismiss_create_frontpage',
-					bxext_create_frontpage: bxext_customizer_nonces.bxext_dismiss_create_frontpage,
-				}
-			})
-			.done( function( data ) {
-				window.tb_remove();
-				location.reload( true );
-			});
-		});
 	}
 
 }
