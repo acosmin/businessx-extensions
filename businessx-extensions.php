@@ -153,18 +153,24 @@ if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
 		$sections  = businessx_extensions_sections();
 		$positions = get_theme_mod( $mod );
 
+		/* 
+		 * Checks if no sections are saved in a theme_mod and if we 
+		 * have at least one default sections 
+		 */
 		if( empty( $positions ) && ! empty( $sections ) ) {
 			$new = array();
 
+			/* Use the prefix for backwards compatibility */
 			foreach( $sections as $key => $value ) {
 				$new[] = 'businessx_section__' . sanitize_key( $value );
 			}
 
+			/* Add the default sections if it's the first time. */
 			set_theme_mod( $mod, json_encode( $new ) );
 		}
 
 		if( is_array( $positions ) ) {
-			// Pre version 1.0.6, convert them to JSON
+			/* Pre version 1.0.6, convert them to JSON. */
 			set_theme_mod( $mod, json_encode( $positions ) );
 		}
 	}
