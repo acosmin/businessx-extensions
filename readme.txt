@@ -17,7 +17,7 @@ Adds sections and new features to Businessx WordPress theme. 14 sections (Slider
 == Changelog ==
 
 = 1.0.6 =
-* Fixed Jetpack convertion GMap iframes to shortcodes and the section not displaying them.
+* Fixed Jetpack converting GMap iframes to shortcodes and the section not displaying them.
 * Fixed typo in FAQ section.
 * Fixed Portfolio button not displaying the correct label.
 * Remade the Sections drag & drop functionality, now it triggers the Publish/Save Draft button (also works with drafts).
