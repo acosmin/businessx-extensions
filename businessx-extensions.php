@@ -16,8 +16,6 @@ if ( ! function_exists( 'add_action' ) ) {
 	die( 'Nothing to do...' );
 }
 
-define( 'BUSINESSX_DEBUG', true ); // REMOVE + remake min files.
-
 /* Some constants */
 if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
 	define( 'BUSINESSX_EXTS_VERSION', '1.0.5' ); }
