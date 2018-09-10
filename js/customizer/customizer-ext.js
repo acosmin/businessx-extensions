@@ -27,7 +27,8 @@ window.BxExtensions = {
 	init : function() {
 		var self = this;
 
-		self.initFirstViewModal()
+		self.initFirstViewModal();
+		self.initialSectionsPriorities();
 		self.initSortableSections();
 		self.backup();
 	},
@@ -55,9 +56,7 @@ window.BxExtensions = {
 				
 				updatedList = _.union( currentList, defaultList );
 
-				_.each( updatedList, function( sid, i ) {
-					api.section( sid ).priority.set( i + 1 );
-				})
+				self.setPrio( updatedList );
 
 				// If a sections is moved, save position in a theme mod
 				list.find( '.bx_drag_and_spinner' ).show();
@@ -67,6 +66,31 @@ window.BxExtensions = {
 				$( '.wp-full-overlay-sidebar-content' ).scrollTop( 0 );
 			},
 		});
+	},
+
+	/**
+	 * Updates the section's priority on the JS side
+	 *
+	 * @since  1.0.6
+	 * @return {Void}
+	 */
+	initialSectionsPriorities : function() {
+		var self    = this,
+			current = JSON.parse( api( self.v.mod ).get() );
+
+		self.setPrio( current );
+	},
+
+	/**
+	 * Sets the section's priority on the JS side
+	 *
+	 * @since  1.0.6
+	 * @return {Void}
+	 */
+	setPrio : function( list ) {
+		_.each( list, function( sid, i ) {
+			api.section( sid ).priority.set( i + 1 );
+		} );
 	},
 
 	/**
@@ -113,7 +137,7 @@ window.BxExtensions = {
 	 * Convert our sections name to a more friendly format
 	 * and add them into an array
 	 *
-	 * @return {Array} [description]
+	 * @return {Array}
 	 */
 	sectionsArray : function() {
 		var self  = this,
