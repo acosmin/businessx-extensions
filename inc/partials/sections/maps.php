@@ -145,6 +145,12 @@
 				$output = sprintf( $format, businessx_ext_sanitize_gmaps_iframe( $iframe ) );
 				$output = apply_filters( 'bx_ext_part___map_output', $output, $format, $iframe );
 
-				echo $output;
+				if( strpos( $output, '<iframe' ) !== false ) {
+					echo $output;
+				} elseif( has_shortcode( $output, 'googlemaps' ) ) {
+					echo do_shortcode( $output );
+				} else {
+					printf( $format, esc_html_e( 'Not a valid Map code', 'businessx-extensions' ) );
+				}
 			}
 		}

@@ -3,7 +3,7 @@
 Plugin Name: Businessx Extensions
 Plugin URI: http://www.acosmin.com/themes/businessx/
 Description: Adds front page sections and other extensions to Businessx WordPress theme.
-Version: 1.0.5
+Version: 1.0.6
 Author: Acosmin
 Author URI: http://www.acosmin.com/
 Text Domain: businessx-extensions
@@ -16,11 +16,9 @@ if ( ! function_exists( 'add_action' ) ) {
 	die( 'Nothing to do...' );
 }
 
-
-
 /* Some constants */
 if( ! defined( 'BUSINESSX_EXTS_VERSION' ) ) {
-	define( 'BUSINESSX_EXTS_VERSION', '1.0.5' ); }
+	define( 'BUSINESSX_EXTS_VERSION', '1.0.6' ); }
 
 if( ! defined( 'BUSINESSX_EXTS_THEME_NAME' ) ) {
 	define( 'BUSINESSX_EXTS_THEME_NAME', 'Businessx' ); }
@@ -139,17 +137,43 @@ if( ! function_exists( 'businessx_extensions_sections_items' ) ) {
 
 if( ! function_exists( 'businessx_extensions_add_sections' ) ) {
 	/**
-	 * Connects with the theme and adds all supported sections
-	 * as a theme mod.
+	 * Adds the sections saved in your theme mod
+	 * 
+	 * The theme will not handle this part anymore, it's deprecated in
+	 * functions.php:L115-126
 	 *
-	 * @since  1.0.0
+	 * @todo   Do some checks on `$positions` in case it's not JSON.
+	 * @since  1.0.6
 	 * @return void
 	 */
 	function businessx_extensions_add_sections() {
-		add_filter( 'businessx_sections_filter', 'businessx_extensions_sections' );
+		$mod       = 'businessx_sections_position';
+		$sections  = businessx_extensions_sections();
+		$positions = get_theme_mod( $mod );
+
+		/* 
+		 * Checks if no sections are saved in a theme_mod and if we 
+		 * have at least one default sections 
+		 */
+		if( empty( $positions ) && ! empty( $sections ) ) {
+			$new = array();
+
+			/* Use the prefix for backwards compatibility */
+			foreach( $sections as $key => $value ) {
+				$new[] = 'businessx_section__' . sanitize_key( $value );
+			}
+
+			/* Add the default sections if it's the first time. */
+			set_theme_mod( $mod, json_encode( $new ) );
+		}
+
+		if( is_array( $positions ) ) {
+			/* Pre version 1.0.6, convert them to JSON. */
+			set_theme_mod( $mod, json_encode( $positions ) );
+		}
 	}
 }
-add_action( 'plugins_loaded', 'businessx_extensions_add_sections' );
+add_action( 'after_setup_theme', 'businessx_extensions_add_sections', 15 );
 
 
 
@@ -169,6 +193,11 @@ if( ! function_exists( 'businessx_extensions_add_new_sections' ) ) {
 
 		/* Return if no theme mods are saved */
 		if( $saved === false ) return;
+
+		/* Check if it's an array, pre v1.0.6 */
+		if( ! is_array( $saved ) ) {
+			$saved = json_decode( $saved );
+		}
 
 		/**
 		 * Create an array of all the sections and prefix
@@ -192,8 +221,11 @@ if( ! function_exists( 'businessx_extensions_add_new_sections' ) ) {
 			array_push( $saved, $new_section );
 		}
 
+		/* JSON encode the new array and set the theme mod with the new values */
+		$saved = wp_json_encode( array_map( 'sanitize_key', array_unique( $saved ) ) );
+
 		/* Update the theme mod with the new sections and positions */
-		set_theme_mod( 'businessx_sections_position', array_map( 'sanitize_key', array_unique( $saved ) ) );
+		set_theme_mod( 'businessx_sections_position', $saved );
 
 	}
 }

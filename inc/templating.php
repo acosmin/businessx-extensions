@@ -12,6 +12,13 @@
 if( ! function_exists( 'businessx_extensions_display_sections' ) ) {
 	function businessx_extensions_display_sections() {
 		$names = get_theme_mod( 'businessx_sections_position' );
+
+		if( $names === false ) return; // @since 1.0.6
+		
+		if( ! is_array( $names ) ) {
+			$names = json_decode( $names ); // @since 1.0.6
+		}
+
 		if( ! empty( $names ) ) {
 
 			foreach( (array) $names as $key => $name ) {

@@ -4,7 +4,7 @@
  *  FAQ Item
  *  ________________
  *
- *	Adds a "Question and Answear" - title and a few lines of text
+ *	Adds a "Question and Answer" - title and a few lines of text
  *	________________
  *
 /* ------------------------------------------------------------------------- */
@@ -34,7 +34,7 @@ if( ! class_exists( 'Businessx_Extensions_Faq_Item' ) ) {
 			// Settings
 			$widget_ops = array(
 				'classname' => 'sec-faq-question',
-				'description' => esc_html__( 'Adds a "Question and Answear" - title and a few lines of text', 'businessx-extensions' ),
+				'description' => esc_html__( 'Adds a "Question and Answer" - title and a few lines of text', 'businessx-extensions' ),
 				'customize_selective_refresh' => true
 			);
 
@@ -147,7 +147,7 @@ if( ! class_exists( 'Businessx_Extensions_Faq_Item' ) ) {
 			parent::text_input( $title, 'title', __( 'Add a question:', 'businessx-extensions' ) );
 
 			/* Excerpt */
-			parent::text_area( $excerpt, 'excerpt', __( 'Answear:', 'businessx-extensions' ), '', '' );
+			parent::text_area( $excerpt, 'excerpt', __( 'Answer:', 'businessx-extensions' ), '', '' );
 		}
 
 

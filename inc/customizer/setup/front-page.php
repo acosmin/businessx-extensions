@@ -2,7 +2,8 @@
 /**
  * Check if "Businessx Front Page" exists and if it's
  * set as a static front page
- * @since 1.4.0
+ * 
+ * @since  1.4.0
  * @return boolean true or false
  */
 if( ! function_exists( 'bxext_used_frontpage' ) ) {
@@ -21,7 +22,8 @@ if( ! function_exists( 'bxext_used_frontpage' ) ) {
 
 /**
  * Checks if a Businessx Extensions front page is published
- * @since 1.4.0
+ * 
+ * @since  1.4.0
  * @return boolean true or false
  */
 if( ! function_exists( 'bxext_has_frontpage' ) ) {
@@ -42,7 +44,8 @@ if( ! function_exists( 'bxext_has_frontpage' ) ) {
 /**
  * Creates a front page and blog page and sets up
  * the static page option.
- * @since 1.4.0
+ * 
+ * @since  1.4.0
  * @return void
  */
 if( ! function_exists( 'bxext_create_frontpage' ) ) {
@@ -103,7 +106,8 @@ add_action( 'wp_ajax_bxext_create_frontpage', 'bxext_create_frontpage' );
 /**
  * Ajax action if the modal dismiss button is used
  * Updates the 'bxext_dismiss_fp_create' option to true
- * @since 1.4.0
+ * 
+ * @since  1.4.0
  * @return void
  */
 if( ! function_exists( 'bxext_dismiss_create_frontpage' ) ) {
@@ -121,32 +125,51 @@ add_action( 'wp_ajax_bxext_dismiss_create_frontpage', 'bxext_dismiss_create_fron
 /**
  * Adds an inline JS object and enqueues
  * thickbox scripts & styles
- * @since 1.4.0
+ * 
+ * @todo   Maybe remove the `bxext_frontpage_vars` variable
+ * @since  1.4.0
  * @return void
  */
 if( ! function_exists( 'bxext_frontpage_vars' ) ) {
 	function bxext_frontpage_vars() {
+			$suffix = bx_ext_get_min_suffix();
+
 			wp_localize_script( 'businessx-extensions-customizer-js', 'bxext_frontpage_vars', array(
 				'used_frontpage' => bxext_used_frontpage(),
 				'has_frontpage' => bxext_has_frontpage(),
-				'modal_title' => esc_html__( 'Businessx Front Page Setup', 'businessx-extensions' )
 			) );
+			
+			// Magnific Popup CSS
+			// @since 1.0.6
+			wp_enqueue_style( 
+				'magnific-popup', 
+				BUSINESSX_EXTS_URL . 'css/magnific-popup.css', 
+				array(), 
+				'1.1.0', 'all' 
+			);
 
-			wp_enqueue_style( 'thickbox' );
-		    wp_enqueue_script( 'thickbox' );
+			// Magnific Popup JS
+			// @since 1.0.6
+			wp_enqueue_script(
+				'magnific-popup',
+				BUSINESSX_EXTS_URL . 'js/customizer/jquery.magnific-popup' . $suffix . '.js',
+				array( 'jquery' ),
+				'1.1.0', FALSE
+			);
 	}
 }
 
 /**
  * "Static Front Page" modal template
- * @since 1.4.0
+ * 
+ * @since  1.4.0
  * @return html
  */
 if( ! function_exists( 'bxext_frontpage_modal' ) ) {
 	function bxext_frontpage_modal() {
 		?>
-		<div id="businessx-frontpage-modal" style="display:none">
-			<h1><?php esc_html_e( 'Static Front Page Setup', 'businessx-extensions' ); ?></h1>
+		<div id="businessx-frontpage-modal" class="mfp-hide mfp-white-popup-block bxext-stp-modal-window">
+			<h1><?php esc_html_e( 'Businessx Front Page Setup', 'businessx-extensions' ); ?></h1>
 			<p><?php esc_html_e( 'Would you like to add a static front page as your homepage?', 'businessx-extensions' ); ?></p>
 			<p><?php printf(
 				esc_html__( 'This will add a page called "Businessx Front Page" with a page template that includes all 12 custom sections (Slider, Features, About us and so on). Or you can do this manually, %s.', 'businessx-extensions' ),
@@ -157,8 +180,7 @@ if( ! function_exists( 'bxext_frontpage_modal' ) ) {
 				<a href="#" class="button-primary button button-hero" id="bxext-insert-frontpage"><?php esc_html_e( 'Insert Front Page', 'businessx-extensions' ); ?></a>
 				<a href="#" class="button-secondary button button-hero" id="bxext-dismiss-frontpage"><?php esc_html_e( 'Never Ask Again', 'businessx-extensions' ); ?></a>
 			</div>
-			<p class="skip-step"><?php esc_html_e( 'If you already have a static front page and you want to use that one instead, you can skip this step.', 'businessx-extensions' ); ?></p>
-		</div>
+      	</div>
 		<?php
 	}
 }

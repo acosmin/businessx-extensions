@@ -3,8 +3,8 @@
 Contributors: acosmin
 Tags:
 Requires at least: 4.5
-Tested up to: 4.7
-Stable tag: 1.0.5
+Tested up to: 5.0
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,13 @@ Adds sections and new features to Businessx WordPress theme. 12 sections Slider,
 Adds sections and new features to Businessx WordPress theme. 14 sections (Slider, Features, About Us, Team, Clients, Portfolio, Actions, Testimonials, Pricing, FAQ, Hero, Blog, Contact, Google Map) are included to make your homepage look awesome. You can download <a href="http://www.acosmin.com/theme/businessx/?utm_source=wporg&utm_medium=readme&utm_campaign=bx_plugin_page" title="Download Businessx WordPress Theme" rel="friend">Businessx WordPress theme</a> from here.
 
 == Changelog ==
+
+= 1.0.6 =
+* Fixed Jetpack converting GMap iframes to shortcodes and the section not displaying them.
+* Fixed typo in FAQ section.
+* Fixed Portfolio button not displaying the correct label.
+* Remade the Sections drag & drop functionality, now it triggers the Publish/Save Draft button (also works with drafts).
+* Remade the `Insert Front Page` modal, it uses Magnific Popup now.
 
 = 1.0.5 =
 * Added two new sections, Contact and Google Map.

@@ -227,7 +227,7 @@ if( ! function_exists( 'bxext_sections_strings' ) ) {
 						if( $polylang ) {
 							return pll__( 'View More Projects' );
 						} else {
-							return bx_ext_tm( 'blog_action_btn', __( 'View More Projects', 'businessx-extensions' ) );
+							return bx_ext_tm( 'portfolio_action_btn', __( 'View More Projects', 'businessx-extensions' ) );
 						}
 						break;
 				}
@@ -449,6 +449,22 @@ if( ! function_exists( 'bx_ext_show_section' ) ) {
 
 /*  Sanitization
 /* ------------------------------------ */
+// Sections position
+if( ! function_exists( 'businessx_ext_sanitize_sections_position' ) ) {
+	/**
+	 * Sanitization function for the sections position theme mod
+	 *
+	 * @since  1.0.6
+	 * @param  array|string $current Current theme mod
+	 * @return string                Sections list in a JSON object
+	 */
+	function businessx_ext_sanitize_sections_position( $current ) {
+		$current = ! is_array( $current ) ? json_decode( $current ) : $current;
+	
+		return wp_json_encode( array_map( 'sanitize_key', array_unique( $current ) ) );
+	}
+}
+
 // Textarea with autop
 if( ! function_exists( 'businessx_ext_sanitize_content_filtered' ) ) {
 	/**

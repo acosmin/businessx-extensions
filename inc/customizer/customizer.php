@@ -17,7 +17,7 @@ require_once ( BUSINESSX_EXTS_PATH . 'inc/customizer/theme-mods.php' );
 
 
 
-/*  Customizer JS/CSSa
+/*  Customizer JS/CSS
 /* ------------------------------------ */
 if( ! function_exists( 'businessx_extensions_customizer_js_css' ) ) {
 	function businessx_extensions_customizer_js_css() {
